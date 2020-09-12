@@ -1,0 +1,28 @@
+{
+  "name": "fsd-4th-task",
+  "version": "1.0.0",
+  "description": "fsd-4th-task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmirGorbachev/FSD-4th-task.git"
+  },
+  "keywords": [
+    "fsd-4th-task",
+    "webpack",
+    "js",
+    "sass",
+    "pug",
+    "plugin",
+    "slider"
+  ],
+  "author": "Gorbachev Amir <amir.gorbachyow@yandex.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmirGorbachev/FSD-4th-task/issues"
+  },
+  "homepage": "https://github.com/AmirGorbachev/FSD-4th-task#readme"
+}
