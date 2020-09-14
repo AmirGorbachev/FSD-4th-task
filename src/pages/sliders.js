@@ -1,0 +1,2 @@
+// Стили
+import "./sliders.sass";
