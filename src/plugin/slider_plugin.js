@@ -2,7 +2,7 @@
 import "./slider_plugin.sass";
 
 document.addEventListener('DOMContentLoaded', () => {
-  createSliderElements();
+  createSliderElements("slider-here");
 });
 
 let slider = new Slider();
@@ -11,8 +11,8 @@ class Slider {
   constructor() {}
 }
 
-function createSliderElements() {
-  let containers = document.getElementsByClassName("slider-here");
+function createSliderElements(nameContainer) {
+  let containers = document.getElementsByClassName(nameContainer);
 
   for (let container of containers) {
     let sliderElements = "";
