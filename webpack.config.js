@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'sliders': __dirname + '/src/pages/sliders.js'
+    'sliders': __dirname + '/src/pages/range-sliders.js'
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: __dirname + '/src/pages/sliders.pug',
+      template: __dirname + '/src/pages/range-sliders.pug',
       filename: 'index.html',
       chunks: ['sliders']
     }),
