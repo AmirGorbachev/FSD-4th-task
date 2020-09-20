@@ -6,10 +6,7 @@ class GrsView {
 
   }
 
-  createSliderElements(nameContainer) {
-    let containers = document.getElementsByClassName(nameContainer);
-
-    for (let container of containers) {
+  createSliderElements(element) {
       this.rangeSlider = document.createElement("div");
       this.rangeSlider.className = "green-range-slider grs";
 
@@ -26,8 +23,7 @@ class GrsView {
                               this.rangeSliderFilled,
                               this.rangeSliderButtonMax);
 
-      container.append(this.rangeSlider);
-    }
+      element.append(this.rangeSlider);
   }
 
   getElement() {
