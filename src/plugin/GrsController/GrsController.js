@@ -1,7 +1,7 @@
 "use strict";
 
-import {GrsView} from "./GrsView.js";
-import {GrsModel} from "./GrsModel.js";
+import {GrsView} from "../GrsView/GrsView.js";
+import {GrsModel} from "../GrsModel/GrsModel.js";
 
 class GrsController {
 
