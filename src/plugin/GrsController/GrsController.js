@@ -10,13 +10,47 @@ class GrsController {
     this.view = new GrsView();
   }
 
-  init(elementContainer, options) {
-    this.view.createSliderElements(elementContainer, options.min, options.max);
-    this.model.moveRange(elementContainer,
-                         this.view.getElement(),
-                         this.view.getFilled(),
-                         this.view.getButtonMin(),
-                         this.view.getButtonMax());
+  init(container, options) {
+    this.view.createSliderElements(container, options.min, options.max);
+    this.moveRange(container);
+  }
+
+  moveRange(container) {
+    let coords = this.model.calcCoords(this.view.getElement());
+
+    let f;
+    let value;
+    let parent = {
+      element: container,
+      coords: this.model.calcCoords(container)
+    }
+
+    document.addEventListener("mousemove", () => {
+      // let test = event.clientX;
+      // while( this.model.calcCoords(this.view.getButtonMin()).left < this.model.calcCoords(this.view.getButtonMax()).left) {
+        this.view.getButtonMin().style.left =  event.clientX + "%";
+      // }
+    })
+
+    console.log(this.model.calcCoords(this.view.getButtonMin()).left)
+
+    console.log(this.model.calcCoords(this.view.getButtonMax()).left)
+/*
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+
+    function onMouseMove(e) {
+      e.preventDefault();//предотвратить запуск выделения элементов
+
+      let pos = e.clientX;
+
+      let maxLeft = pos - parent.coords.left;
+    }
+
+    function onMouseUp(e) {
+
+    }
+*/
   }
 
 }

@@ -20,43 +20,6 @@ class GrsModel {
     return this.coords;
   }
 
-  moveRange(container, rangeSlider, filled, buttonMin, buttonMax) {
-    let coords = this.calcCoords(rangeSlider);
-
-    let f;
-    let value;
-    let parent = {
-      element: container,
-      coords: this.calcCoords(container)
-    }
-    let indicator = document.createElement("div");
-    indicator.className = "indicator";
-    rangeSlider.appendChild(indicator)
-
-    document.addEventListener("mousemove", () => {
-      let test = event.clientX;
-      if (buttonMin.style.left > 0) {
-        buttonMin.style.left =  test + "%"
-      }
-    })
-/*
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-
-    function onMouseMove(e) {
-      e.preventDefault();//предотвратить запуск выделения элементов
-
-      let pos = e.clientX;
-
-      let maxLeft = pos - parent.coords.left;
-    }
-
-    function onMouseUp(e) {
-
-    }
-*/
-  }
-
 }
 
 export {GrsModel};
