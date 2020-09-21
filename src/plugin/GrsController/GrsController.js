@@ -25,11 +25,14 @@ class GrsController {
       coords: this.model.calcCoords(container)
     }
 
+    let maxRange = coords.right;
+    let widthRange = coords.width;
+
     document.addEventListener("mousemove", () => {
-      // let test = event.clientX;
-      // while( this.model.calcCoords(this.view.getButtonMin()).left < this.model.calcCoords(this.view.getButtonMax()).left) {
+      if(this.model.calcCoords(this.view.getButtonMin()).left < this.model.calcCoords(this.view.getButtonMax()).left) {
         this.view.getButtonMin().style.left =  event.clientX + "%";
-      // }
+        console.log("hi")
+      }
     })
 
     console.log(this.model.calcCoords(this.view.getButtonMin()).left)
