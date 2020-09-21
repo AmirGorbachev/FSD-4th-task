@@ -4,20 +4,57 @@ class GrsModel {
 
   constructor() {}
 
-  getCoords(element) {
-    let coords = element.getBoundingClientRect();
-    let RangeSlider = {};
+  calcCoords(element) {
+    let coordinates = element.getBoundingClientRect();
 
-    this._top = coords.top + window.pageYOffset;
-    this._left = coords.left + window.pageXOffset;
-    this._rigth = coords.left + window.pageXOffset +
-                 coords.width;
-    this._bottom = coords.top + window.pageYOffset +
-                  coords.height
-    this._width = coords.width;
+    this.coords = {
+      top: coordinates.top + window.pageYOffset,
+      left: coordinates.left + window.pageXOffset,
+      rigth: coordinates.left + window.pageXOffset +
+                   coordinates.width,
+      bottom: coordinates.top + window.pageYOffset +
+                    coordinates.height,
+      width: coordinates.width
+    };
 
-    console.log(this)
-    console.log(element)
+    return this.coords;
+  }
+
+  moveRange(container, rangeSlider, filled, buttonMin, buttonMax) {
+    let coords = this.calcCoords(rangeSlider);
+
+    let f;
+    let value;
+    let parent = {
+      element: container,
+      coords: this.calcCoords(container)
+    }
+    let indicator = document.createElement("div");
+    indicator.className = "indicator";
+    rangeSlider.appendChild(indicator)
+
+    document.addEventListener("mousemove", () => {
+      let test = event.clientX;
+      if (buttonMin.style.left > 0) {
+        buttonMin.style.left =  test + "%"
+      }
+    })
+/*
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+
+    function onMouseMove(e) {
+      e.preventDefault();//предотвратить запуск выделения элементов
+
+      let pos = e.clientX;
+
+      let maxLeft = pos - parent.coords.left;
+    }
+
+    function onMouseUp(e) {
+
+    }
+*/
   }
 
 }

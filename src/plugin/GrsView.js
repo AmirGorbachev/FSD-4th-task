@@ -6,22 +6,37 @@ class GrsView {
 
   }
 
-  createSliderElements(element) {
+  createSliderElements(element, min, max) {
       this.rangeSlider = document.createElement("div");
       this.rangeSlider.className = "green-range-slider grs";
 
-      this.rangeSliderButtonMin = document.createElement("div");
-      this.rangeSliderButtonMin.className = "grs-button-min";
+      this.ButtonMin = document.createElement("div");
+      this.ButtonMin.className = "grs-button-min";
 
-      this.rangeSliderButtonMax = document.createElement("div");
-      this.rangeSliderButtonMax.className = "grs-button-max";
+      this.ButtonMax = document.createElement("div");
+      this.ButtonMax.className = "grs-button-max";
 
-      this.rangeSliderFilled = document.createElement("div");
-      this.rangeSliderFilled.className = "grs-filled";
+      this.Filled = document.createElement("div");
+      this.Filled.className = "grs-filled";
 
-      this.rangeSlider.append(this.rangeSliderButtonMin,
-                              this.rangeSliderFilled,
-                              this.rangeSliderButtonMax);
+      this.Scale = document.createElement("div");
+      this.Scale.className = "grs-scale";
+
+      this.ScaleMin = document.createElement("span");
+      this.ScaleMin.className = "grs-scale-min";
+      this.ScaleMin.innerHTML = min;
+
+      this.ScaleMax = document.createElement("span");
+      this.ScaleMax.className = "grs-scale-max";
+      this.ScaleMax.innerHTML = max;
+
+      this.Scale.append(this.ScaleMin,
+                                   this.ScaleMax);
+
+      this.rangeSlider.append(this.Filled,
+                              this.ButtonMin,
+                              this.ButtonMax,
+                              this.Scale);
 
       element.append(this.rangeSlider);
   }
@@ -31,15 +46,27 @@ class GrsView {
   }
 
   getButtonMin() {
-    return this.rangeSliderButtonMin;
+    return this.ButtonMin;
   }
 
   getButtonMax() {
-    return this.rangeSliderButtonMax;
+    return this.ButtonMax;
   }
 
   getFilled() {
-    return this.rangeSliderFilled;
+    return this.Filled;
+  }
+
+  getScale() {
+    return this.Scale;
+  }
+
+  getScaleMin() {
+    return this.ScaleMin;
+  }
+
+  getScaleMax() {
+    return this.ScaleMax;
   }
 
 };

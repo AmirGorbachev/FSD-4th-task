@@ -3,49 +3,22 @@
 import {GrsView} from "./GrsView.js";
 import {GrsModel} from "./GrsModel.js";
 
-let grsView = new GrsView();
-let grsModel = new GrsModel();
-
 class GrsController {
 
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
+  constructor() {
+    this.model = new GrsModel();
+    this.view = new GrsView();
   }
 
-  init(elementContainer) {
-    this.view.createSliderElements(elementContainer);
+  init(elementContainer, options) {
+    this.view.createSliderElements(elementContainer, options.min, options.max);
+    this.model.moveRange(elementContainer,
+                         this.view.getElement(),
+                         this.view.getFilled(),
+                         this.view.getButtonMin(),
+                         this.view.getButtonMax());
   }
 
 }
 
-// Шаблон jQuery плагина
-;(function ($, window, document, undefined) {
-  let pluginName = "greenRangeSlider",
-      defaults = {
-        propertyName: "value",
-      };
-  function Plugin(element, options) {
-    this.element = element;
-    this.options = $.extend({}, defaults, options);
-
-    this._defaults = defaults;
-    this._name = pluginName;
-
-    this.grsController = new GrsController(new GrsModel(), new GrsView());
-
-    this.init();
-  };
-  Plugin.prototype.init = function() {
-
-    this.grsController.init(this.element);
-
-  };
-  $.fn[pluginName] = function(options) {
-    return this.each(function() {
-      if (!$.data(this, pluginName)) {
-        $.data(this, pluginName, new Plugin(this, options));
-      };
-    });
-  };
-})(jQuery, window, document);
+export {GrsController};
