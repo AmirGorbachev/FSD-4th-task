@@ -28,32 +28,34 @@ class GrsController {
     let maxRange = coords.right;
     let widthRange = coords.width;
 
-    document.addEventListener("mousemove", () => {
+    let onMouseDownBindThis = onMouseDown.bind(this);
+    let onMouseMoveBindThis = onMouseMove.bind(this);
+    let onMouseUpBindThis = onMouseUp.bind(this);
+
+    this.view.getButtonMin().addEventListener("mousedown", onMouseDownBindThis);
+
+    function onMouseDown() {
+      document.addEventListener("mousemove", onMouseMoveBindThis);
+      document.addEventListener("mouseup", onMouseUpBindThis);
+    }
+
+    let test = this.model.calcCoords(this.view.getButtonMin()).left;
+
+    function onMouseMove(event) {
+      event.preventDefault();
       if(this.model.calcCoords(this.view.getButtonMin()).left < this.model.calcCoords(this.view.getButtonMax()).left) {
-        this.view.getButtonMin().style.left =  event.clientX + "%";
-        console.log("hi")
+        this.view.getButtonMin().style.left = (event.clientX - test) + "px";
+      } else if(this.model.calcCoords(this.view.getButtonMin()).left = this.model.calcCoords(this.view.getButtonMax()).left) {
+        // this.view.getButtonMin().style.left = this.view.getButtonMax().style.left;
+      } else {
+        this.view.getButtonMin().style.left = this.view.getButtonMax().style.left;
       }
-    })
-
-    console.log(this.model.calcCoords(this.view.getButtonMin()).left)
-
-    console.log(this.model.calcCoords(this.view.getButtonMax()).left)
-/*
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-
-    function onMouseMove(e) {
-      e.preventDefault();//предотвратить запуск выделения элементов
-
-      let pos = e.clientX;
-
-      let maxLeft = pos - parent.coords.left;
     }
 
-    function onMouseUp(e) {
-
+    function onMouseUp() {
+      document.removeEventListener('mousemove', onMouseMoveBindThis);
+      document.removeEventListener('mouseup', onMouseUpBindThis);
     }
-*/
   }
 
 }
