@@ -23,15 +23,3 @@ class GrsModel {
 }
 
 export {GrsModel};
-
-// function moveRange() {
-
-// }
-
-// function onMouseMove() {
-
-// }
-
-// function onMouseUp() {
-
-// }
