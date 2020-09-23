@@ -58,6 +58,22 @@ class GrsController {
     }
   }
 
+  onClickSlider() {
+    this.view.getElement().addEventListener("mousedown", () => {
+      // Отмена выделения
+      event.preventDefault();
+      // Вычисляем смещение в процентах
+      // ((клик - позиция слайдера) / ширина слайдера) * 100%
+      let shiftX = ((event.clientX -
+                   this.model.calcCoords(this.view.getElement()).left) /
+                   this.model.calcCoords(this.view.getElement()).width) * 100;
+      if ((shiftX > 0)&&(shiftX < 100)) {
+        this.view.getButtonMin().style.left = shiftX + "%";
+        this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+      }
+    });
+  }
+
 }
 
 export {GrsController};
