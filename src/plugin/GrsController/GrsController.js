@@ -16,40 +16,43 @@ class GrsController {
   }
 
   moveRange(container) {
-    let coords = this.model.calcCoords(this.view.getElement());
-
-    let f;
-    let value;
-    let parent = {
-      element: container,
-      coords: this.model.calcCoords(container)
-    }
-
-    let maxRange = coords.right;
-    let widthRange = coords.width;
-
     let onMouseDownBindThis = onMouseDown.bind(this);
     let onMouseMoveBindThis = onMouseMove.bind(this);
     let onMouseUpBindThis = onMouseUp.bind(this);
 
+    this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+
     this.view.getButtonMin().addEventListener("mousedown", onMouseDownBindThis);
 
     function onMouseDown() {
+      this._shiftX = event.clientX -
+                     this.model.calcCoords(this.view.getButtonMin()).left;
+
       document.addEventListener("mousemove", onMouseMoveBindThis);
       document.addEventListener("mouseup", onMouseUpBindThis);
     }
 
-    let test = this.model.calcCoords(this.view.getButtonMin()).left;
-
     function onMouseMove(event) {
+      // Отмена выделения
       event.preventDefault();
-      if(this.model.calcCoords(this.view.getButtonMin()).left < this.model.calcCoords(this.view.getButtonMax()).left) {
-        this.view.getButtonMin().style.left = (event.clientX - test) + "px";
-      } else if(this.model.calcCoords(this.view.getButtonMin()).left = this.model.calcCoords(this.view.getButtonMax()).left) {
-        // this.view.getButtonMin().style.left = this.view.getButtonMax().style.left;
-      } else {
-        this.view.getButtonMin().style.left = this.view.getButtonMax().style.left;
+
+      // Движение бегунка buttonMin
+      let newPosition = event.clientX - this._shiftX -
+                        this.model.calcCoords(this.view.getElement()).left;
+      if (newPosition < 0) {
+        newPosition = 0;
       }
+      let rightEdge = this.model.calcCoords(this.view.getElement()).width;
+      let leftEdge = this.model.calcCoords(this.view.getElement()).left;
+      if (newPosition > rightEdge) {
+        newPosition = rightEdge;
+      }
+      this.view.getButtonMin().style.left = Math.floor((newPosition /
+        this.model.calcCoords(this.view.getElement()).width) * 100) + "%";
+
+      // Отрисовка прогресс-бара
+      this.view.getFilled().style.width = Math.floor((newPosition /
+        this.model.calcCoords(this.view.getElement()).width) * 100) + "%";
     }
 
     function onMouseUp() {

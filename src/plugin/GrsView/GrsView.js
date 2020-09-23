@@ -12,9 +12,10 @@ class GrsView {
 
       this.ButtonMin = document.createElement("div");
       this.ButtonMin.className = "grs-button-min";
+      this.ButtonMin.style = "left: 15%";
 
-      this.ButtonMax = document.createElement("div");
-      this.ButtonMax.className = "grs-button-max";
+      // this.ButtonMax = document.createElement("div");
+      // this.ButtonMax.className = "grs-button-max";
 
       this.Filled = document.createElement("div");
       this.Filled.className = "grs-filled";
@@ -31,11 +32,11 @@ class GrsView {
       this.ScaleMax.innerHTML = max;
 
       this.Scale.append(this.ScaleMin,
-                                   this.ScaleMax);
+                        this.ScaleMax);
 
       this.rangeSlider.append(this.Filled,
                               this.ButtonMin,
-                              this.ButtonMax,
+                              // this.ButtonMax,
                               this.Scale);
 
       element.append(this.rangeSlider);
@@ -49,9 +50,9 @@ class GrsView {
     return this.ButtonMin;
   }
 
-  getButtonMax() {
-    return this.ButtonMax;
-  }
+  // getButtonMax() {
+  //   return this.ButtonMax;
+  // }
 
   getFilled() {
     return this.Filled;
