@@ -11,7 +11,7 @@ class GrsController {
   }
 
   init(container, options) {
-    this.view.createSliderElements(container, options.min, options.max);
+    this.view.createSliderElements(container, options.minLimit, options.maxLimit);
     this.onMoveButton();
     this.onClickSlider();
   }

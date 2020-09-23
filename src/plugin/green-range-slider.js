@@ -6,8 +6,15 @@ import {GrsController} from "./GrsController/GrsController.js";
 ;(function ($, window, document, undefined) {
   let pluginName = "greenRangeSlider",
       defaults = {
-        min: 0,
-        max: 5
+        minLimit: 0,
+        maxLimit: 100,
+        minValue: 25,
+        maxValue: 75,
+        step: 1,
+        isVertical: false,
+        isInterval: false,
+        withPointers: true,
+        withScale: true
       };
   function Plugin(element, options) {
     this.element = element;
