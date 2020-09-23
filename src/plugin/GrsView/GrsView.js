@@ -2,9 +2,7 @@
 
 class GrsView {
 
-  contructor() {
-
-  }
+  constructor() {}
 
   createSliderElements(element, min, max) {
       this.rangeSlider = document.createElement("div");
