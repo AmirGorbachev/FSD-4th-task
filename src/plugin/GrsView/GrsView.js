@@ -40,7 +40,7 @@ class GrsView {
       element.append(this.rangeSlider);
   }
 
-  getElement() {
+  getRangeSlider() {
     return this.rangeSlider;
   }
 

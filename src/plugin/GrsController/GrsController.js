@@ -36,18 +36,19 @@ class GrsController {
 
       // Движение бегунка buttonMin
       let newPosition = event.clientX -
-                        this.model.calcCoords(this.view.getElement()).left;
-      if (newPosition < 0) {
-        newPosition = 0;
-      }
-      let rightEdge = this.model.calcCoords(this.view.getElement()).width;
-
-      if (newPosition > rightEdge) {
+                        this.model.calcCoords(this.view.getRangeSlider()).left;
+      let leftEdge = 0;
+      let rightEdge = this.model.calcCoords(this.view.getRangeSlider()).width;
+      // Выход за границы
+      if (newPosition < leftEdge) {
+        newPosition = leftEdge;
+      } else if (newPosition > rightEdge) {
         newPosition = rightEdge;
       }
+      // Смещение кнопки в процентах
+      // ((смещение / ширина слайдера) * 100%)
       this.view.getButtonMin().style.left = ((newPosition /
-        this.model.calcCoords(this.view.getElement()).width) * 100) + "%";
-
+        this.model.calcCoords(this.view.getRangeSlider()).width) * 100) + "%";
       // Отрисовка прогресс-бара (ширина = смещению)
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
     }
@@ -59,14 +60,14 @@ class GrsController {
   }
 
   onClickSlider() {
-    this.view.getElement().addEventListener("mousedown", () => {
+    this.view.getRangeSlider().addEventListener("mousedown", () => {
       // Отмена выделения
       event.preventDefault();
       // Вычисляем смещение в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX = ((event.clientX -
-                   this.model.calcCoords(this.view.getElement()).left) /
-                   this.model.calcCoords(this.view.getElement()).width) * 100;
+                   this.model.calcCoords(this.view.getRangeSlider()).left) /
+                   this.model.calcCoords(this.view.getRangeSlider()).width) * 100;
       if ((shiftX > 0)&&(shiftX < 100)) {
         this.view.getButtonMin().style.left = shiftX + "%";
         this.view.getFilled().style.width = this.view.getButtonMin().style.left;
