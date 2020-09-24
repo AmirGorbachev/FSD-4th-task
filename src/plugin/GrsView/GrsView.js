@@ -1,12 +1,14 @@
 "use strict";
 
+import {GrsViewProgressBar} from "./GrsViewProgressBar.js";
+
 class GrsView {
 
   constructor() {}
 
   createSliderElements(element, min, max) {
-      this.rangeSlider = document.createElement("div");
-      this.rangeSlider.className = "green-range-slider grs";
+      this.progressBar = document.createElement("div");
+      this.progressBar.className = "green-range-slider grs";
 
       this.ButtonMin = document.createElement("div");
       this.ButtonMin.className = "grs-button-min";
@@ -39,19 +41,23 @@ class GrsView {
       this.ScaleMax.className = "grs-scale-max";
       this.ScaleMax.innerHTML = max;
 
-      this.Scale.append(this.ScaleMin,
+      this.ScaleStrips = document.createElement("div");
+      this.ScaleStrips.className = "grs-scale-strips";
+
+      this.Scale.append(/*this.ScaleStrips,*/
+                        this.ScaleMin,
                         this.ScaleMax);
 
-      this.rangeSlider.append(this.Filled,
+      this.progressBar.append(this.Filled,
                               this.ButtonMin,
                               // this.ButtonMax,
                               this.Scale);
 
-      element.append(this.rangeSlider);
+      element.append(this.progressBar);
   }
 
-  getRangeSlider() {
-    return this.rangeSlider;
+  getProgressBar() {
+    return this.progressBar;
   }
 
   getButtonMin() {
