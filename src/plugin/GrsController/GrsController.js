@@ -5,8 +5,8 @@ import {GrsModel} from "../GrsModel/GrsModel.js";
 
 class GrsController {
 
-  constructor() {
-    this.model = new GrsModel();
+  constructor(options) {
+    this.model = new GrsModel(options);
     this.view = new GrsView();
   }
 
