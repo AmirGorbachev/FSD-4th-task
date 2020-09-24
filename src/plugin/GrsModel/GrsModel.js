@@ -2,7 +2,9 @@
 
 class GrsModel {
 
-  constructor() {}
+  constructor(options) {
+    this.options = options;
+  }
 
   calcCoords(element) {
     let coordinates = element.getBoundingClientRect();
@@ -15,6 +17,10 @@ class GrsModel {
     };
 
     return this.coords;
+  }
+
+  updateOptions(option, value) {
+    this.options[option] = value;
   }
 
 }
