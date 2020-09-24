@@ -3,6 +3,8 @@
   height: 6px
   border: 1px solid #595959
   background: #D9D9D9
+  font-size: 16px
+  cursor: pointer
 
 .grs-filled
   position: absolute
@@ -12,6 +14,7 @@
   background: #72BF4E
 
 .grs-scale
+  position: relative
   display: flex
   justify-content: space-between
   transform: translateY(15px)
@@ -19,6 +22,17 @@
 .grs-scale-min
 
 .grs-scale-max
+
+.grs-scale-strips
+  position: absolute
+  height: 15px
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-attachment: grey
+  background-image: linear-gradient(to right, transparent 0%, transparent 50%, #595959 50%, #595959 100%)
+  background-size: 4px 100%
 
 .grs-button-min,
 .grs-button-max
@@ -31,8 +45,26 @@
   border: 1px solid #595959
   border-radius: 50%
   box-sizing: border-box
-  background: #D9D9D9
+  background-color: #D9D9D9
   transform: translateX(-10px)
+
+.grs-pointer-min,
+.grs-pointer-max
+  position: absolute
+  transform: translate(-5px, -32px)
+  min-width: 25px
+  height: 25px
+  border: 1px solid #595959
+  text-align: center
+  background-color: #D9D9D9
+  &::after
+    content: ''
+    position: inherit
+    z-index: 0
+    left: 2.5px
+    top: 25px
+    border: 10px solid transparent
+    border-top: 5px solid #595959
 
 .grs-button-max
   left: 100%

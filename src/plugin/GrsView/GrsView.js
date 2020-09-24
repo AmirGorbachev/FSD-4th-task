@@ -15,6 +15,16 @@ class GrsView {
       // this.ButtonMax = document.createElement("div");
       // this.ButtonMax.className = "grs-button-max";
 
+      this.pointerMin = document.createElement("span");
+      this.pointerMin.className = "grs-pointer-min";
+
+      this.ButtonMin.append(this.pointerMin);
+
+      this.pointerMax = document.createElement("span");
+      this.pointerMax.className = "grs-pointer-max";
+
+      // this.ButtonMax.append(this.pointerMax);
+
       this.Filled = document.createElement("div");
       this.Filled.className = "grs-filled";
 
@@ -50,6 +60,14 @@ class GrsView {
 
   // getButtonMax() {
   //   return this.ButtonMax;
+  // }
+
+  getPointerMin() {
+    return this.pointerMin;
+  }
+
+  // getPointerMax() {
+  //   return this.pointerMax;
   // }
 
   getFilled() {
