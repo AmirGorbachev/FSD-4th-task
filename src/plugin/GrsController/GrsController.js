@@ -14,6 +14,8 @@ class GrsController {
     this.view.createSliderElements(container, options.minLimit, options.maxLimit);
     this.onMoveButton();
     this.onClickSlider();
+
+    this.model.updateOptions("minLimit", 25);
   }
 
   onMoveButton() {
@@ -21,6 +23,7 @@ class GrsController {
     let onMouseMoveBindThis = onMouseMove.bind(this);
     let onMouseUpBindThis = onMouseUp.bind(this);
 
+    this.view.getPointerMin().innerHTML = parseInt(this.view.getButtonMin().style.left);
     this.view.getFilled().style.width = this.view.getButtonMin().style.left;
 
     this.view.getButtonMin().addEventListener("mousedown", onMouseDownBindThis);
@@ -36,9 +39,9 @@ class GrsController {
 
       // Движение бегунка buttonMin
       let newPosition = event.clientX -
-                        this.model.calcCoords(this.view.getRangeSlider()).left;
+                        this.model.calcCoords(this.view.getProgressBar()).left;
       let leftEdge = 0;
-      let rightEdge = this.model.calcCoords(this.view.getRangeSlider()).width;
+      let rightEdge = this.model.calcCoords(this.view.getProgressBar()).width;
       // Выход за границы
       if (newPosition < leftEdge) {
         newPosition = leftEdge;
@@ -48,9 +51,10 @@ class GrsController {
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
       this.view.getButtonMin().style.left = ((newPosition /
-        this.model.calcCoords(this.view.getRangeSlider()).width) * 100) + "%";
+        this.model.calcCoords(this.view.getProgressBar()).width) * 100) + "%";
       // Отрисовка прогресс-бара (ширина = смещению)
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+      this.view.getPointerMin().innerHTML = parseInt(this.view.getButtonMin().style.left);
     }
 
     function onMouseUp() {
@@ -60,18 +64,19 @@ class GrsController {
   }
 
   onClickSlider() {
-    this.view.getRangeSlider().addEventListener("mousedown", () => {
+    this.view.getProgressBar().addEventListener("mousedown", () => {
       // Отмена выделения
       event.preventDefault();
       // Вычисляем смещение в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX = ((event.clientX -
-                   this.model.calcCoords(this.view.getRangeSlider()).left) /
-                   this.model.calcCoords(this.view.getRangeSlider()).width) * 100;
+                   this.model.calcCoords(this.view.getProgressBar()).left) /
+                   this.model.calcCoords(this.view.getProgressBar()).width) * 100;
       if ((shiftX > 0)&&(shiftX < 100)) {
         this.view.getButtonMin().style.left = shiftX + "%";
         this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       }
+      this.view.getPointerMin().innerHTML = parseInt(this.view.getButtonMin().style.left);
     });
   }
 
