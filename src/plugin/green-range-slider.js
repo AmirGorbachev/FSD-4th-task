@@ -23,7 +23,7 @@ import {GrsController} from "./GrsController/GrsController.js";
     this._defaults = defaults;
     this._name = pluginName;
 
-    this.grsController = new GrsController(this.options);
+    this.grsController = new GrsController();
 
     this.init();
   };
