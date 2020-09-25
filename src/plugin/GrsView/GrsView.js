@@ -1,7 +1,5 @@
 "use strict";
 
-import {GrsViewProgressBar} from "./GrsViewProgressBar.js";
-
 class GrsView {
 
   constructor() {}
