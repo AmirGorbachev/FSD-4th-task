@@ -2,10 +2,9 @@
 
 class GrsViewButton {
 
-  constructor() {
-  }
+  constructor() {}
 
-  init() {
+  initButtonMin() {
     let buttonMin = document.createElement("div");
     buttonMin.className = "grs-button-min";
     buttonMin.style = "left: 15%";
@@ -13,9 +12,14 @@ class GrsViewButton {
     let pointerMin = document.createElement("span");
     pointerMin.className = "grs-pointer-min";
 
+    this.pointerMin = pointerMin;
+
     buttonMin.append(this.pointerMin);
 
     this.buttonMin = buttonMin;
+
+    return [this.buttonMin, this.pointerMin];
+
     // this.ButtonMax = document.createElement("div");
     // this.ButtonMax.className = "grs-button-max";
 

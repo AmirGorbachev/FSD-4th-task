@@ -1,5 +1,7 @@
 "use strict";
 
+import {GrsViewButton} from "../GrsView/GrsViewButton.js";
+
 class GrsView {
 
   constructor() {}
@@ -8,22 +10,7 @@ class GrsView {
       this.progressBar = document.createElement("div");
       this.progressBar.className = "green-range-slider grs";
 
-      this.ButtonMin = document.createElement("div");
-      this.ButtonMin.className = "grs-button-min";
-      this.ButtonMin.style = "left: 15%";
-
-      // this.ButtonMax = document.createElement("div");
-      // this.ButtonMax.className = "grs-button-max";
-
-      this.pointerMin = document.createElement("span");
-      this.pointerMin.className = "grs-pointer-min";
-
-      this.ButtonMin.append(this.pointerMin);
-
-      this.pointerMax = document.createElement("span");
-      this.pointerMax.className = "grs-pointer-max";
-
-      // this.ButtonMax.append(this.pointerMax);
+      [this.ButtonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
 
       this.Filled = document.createElement("div");
       this.Filled.className = "grs-filled";
