@@ -1,5 +1,6 @@
 "use strict";
 
+import {GrsViewVolume} from "../GrsView/GrsViewVolume.js";
 import {GrsViewButton} from "../GrsView/GrsViewButton.js";
 import {GrsViewScale} from "../GrsView/GrsViewScale.js";
 
@@ -13,12 +14,11 @@ class GrsView {
 
       [this.buttonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
 
-      this.filled = document.createElement("div");
-      this.filled.className = "grs-filled";
+      [this.volume, this.filled] = new GrsViewVolume().init();
 
       [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init(min, max);
 
-      this.progressBar.append(this.filled,
+      this.progressBar.append(this.volume,
                               this.buttonMin,
                               // this.ButtonMax,
                               this.scale);
@@ -45,6 +45,10 @@ class GrsView {
   // getPointerMax() {
   //   return this.pointerMax;
   // }
+
+  getVolume() {
+    return this.volume;
+  }
 
   getFilled() {
     return this.filled;
