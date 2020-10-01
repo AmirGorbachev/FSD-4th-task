@@ -4,6 +4,7 @@ import {GrsController} from "./GrsController/GrsController.js";
 
 // Шаблон jQuery плагина
 ;(function ($, window, document, undefined) {
+
   let pluginName = "greenRangeSlider",
       defaults = {
         minLimit: 0,
@@ -16,6 +17,7 @@ import {GrsController} from "./GrsController/GrsController.js";
         withPointers: true,
         withScale: true
       };
+
   function Plugin(element, options) {
     this.element = element;
     this.options = $.extend({}, defaults, options);
@@ -23,20 +25,22 @@ import {GrsController} from "./GrsController/GrsController.js";
     this._defaults = defaults;
     this._name = pluginName;
 
-    this.grsController = new GrsController(this.options);
+    this.controller = new GrsController(this.options);
 
     this.init();
   };
+
   Plugin.prototype.init = function() {
-
-    this.grsController.init(this.element, this.options);
-
+    this.controller.init(this.element, this.options);
   };
+
   $.fn[pluginName] = function(options) {
     return this.each(function() {
+
       if (!$.data(this, pluginName)) {
-        $.data(this, pluginName, new Plugin(this, options));
+        console.log($.data(this, pluginName, new Plugin(this, options)))
       };
+
     });
   };
 })(jQuery, window, document);
