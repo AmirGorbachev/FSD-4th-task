@@ -1,6 +1,7 @@
 "use strict";
 
 import {GrsViewButton} from "../GrsView/GrsViewButton.js";
+import {GrsViewScale} from "../GrsView/GrsViewScale.js";
 
 class GrsView {
 
@@ -10,33 +11,17 @@ class GrsView {
       this.progressBar = document.createElement("div");
       this.progressBar.className = "green-range-slider grs";
 
-      [this.ButtonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
+      [this.buttonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
 
-      this.Filled = document.createElement("div");
-      this.Filled.className = "grs-filled";
+      this.filled = document.createElement("div");
+      this.filled.className = "grs-filled";
 
-      this.Scale = document.createElement("div");
-      this.Scale.className = "grs-scale";
+      [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init(min, max);
 
-      this.ScaleMin = document.createElement("span");
-      this.ScaleMin.className = "grs-scale-min";
-      this.ScaleMin.innerHTML = min;
-
-      this.ScaleMax = document.createElement("span");
-      this.ScaleMax.className = "grs-scale-max";
-      this.ScaleMax.innerHTML = max;
-
-      this.ScaleStrips = document.createElement("div");
-      this.ScaleStrips.className = "grs-scale-strips";
-
-      this.Scale.append(/*this.ScaleStrips,*/
-                        this.ScaleMin,
-                        this.ScaleMax);
-
-      this.progressBar.append(this.Filled,
-                              this.ButtonMin,
+      this.progressBar.append(this.filled,
+                              this.buttonMin,
                               // this.ButtonMax,
-                              this.Scale);
+                              this.scale);
 
       element.append(this.progressBar);
   }
@@ -46,7 +31,7 @@ class GrsView {
   }
 
   getButtonMin() {
-    return this.ButtonMin;
+    return this.buttonMin;
   }
 
   // getButtonMax() {
@@ -62,19 +47,19 @@ class GrsView {
   // }
 
   getFilled() {
-    return this.Filled;
+    return this.filled;
   }
 
   getScale() {
-    return this.Scale;
+    return this.scale;
   }
 
   getScaleMin() {
-    return this.ScaleMin;
+    return this.scaleMin;
   }
 
   getScaleMax() {
-    return this.ScaleMax;
+    return this.scaleMax;
   }
 
 };
