@@ -64,7 +64,7 @@ class GrsController {
   }
 
   onClickSlider() {
-    this.view.getVolume().addEventListener("mousedown", () => {
+    this.view.getProgressBar().addEventListener("mousedown", () => {
       // Отмена выделения
       event.preventDefault();
       // Вычисляем смещение в процентах

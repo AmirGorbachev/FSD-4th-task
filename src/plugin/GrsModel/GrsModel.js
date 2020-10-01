@@ -21,7 +21,6 @@ class GrsModel {
 
   updateOptions(option, value) {
     this.options[option] = value;
-    console.log(`${option} - ${value}`);
   }
 
 }

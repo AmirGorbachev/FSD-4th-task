@@ -12,9 +12,13 @@ class GrsViewScale {
     scaleMin.className = "grs-scale-min";
     scaleMin.innerHTML = minLimit;
 
+    this.scaleMin = scaleMin;
+
     let scaleMax = document.createElement("span");
     scaleMax.className = "grs-scale-max";
     scaleMax.innerHTML = maxLimit;
+
+    this.scaleMax = scaleMax;
 
     let scaleStrips = document.createElement("div");
     scaleStrips.className = "grs-scale-strips";
@@ -23,9 +27,8 @@ class GrsViewScale {
                  scaleStrips,
                  scaleMax);
 
+
     this.scale = scale;
-    this.scaleMin = scaleMin;
-    this.scaleMax = scaleMax;
 
     return [this.scale, this.scaleMin, this.scaleMax];
   }

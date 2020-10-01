@@ -12,10 +12,11 @@ class GrsViewButton {
     let pointerMin = document.createElement("span");
     pointerMin.className = "grs-pointer-min";
 
-    buttonMin.append(pointerMin);
+    this.pointerMin = pointerMin;
+
+    buttonMin.append(this.pointerMin);
 
     this.buttonMin = buttonMin;
-    this.pointerMin = pointerMin;
 
     return [this.buttonMin, this.pointerMin];
 
