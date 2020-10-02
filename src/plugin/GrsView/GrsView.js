@@ -9,8 +9,8 @@ class GrsView {
   constructor() {}
 
   createSliderElements(element, min, max) {
-      this.progressBar = document.createElement("div");
-      this.progressBar.className = "green-range-slider grs";
+      this.rangeSlider = document.createElement("div");
+      this.rangeSlider.className = "green-range-slider grs";
 
       [this.buttonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
 
@@ -18,16 +18,16 @@ class GrsView {
 
       [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init(min, max);
 
-      this.progressBar.append(this.volume,
+      this.rangeSlider.append(this.volume,
                               this.buttonMin,
                               // this.ButtonMax,
                               this.scale);
 
-      element.append(this.progressBar);
+      element.append(this.rangeSlider);
   }
 
-  getProgressBar() {
-    return this.progressBar;
+  getRangeSlider() {
+    return this.rangeSlider;
   }
 
   getButtonMin() {
