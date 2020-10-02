@@ -1,6 +1,8 @@
 .green-range-slider.grs
   position: relative
   font-size: 16px
+  height: 100%
+  width: 100%
 
 // Volume
 .grs-volume
@@ -47,6 +49,7 @@
   min-width: 25px
   height: 25px
   border: 1px solid #595959
+  border-radius: 3px
   text-align: center
   background-color: #D9D9D9
   &::after
@@ -74,13 +77,28 @@
 .grs-scale-max
   padding-left: 5px
 
-.grs-scale-strips
-  height: 12px
-  width: 100%
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  background-attachment: grey
-  background-image: linear-gradient(to right, transparent 0%, transparent 50%, #595959 50%, #595959 100%)
-  background-size: 4px 100%
+
+// isVertical
+.grs-vertical
+  .grs-volume
+    width: 8px
+    height: 100%
+  .grs-filled
+    width: 6px
+    height: 100%
+  .grs-button-min,
+  .grs-button-max
+    top: -6px
+    left: 0%
+  .grs-button-max
+
+  .grs-pointer-min,
+  .grs-pointer-
+    &::after
+
+  .grs-button-max
+
+  .grs-scale
+    .grs-scale-min
+
+    .grs-scale-max
