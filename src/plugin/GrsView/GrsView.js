@@ -26,6 +26,35 @@ class GrsView {
       element.append(this.rangeSlider);
   }
 
+  addVertical() {
+    this.rangeSlider.classList.add("grs-is-vertical");
+  }
+  removeVertical() {
+    this.rangeSlider.classList.remove("grs-is-vertical");
+  }
+
+  addInterval() {
+    this.rangeSlider.classList.add("grs-is-interval");
+  }
+  removeInterval() {
+    this.rangeSlider.classList.remove("grs-is-interval");
+  }
+
+  addPointers() {
+    this.rangeSlider.classList.add("grs-with-pointers");
+  }
+  removePointers() {
+    this.rangeSlider.classList.remove("grs-with-pointers");
+  }
+
+  addScale() {
+    this.rangeSlider.classList.add("grs-with-scale");
+  }
+  removeScale() {
+    this.rangeSlider.classList.remove("grs-with-scale");
+  }
+
+
   getRangeSlider() {
     return this.rangeSlider;
   }

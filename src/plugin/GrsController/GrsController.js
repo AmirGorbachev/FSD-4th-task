@@ -12,10 +12,34 @@ class GrsController {
 
   init(container, options) {
     this.view.createSliderElements(container, options.minLimit, options.maxLimit);
+    this.render();
     this.onMoveButton();
     this.onClickSlider();
 
     this.model.updateOptions("minLimit", 25);
+  }
+
+  render() {
+    if (this.model.options.isVertical) {
+      this.view.addVertical();
+    } else {
+      this.view.removeVertical();
+    }
+    if (this.model.options.isInterval) {
+      this.view.addInterval();
+    } else {
+      this.view.removeInterval();
+    }
+    if (this.model.options.withPointers) {
+      this.view.addPointers();
+    } else {
+      this.view.removePointers();
+    }
+    if (this.model.options.withScale) {
+      this.view.addScale();
+    } else {
+      this.view.removeScale();
+    }
   }
 
   onMoveButton() {
