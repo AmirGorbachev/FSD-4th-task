@@ -14,4 +14,7 @@ $("#grs-one").greenRangeSlider({
   withPointers: true,
   withScale: true
 });
+$("#grs-one").greenRangeSlider("update", {
+  maxLimit: 25,
+});
 $("#grs-two").greenRangeSlider();
