@@ -36,7 +36,6 @@ import {GrsController} from "./GrsController/GrsController.js";
   };
 
   let methods = {
-
     init: function(options) {
       return this.each(function() {
 
@@ -54,12 +53,11 @@ import {GrsController} from "./GrsController/GrsController.js";
 
         let keys = Object.keys(options);
         for (let i = 0; i < keys.length; i++) {
-          console.log(`${keys[i]} - ${options[keys[i]]}`);
+          // console.log(`${keys[i]} - ${options[keys[i]]}`);
         }
 
       });
     }
-
   };
 
   $.fn[pluginName] = function(method) {

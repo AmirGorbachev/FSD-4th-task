@@ -14,9 +14,9 @@ class GrsController {
     this.view.createSliderElements(container, options.minLimit, options.maxLimit);
     this.render();
     this.onMoveButton();
-    this.onClickSlider();
+    this.onClickVolume();
 
-    this.model.updateOptions("minLimit", 25);
+    // this.model.updateOptions("minLimit", 25);
   }
 
   render() {
@@ -58,11 +58,11 @@ class GrsController {
     }
 
     function onMouseMove(event) {
-      // Отмена выделения
+      // Сброс действия по умолчанию (выделение текста)
       event.preventDefault();
 
-      // Движение бегунка buttonMin
       let newPosition = event.clientX -
+      // Смещение бегунка buttonMin
                    this.view.calcCoords(this.view.getVolume()).left;
       let leftEdge = 0;
       let rightEdge = this.view.calcCoords(this.view.getVolume()).width;
@@ -87,7 +87,7 @@ class GrsController {
     }
   }
 
-  onClickSlider() {
+  onClickVolume() {
     this.view.getVolume().addEventListener("mousedown", () => {
       // Отмена выделения
       event.preventDefault();

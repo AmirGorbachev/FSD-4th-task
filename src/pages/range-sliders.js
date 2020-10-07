@@ -4,11 +4,11 @@ import "./range-sliders.sass";
 import "../plugin/green-range-slider.js";
 
 $("#grs-one").greenRangeSlider({
-  minLimit: 10,
-  maxLimit: 80,
+  minLimit: 50,
+  maxLimit: 100,
   minValue: 17,
   maxValue: 63,
-  step: 2,
+  step: 5,
   isVertical: false,
   isInterval: false,
   withPointers: true,
