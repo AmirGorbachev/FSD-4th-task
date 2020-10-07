@@ -26,6 +26,22 @@ class GrsView {
       element.append(this.rangeSlider);
   }
 
+  calcCoords(element) {
+    let coordinates = element.getBoundingClientRect();
+
+    let coords = {
+      top: coordinates.top + window.pageYOffset,
+      left: coordinates.left + window.pageXOffset,
+      rigth: coordinates.left + window.pageXOffset +
+             coordinates.width,
+      bottom: coordinates.top + window.pageYOffset +
+              coordinates.height,
+      width: coordinates.width
+    };
+
+    return coords;
+  }
+
   addVertical() {
     this.rangeSlider.classList.add("grs-is-vertical");
   }
