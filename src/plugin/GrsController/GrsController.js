@@ -44,7 +44,11 @@ class GrsController {
       this.view.addScale();
     } else {
       this.view.removeScale();
+  updateModel(options) {
+    for (let key in options) {
+      this.model.updateOptions(key, options[key]);
     }
+    this.render();
   }
 
   onMoveButton() {

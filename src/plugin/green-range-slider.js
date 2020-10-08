@@ -51,10 +51,7 @@ import {GrsController} from "./GrsController/GrsController.js";
     update: function(options) {
       return this.each(function() {
 
-        let keys = Object.keys(options);
-        for (let i = 0; i < keys.length; i++) {
-          // console.log(`${keys[i]} - ${options[keys[i]]}`);
-        }
+          $.data(this, pluginName).controller.updateModel(options);
 
       });
     }
