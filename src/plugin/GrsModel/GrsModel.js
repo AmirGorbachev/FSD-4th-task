@@ -38,6 +38,10 @@ class GrsModel {
     console.log(this.options);
   }
 
+  getOptions() {
+    return this.options;
+  }
+
 }
 
 export {GrsModel};

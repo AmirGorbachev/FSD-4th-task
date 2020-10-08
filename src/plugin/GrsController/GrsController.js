@@ -22,28 +22,26 @@ class GrsController {
 
   render() {
     this.view.getButtonMin().style.left = this.model.calcValuePercentage() + "%";
-    this.view.getPointerMin().innerHTML = this.model.options.minValue;
+    this.view.getPointerMin().innerHTML = this.model.getOptions().minValue;
     this.view.getFilled().style.width = this.view.getButtonMin().style.left;
 
-    if (this.model.options.isVertical) {
-      this.view.addVertical();
-    } else {
-      this.view.removeVertical();
-    }
-    if (this.model.options.isInterval) {
-      this.view.addInterval();
-    } else {
-      this.view.removeInterval();
-    }
-    if (this.model.options.withPointers) {
-      this.view.addPointers();
-    } else {
-      this.view.removePointers();
-    }
-    if (this.model.options.withScale) {
-      this.view.addScale();
-    } else {
-      this.view.removeScale();
+    this.view.getScaleMin().innerHTML = this.model.getOptions().minLimit;
+    this.view.getScaleMax().innerHTML = this.model.getOptions().maxLimit;
+
+    this.model.getOptions().isVertical ?
+      this.view.addVertical() : this.view.removeVertical();
+
+    this.model.getOptions().isInterval ?
+      this.view.addInterval() : this.view.removeInterval();
+
+    this.model.getOptions().withPointers ?
+      this.view.addPointers() : this.view.removePointers();
+
+    this.model.getOptions().withScale ?
+      this.view.addScale() : this.view.removeScale();
+
+  }
+
   updateModel(options) {
     for (let key in options) {
       this.model.updateOptions(key, options[key]);

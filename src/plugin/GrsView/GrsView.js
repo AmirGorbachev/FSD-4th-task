@@ -16,7 +16,7 @@ class GrsView {
 
       [this.volume, this.filled] = new GrsViewVolume().init();
 
-      [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init(min, max);
+      [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init();
 
       this.rangeSlider.append(this.volume,
                               this.buttonMin,

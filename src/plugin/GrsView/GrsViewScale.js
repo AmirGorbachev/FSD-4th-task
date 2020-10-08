@@ -10,11 +10,9 @@ class GrsViewScale {
 
     let scaleMin = document.createElement("span");
     scaleMin.className = "grs-scale-min";
-    scaleMin.innerHTML = minLimit;
 
     let scaleMax = document.createElement("span");
     scaleMax.className = "grs-scale-max";
-    scaleMax.innerHTML = maxLimit;
 
     scale.append(scaleMin,
                  scaleMax);

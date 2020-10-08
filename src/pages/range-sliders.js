@@ -15,6 +15,7 @@ $("#grs-one").greenRangeSlider({
   withScale: true
 });
 $("#grs-one").greenRangeSlider("update", {
-  maxLimit: 25,
+  minValue: 35,
+  minLimit: 25,
 });
 $("#grs-two").greenRangeSlider();
