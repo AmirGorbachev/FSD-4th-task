@@ -7,7 +7,6 @@ class GrsViewButton {
   initButtonMin() {
     let buttonMin = document.createElement("div");
     buttonMin.className = "grs-button-min";
-    buttonMin.style = "left: 15%";
 
     let pointerMin = document.createElement("span");
     pointerMin.className = "grs-pointer-min";
