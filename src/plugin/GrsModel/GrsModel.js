@@ -6,6 +6,16 @@ class GrsModel {
     this.options = options;
   }
 
+  getOptions() {
+    return this.options;
+  }
+
+  updateOptions(option, value) {
+    this.options[option] = value;
+    console.log(`${option} - ${value}`);
+    console.log(this.options);
+  }
+
   calcValue(persentOffset) {
     let value = ((this.options.maxLimit - this.options.minLimit) *
                 (persentOffset / 100)) + this.options.minLimit;
@@ -30,16 +40,6 @@ class GrsModel {
                  (this.options.maxLimit - this.options.minLimit) * 100;
 
     return result;
-  }
-
-  updateOptions(option, value) {
-    this.options[option] = value;
-    console.log(`${option} - ${value}`);
-    console.log(this.options);
-  }
-
-  getOptions() {
-    return this.options;
   }
 
 }
