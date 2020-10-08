@@ -15,6 +15,7 @@ class GrsController {
     this.render();
     this.onMoveButton();
     this.onClickVolume();
+    this.onClickScale();
 
     // this.model.updateOptions("minLimit", 25);
   }
@@ -109,6 +110,23 @@ class GrsController {
       // Обновление модели
       this.model.updateOptions('minValue', this.model.calcValue(shiftX));
     });
+  }
+
+  onClickScale() {
+    this.view.getScaleMin().addEventListener("click", () => {
+      this.view.getButtonMin().style.left = "0%";
+      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+      this.view.getPointerMin().innerHTML = this.model.calcValue(0);
+      // Обновление модели
+      this.model.updateOptions('minValue', this.model.calcValue(0));
+    })
+    this.view.getScaleMax().addEventListener("click", () => {
+      this.view.getButtonMin().style.left = "100%";
+      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+      this.view.getPointerMin().innerHTML = this.model.calcValue(100);
+      // Обновление модели
+      this.model.updateOptions('minValue', this.model.calcValue(100));
+    })
   }
 
 }
