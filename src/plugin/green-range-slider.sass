@@ -44,6 +44,7 @@
 
 .grs-pointer-min,
 .grs-pointer-max
+  display: none
   position: absolute
   transform: translate(-5px, -32px)
   min-width: 25px
@@ -67,7 +68,7 @@
 
 // Scale
 .grs-scale
-  display: flex
+  display: none
   justify-content: space-between
   padding-top: 18px
 
@@ -106,3 +107,19 @@
     .grs-scale-min
 
     .grs-scale-max
+
+// isInterval
+.grs-is-interval
+
+
+// withPointers
+.grs-with-pointers
+  .grs-pointer-min,
+  .grs-pointer-max
+    display: block
+
+
+// withPointers
+.grs-with-scale
+  .grs-scale
+    display: flex
