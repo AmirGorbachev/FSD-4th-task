@@ -10,36 +10,35 @@ class GrsController {
     this.view = new GrsView();
   }
 
-  init(container, options) {
-    this.view.createSliderElements(container, options.minLimit, options.maxLimit);
+  init(container) {
+    this.view.createSliderElements(container,
+                                   this.model.getOption("minLimit"),
+                                   this.model.getOption("maxLimit"));
     this.render();
     this.onMoveButton();
     this.onClickVolume();
     this.onClickScale();
-
-    // this.model.updateOptions("minLimit", 25);
   }
 
   render() {
     this.view.getButtonMin().style.left = this.model.calcValuePercentage() + "%";
-    this.view.getPointerMin().innerHTML = this.model.getOptions().minValue;
+    this.view.getPointerMin().innerHTML = this.model.getOption("minValue");
     this.view.getFilled().style.width = this.view.getButtonMin().style.left;
 
-    this.view.getScaleMin().innerHTML = this.model.getOptions().minLimit;
-    this.view.getScaleMax().innerHTML = this.model.getOptions().maxLimit;
+    this.view.getScaleMin().innerHTML = this.model.getOption("minLimit");
+    this.view.getScaleMax().innerHTML = this.model.getOption("maxLimit");
 
-    this.model.getOptions().isVertical ?
+    this.model.getOption("isVertical") ?
       this.view.addVertical() : this.view.removeVertical();
 
-    this.model.getOptions().isInterval ?
+    this.model.getOption("isInterval") ?
       this.view.addInterval() : this.view.removeInterval();
 
-    this.model.getOptions().withPointers ?
+    this.model.getOption("withPointers") ?
       this.view.addPointers() : this.view.removePointers();
 
-    this.model.getOptions().withScale ?
+    this.model.getOption("withScale") ?
       this.view.addScale() : this.view.removeScale();
-
   }
 
   updateModel(options) {

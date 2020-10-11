@@ -6,8 +6,8 @@ class GrsModel {
     this.options = options;
   }
 
-  getOptions() {
-    return this.options;
+  getOption(option) {
+    return this.options[option];
   }
 
   updateOptions(option, value) {
