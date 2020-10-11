@@ -12,8 +12,8 @@ class GrsModel {
 
   updateOptions(option, value) {
     this.options[option] = value;
-    console.log(`${option} - ${value}`);
-    console.log(this.options);
+    // console.log(`${option} - ${value}`);
+    // console.log(this.options);
   }
 
   calcValue(persentOffset) {
@@ -32,9 +32,11 @@ class GrsModel {
   }
 
   calcValuePercentage(persentOffset) {
-    let value = (persentOffset !== undefined) ?
+    let value = (typeof persentOffset === "number") ?
                 this.calcValue(persentOffset) :
-                this.options.minValue;
+                (typeof persentOffset === "string") ?
+                this.options[persentOffset] :
+                $.error("Неожиданный тип данных для model.calcValuePercentage()");
 
     let result = (value - this.options.minLimit) /
                  (this.options.maxLimit - this.options.minLimit) * 100;

@@ -21,9 +21,14 @@ class GrsController {
   }
 
   render() {
-    this.view.getButtonMin().style.left = this.model.calcValuePercentage() + "%";
+    this.view.getButtonMin().style.left = this.model.calcValuePercentage("minValue") + "%";
     this.view.getPointerMin().innerHTML = this.model.getOption("minValue");
     this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+
+    if (this.model.getOption("isInterval")) {
+      this.view.getButtonMax().style.left = this.model.calcValuePercentage("maxValue") + "%";
+      this.view.getPointerMax().innerHTML = this.model.getOption("maxValue");
+    }
 
     this.view.getScaleMin().innerHTML = this.model.getOption("minLimit");
     this.view.getScaleMax().innerHTML = this.model.getOption("maxLimit");
@@ -71,7 +76,10 @@ class GrsController {
                         this.view.calcCoords(this.view.getVolume()).left;
       // Границы смещения
       let leftEdge = 0;
-      let rightEdge = this.view.calcCoords(this.view.getVolume()).width;
+      let rightEdge = (this.model.getOption("isInterval")) ?
+                      (this.view.calcCoords(this.view.getButtonMax()).left -
+                      this.view.calcCoords(this.view.getVolume()).left) :
+                      (this.view.calcCoords(this.view.getVolume()).rigth);
       // Проверка выхода за границы
       if (newPosition < leftEdge) {
         newPosition = leftEdge;
@@ -103,11 +111,18 @@ class GrsController {
       let shiftX = ((event.clientX -
                    this.view.calcCoords(this.view.getVolume()).left) /
                    this.view.calcCoords(this.view.getVolume()).width) * 100;
-      if ((shiftX > 0)&&(shiftX < 100)) {
+      if ((this.model.getOption("isInterval")) &&
+         (shiftX > (this.view.calcCoords(this.view.getButtonMax()).left -
+                     this.view.calcCoords(this.view.getVolume()).left))) {
+        console.log('max');
+        this.view.getButtonMax().style.left = this.model.calcValuePercentage(shiftX) + "%";
+        this.view.getPointerMax().innerHTML = this.model.calcValue(shiftX);
+      } else {
+        console.log('min');
         this.view.getButtonMin().style.left = this.model.calcValuePercentage(shiftX) + "%";
-        this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+        this.view.getPointerMin().innerHTML = this.model.calcValue(shiftX);
       }
-      this.view.getPointerMin().innerHTML = this.model.calcValue(shiftX);
+      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       // Обновление модели
       this.model.updateOptions('minValue', this.model.calcValue(shiftX));
     });

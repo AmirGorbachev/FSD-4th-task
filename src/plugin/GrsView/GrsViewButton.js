@@ -16,15 +16,20 @@ class GrsViewButton {
     this.buttonMin = buttonMin;
     this.pointerMin = pointerMin;
 
-    return [this.buttonMin, this.pointerMin];
 
-    // this.ButtonMax = document.createElement("div");
-    // this.ButtonMax.className = "grs-button-max";
+    let buttonMax = document.createElement("div");
+    buttonMax.className = "grs-button-max";
 
-    // this.pointerMax = document.createElement("span");
-    // this.pointerMax.className = "grs-pointer-max";
+    let pointerMax = document.createElement("span");
+    pointerMax.className = "grs-pointer-max";
 
-    // this.ButtonMax.append(this.pointerMax);
+    buttonMax.append(pointerMax);
+
+    this.buttonMax = buttonMax;
+    this.pointerMax = pointerMax;
+
+
+    return [this.buttonMin, this.pointerMin, this.buttonMax, this.pointerMax];
   }
 
 }

@@ -12,16 +12,17 @@ class GrsView {
       this.rangeSlider = document.createElement("div");
       this.rangeSlider.className = "green-range-slider grs";
 
-      [this.buttonMin, this.pointerMin] = new GrsViewButton().initButtonMin();
+      [this.buttonMin, this.pointerMin, this.buttonMax, this.pointerMax] =
+        new GrsViewButton().initButtonMin();
 
       [this.volume, this.filled] = new GrsViewVolume().init();
 
       [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init();
 
       this.rangeSlider.append(this.volume,
+                              this.scale,
                               this.buttonMin,
-                              // this.ButtonMax,
-                              this.scale);
+                              this.buttonMax);
 
       element.append(this.rangeSlider);
   }
@@ -75,28 +76,28 @@ class GrsView {
     return this.rangeSlider;
   }
 
-  getButtonMin() {
-    return this.buttonMin;
-  }
-
-  // getButtonMax() {
-  //   return this.ButtonMax;
-  // }
-
-  getPointerMin() {
-    return this.pointerMin;
-  }
-
-  // getPointerMax() {
-  //   return this.pointerMax;
-  // }
-
   getVolume() {
     return this.volume;
   }
 
   getFilled() {
     return this.filled;
+  }
+
+  getButtonMin() {
+    return this.buttonMin;
+  }
+
+  getPointerMin() {
+    return this.pointerMin;
+  }
+
+  getButtonMax() {
+    return this.buttonMax;
+  }
+
+  getPointerMax() {
+    return this.pointerMax;
   }
 
   getScale() {
