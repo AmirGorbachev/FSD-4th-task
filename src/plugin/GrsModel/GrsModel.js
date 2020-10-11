@@ -10,7 +10,7 @@ class GrsModel {
     return this.options[option];
   }
 
-  updateOptions(option, value) {
+  updateOption(option, value) {
     this.options[option] = value;
     // console.log(`${option} - ${value}`);
     // console.log(this.options);

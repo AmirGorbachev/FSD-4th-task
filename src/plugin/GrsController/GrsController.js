@@ -48,7 +48,7 @@ class GrsController {
 
   updateModel(options) {
     for (let key in options) {
-      this.model.updateOptions(key, options[key]);
+      this.model.updateOption(key, options[key]);
     }
     this.render();
   }
@@ -97,7 +97,7 @@ class GrsController {
 
     function onMouseUp() {
       // Обновление модели
-      this.model.updateOptions('minValue', this.model.calcValue(shiftX));
+      this.model.updateOption('minValue', this.model.calcValue(shiftX));
 
       document.removeEventListener('mousemove', onMouseMoveBindThis);
       document.removeEventListener('mouseup', onMouseUpBindThis);
@@ -124,7 +124,7 @@ class GrsController {
       }
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       // Обновление модели
-      this.model.updateOptions('minValue', this.model.calcValue(shiftX));
+      this.model.updateOption('minValue', this.model.calcValue(shiftX));
     });
   }
 
@@ -134,14 +134,14 @@ class GrsController {
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       this.view.getPointerMin().innerHTML = this.model.calcValue(0);
       // Обновление модели
-      this.model.updateOptions('minValue', this.model.calcValue(0));
+      this.model.updateOption('minValue', this.model.calcValue(0));
     })
     this.view.getScaleMax().addEventListener("click", () => {
       this.view.getButtonMin().style.left = "100%";
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       this.view.getPointerMin().innerHTML = this.model.calcValue(100);
       // Обновление модели
-      this.model.updateOptions('minValue', this.model.calcValue(100));
+      this.model.updateOption('minValue', this.model.calcValue(100));
     })
   }
 
