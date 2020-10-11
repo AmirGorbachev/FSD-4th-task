@@ -28,11 +28,7 @@ import {GrsController} from "./GrsController/GrsController.js";
 
     this.controller = new GrsController(this.options);
 
-    this.init();
-  };
-
-  GreenRangeSlider.prototype.init = function() {
-    this.controller.init(this.element, this.options);
+    this.controller.init(this.element);
   };
 
   let methods = {
