@@ -97,10 +97,10 @@ class GrsController {
 
     function onMouseUp() {
       // Обновление модели
-      this.model.updateOption('minValue', this.model.calcValue(shiftX));
+      this.model.updateOption("minValue", this.model.calcValue(shiftX));
 
-      document.removeEventListener('mousemove', onMouseMoveBindThis);
-      document.removeEventListener('mouseup', onMouseUpBindThis);
+      document.removeEventListener("mousemove", onMouseMoveBindThis);
+      document.removeEventListener("mouseup", onMouseUpBindThis);
     }
   }
 
@@ -117,7 +117,7 @@ class GrsController {
         this.view.getButtonMax().style.left = this.model.calcValuePercentage(shiftX) + "%";
         this.view.getPointerMax().innerHTML = this.model.calcValue(shiftX);
         // Обновление модели
-        this.model.updateOption('maxValue', this.model.calcValue(shiftX));
+        this.model.updateOption("maxValue", this.model.calcValue(shiftX));
         // Отрисовка шкалы прогресса
         this.view.getFilled().style.left = this.view.getButtonMin().style.left;
         this.view.getFilled().style.width = this.view.getButtonMax().style.left - this.view.getButtonMin().style.left;
@@ -125,7 +125,7 @@ class GrsController {
         this.view.getButtonMin().style.left = this.model.calcValuePercentage(shiftX) + "%";
         this.view.getPointerMin().innerHTML = this.model.calcValue(shiftX);
         // Обновление модели
-        this.model.updateOption('minValue', this.model.calcValue(shiftX));
+        this.model.updateOption("minValue", this.model.calcValue(shiftX));
         // Отрисовка шкалы прогресса
         this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       }
@@ -139,7 +139,7 @@ class GrsController {
       this.view.getPointerMin().innerHTML = this.model.calcValue(0);
       this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       // Обновление модели
-      this.model.updateOption('minValue', this.model.calcValue(0));
+      this.model.updateOption("minValue", this.model.calcValue(0));
     })
     this.view.getScaleMax().addEventListener("click", () => {
       if (this.model.getOption("isInterval")) {
@@ -147,13 +147,13 @@ class GrsController {
         this.view.getPointerMax().innerHTML = this.model.calcValue(100);
         // this.view.getFilled().style.width = this.view.getButtonMin().style.left;
         // Обновление модели
-        this.model.updateOption('maxValue', this.model.calcValue(100));
+        this.model.updateOption("maxValue", this.model.calcValue(100));
       } else {
         this.view.getButtonMin().style.left = "100%";
         this.view.getPointerMin().innerHTML = this.model.calcValue(100);
         this.view.getFilled().style.width = this.view.getButtonMin().style.left;
         // Обновление модели
-        this.model.updateOption('minValue', this.model.calcValue(100));
+        this.model.updateOption("minValue", this.model.calcValue(100));
       }
     })
   }
