@@ -106,42 +106,55 @@ class GrsController {
 
   onClickVolume() {
     this.view.getVolume().addEventListener("click", () => {
+
       // Вычисляем смещение в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX = ((event.clientX -
                    this.view.calcCoords(this.view.getVolume()).left) /
                    this.view.calcCoords(this.view.getVolume()).width) * 100;
       if ((this.model.getOption("isInterval")) &&
-         (shiftX > (this.view.calcCoords(this.view.getButtonMax()).left -
-                     this.view.calcCoords(this.view.getVolume()).left))) {
-        console.log('max');
+         (shiftX > this.model.calcValuePercentage("maxValue"))) {
         this.view.getButtonMax().style.left = this.model.calcValuePercentage(shiftX) + "%";
         this.view.getPointerMax().innerHTML = this.model.calcValue(shiftX);
+        // Обновление модели
+        this.model.updateOption('maxValue', this.model.calcValue(shiftX));
+        // Отрисовка шкалы прогресса
+        this.view.getFilled().style.left = this.view.getButtonMin().style.left;
+        this.view.getFilled().style.width = this.view.getButtonMax().style.left - this.view.getButtonMin().style.left;
       } else {
-        console.log('min');
         this.view.getButtonMin().style.left = this.model.calcValuePercentage(shiftX) + "%";
         this.view.getPointerMin().innerHTML = this.model.calcValue(shiftX);
+        // Обновление модели
+        this.model.updateOption('minValue', this.model.calcValue(shiftX));
+        // Отрисовка шкалы прогресса
+        this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       }
-      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
-      // Обновление модели
-      this.model.updateOption('minValue', this.model.calcValue(shiftX));
+
     });
   }
 
   onClickScale() {
     this.view.getScaleMin().addEventListener("click", () => {
       this.view.getButtonMin().style.left = "0%";
-      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       this.view.getPointerMin().innerHTML = this.model.calcValue(0);
+      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
       // Обновление модели
       this.model.updateOption('minValue', this.model.calcValue(0));
     })
     this.view.getScaleMax().addEventListener("click", () => {
-      this.view.getButtonMin().style.left = "100%";
-      this.view.getFilled().style.width = this.view.getButtonMin().style.left;
-      this.view.getPointerMin().innerHTML = this.model.calcValue(100);
-      // Обновление модели
-      this.model.updateOption('minValue', this.model.calcValue(100));
+      if (this.model.getOption("isInterval")) {
+        this.view.getButtonMax().style.left = "100%";
+        this.view.getPointerMax().innerHTML = this.model.calcValue(100);
+        // this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+        // Обновление модели
+        this.model.updateOption('maxValue', this.model.calcValue(100));
+      } else {
+        this.view.getButtonMin().style.left = "100%";
+        this.view.getPointerMin().innerHTML = this.model.calcValue(100);
+        this.view.getFilled().style.width = this.view.getButtonMin().style.left;
+        // Обновление модели
+        this.model.updateOption('minValue', this.model.calcValue(100));
+      }
     })
   }
 
