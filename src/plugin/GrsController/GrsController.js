@@ -81,13 +81,13 @@ class GrsController {
 
       // Смещение бегунка buttonMin
       let newPosition = event.clientX -
-        this.view.calcCoords(this.view.getElement("volume")).left;
+        this.view.calcCoords("volume").left;
       // Границы смещения
       let leftEdge = 0;
       let rightEdge = (this.model.getOption("isInterval")) ?
-        (this.view.calcCoords(this.view.getElement("buttonMax")).left -
-        this.view.calcCoords(this.view.getElement("volume")).left) :
-        (this.view.calcCoords(this.view.getElement("volume")).rigth);
+        (this.view.calcCoords("buttonMax").left -
+        this.view.calcCoords("volume").left) :
+        (this.view.calcCoords("volume").rigth);
       // Проверка выхода за границы
       if (newPosition < leftEdge) {
         newPosition = leftEdge;
@@ -97,7 +97,7 @@ class GrsController {
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
       shiftX = (newPosition /
-        this.view.calcCoords(this.view.getElement("volume")).width) * 100;
+        this.view.calcCoords("volume").width) * 100;
       // Отрисовка и вывод результата
       this.view.getElement("buttonMin").style.left =
         this.model.calcValuePercentage(shiftX) + "%";
@@ -122,8 +122,8 @@ class GrsController {
       // Вычисляем смещение в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX = ((event.clientX -
-        this.view.calcCoords(this.view.getElement("volume")).left) /
-        this.view.calcCoords(this.view.getElement("volume")).width) * 100;
+        this.view.calcCoords("volume").left) /
+        this.view.calcCoords("volume").width) * 100;
       if ((this.model.getOption("isInterval")) &&
           (shiftX > this.model.calcValuePercentage("maxValue"))) {
         this.view.getElement("buttonMax").style.left =

@@ -37,7 +37,7 @@ class GrsView {
   }
 
   calcCoords(element) {
-    let coordinates = element.getBoundingClientRect();
+    let coordinates = this.elements[element].getBoundingClientRect();
 
     let coords = {
       top: coordinates.top + window.pageYOffset,
