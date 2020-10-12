@@ -6,25 +6,34 @@ import {GrsViewScale} from "../GrsView/GrsViewScale.js";
 
 class GrsView {
 
-  constructor() {}
+  constructor() {
+    this.elements = {}
+  }
 
   createSliderElements(element, min, max) {
-      this.rangeSlider = document.createElement("div");
-      this.rangeSlider.className = "green-range-slider grs";
+      this.elements.rangeSlider = document.createElement("div");
+      this.elements.rangeSlider.className = "green-range-slider grs";
 
-      [this.buttonMin, this.pointerMin, this.buttonMax, this.pointerMax] =
-        new GrsViewButton().initButtonMin();
+      [this.elements.buttonMin, this.elements.pointerMin,
+      this.elements.buttonMax, this.elements.pointerMax] =
+              new GrsViewButton().initButtonMin();
 
-      [this.volume, this.filled] = new GrsViewVolume().init();
+      [this.elements.volume, this.elements.filled] =
+              new GrsViewVolume().init();
 
-      [this.scale, this.scaleMin, this.scaleMax] = new GrsViewScale().init();
+      [this.elements.scale, this.elements.scaleMin, this.elements.scaleMax] =
+              new GrsViewScale().init();
 
-      this.rangeSlider.append(this.volume,
-                              this.scale,
-                              this.buttonMin,
-                              this.buttonMax);
+      this.elements.rangeSlider.append(this.elements.volume,
+                                       this.elements.scale,
+                                       this.elements.buttonMin,
+                                       this.elements.buttonMax);
 
-      element.append(this.rangeSlider);
+      element.append(this.elements.rangeSlider);
+  }
+
+  getElement(element) {
+    return this.elements[element];
   }
 
   calcCoords(element) {
@@ -44,72 +53,31 @@ class GrsView {
   }
 
   addVertical() {
-    this.rangeSlider.classList.add("grs-is-vertical");
+    this.elements.rangeSlider.classList.add("grs-is-vertical");
   }
   removeVertical() {
-    this.rangeSlider.classList.remove("grs-is-vertical");
+    this.elements.rangeSlider.classList.remove("grs-is-vertical");
   }
 
   addInterval() {
-    this.rangeSlider.classList.add("grs-is-interval");
+    this.elements.rangeSlider.classList.add("grs-is-interval");
   }
   removeInterval() {
-    this.rangeSlider.classList.remove("grs-is-interval");
+    this.elements.rangeSlider.classList.remove("grs-is-interval");
   }
 
   addPointers() {
-    this.rangeSlider.classList.add("grs-with-pointers");
+    this.elements.rangeSlider.classList.add("grs-with-pointers");
   }
   removePointers() {
-    this.rangeSlider.classList.remove("grs-with-pointers");
+    this.elements.rangeSlider.classList.remove("grs-with-pointers");
   }
 
   addScale() {
-    this.rangeSlider.classList.add("grs-with-scale");
+    this.elements.rangeSlider.classList.add("grs-with-scale");
   }
   removeScale() {
-    this.rangeSlider.classList.remove("grs-with-scale");
-  }
-
-
-  getRangeSlider() {
-    return this.rangeSlider;
-  }
-
-  getVolume() {
-    return this.volume;
-  }
-
-  getFilled() {
-    return this.filled;
-  }
-
-  getButtonMin() {
-    return this.buttonMin;
-  }
-
-  getPointerMin() {
-    return this.pointerMin;
-  }
-
-  getButtonMax() {
-    return this.buttonMax;
-  }
-
-  getPointerMax() {
-    return this.pointerMax;
-  }
-
-  getScale() {
-    return this.scale;
-  }
-
-  getScaleMin() {
-    return this.scaleMin;
-  }
-
-  getScaleMax() {
-    return this.scaleMax;
+    this.elements.rangeSlider.classList.remove("grs-with-scale");
   }
 
 };
