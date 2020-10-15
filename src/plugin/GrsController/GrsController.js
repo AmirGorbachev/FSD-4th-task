@@ -86,6 +86,8 @@ class GrsController {
   }
 
   onMoveButton() {
+    // Нужно зафиксировать this,
+    // так как он теряется при передачи функции в событие
     let onMouseDownBindThis = onMouseDown.bind(this);
     let onMouseMoveBindThis = onMouseMove.bind(this);
     let onMouseUpBindThis = onMouseUp.bind(this);
@@ -102,7 +104,9 @@ class GrsController {
       .addEventListener("mousedown", onMouseDownBindThis);
 
     function onMouseDown() {
-      isElementButtonMin = event.currentTarget.classList.contains("grs-button-min");
+      isElementButtonMin = event.currentTarget.classList.contains(
+        "grs-button-min"
+      );
       document.addEventListener("mousemove", onMouseMoveBindThis);
       document.addEventListener("mouseup", onMouseUpBindThis);
     }
