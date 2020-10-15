@@ -69,7 +69,7 @@ class GrsController {
         "maxValue"
       );
     }
-    // filled
+    // Шкала прогресса filled
     if (this.model.getOption("isInterval")) {
       this.view.getElement("filled").style.left = this.view.getElement(
         "buttonMin"
@@ -114,7 +114,7 @@ class GrsController {
       // Сброс действия по умолчанию (выделение текста)
       event.preventDefault();
 
-      // Новая позиция бегунка
+      // Новая позиция кнопки
       let newPosition = event.clientX - this.view.calcCoords("volume").left;
 
       // Границы смещения
@@ -160,7 +160,7 @@ class GrsController {
 
   onClickVolume() {
     this.view.getElement("volume").addEventListener("click", () => {
-      // Вычисляем смещение в процентах
+      // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX =
         ((event.clientX - this.view.calcCoords("volume").left) /
