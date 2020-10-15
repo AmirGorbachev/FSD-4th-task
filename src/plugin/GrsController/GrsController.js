@@ -101,6 +101,7 @@ class GrsController {
 
       // Новая позиция бегунка
       let newPosition = event.clientX - this.view.calcCoords("volume").left;
+
       // Границы смещения
       let leftEdge, rightEdge;
       if (isElementButtonMin) {
@@ -121,33 +122,39 @@ class GrsController {
       } else if (newPosition > rightEdge) {
         newPosition = rightEdge;
       }
+
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
       shiftX = (newPosition / this.view.calcCoords("volume").width) * 100;
-      // Отрисовка и вывод результата
+
+      // Отрисовка кнопки
       elementButton.style.left = this.model.calcValuePercentage(shiftX) + "%";
+      // Отрисовка значения над кнопкой и обновление модели
+      let newValue = this.model.calcValue(shiftX);
       if (isElementButtonMin) {
-        this.view.getElement("pointerMin").innerHTML = this.model.calcValue(
-          shiftX
-        );
+        this.model.updateOption("minValue", newValue);
+        this.view.getElement("pointerMin").innerHTML = newValue;
       } else {
-        this.view.getElement("pointerMax").innerHTML = this.model.calcValue(
-          shiftX
-        );
+        this.model.updateOption("maxValue", newValue);
+        this.view.getElement("pointerMax").innerHTML = newValue;
       }
-      this.view.getElement("filled").style.width = this.view.getElement(
-        "buttonMin"
-      ).style.left;
+      // Отрисовка filled
+      if (this.model.getOption("isInterval")) {
+        this.view.getElement("filled").style.left = this.view.getElement(
+          "buttonMin"
+        ).style.left;
+        this.view.getElement("filled").style.width =
+          this.model.calcValuePercentage("maxValue") -
+          this.model.calcValuePercentage("minValue") +
+          "%";
+      } else {
+        this.view.getElement("filled").style.width = this.view.getElement(
+          "buttonMin"
+        ).style.left;
+      }
     }
 
     function onMouseUp() {
-      // Обновление модели
-      if (isElementButtonMin) {
-        this.model.updateOption("minValue", this.model.calcValue(shiftX));
-      } else {
-        this.model.updateOption("maxValue", this.model.calcValue(shiftX));
-      }
-
       document.removeEventListener("mousemove", onMouseMoveBindThis);
       document.removeEventListener("mouseup", onMouseUpBindThis);
     }
@@ -161,6 +168,7 @@ class GrsController {
         ((event.clientX - this.view.calcCoords("volume").left) /
           this.view.calcCoords("volume").width) *
         100;
+      // Отрисовка и обновление модели
       if (
         this.model.getOption("isInterval") &&
         shiftX > this.model.calcValuePercentage("maxValue")
@@ -172,13 +180,6 @@ class GrsController {
         );
         // Обновление модели
         this.model.updateOption("maxValue", this.model.calcValue(shiftX));
-        // Отрисовка шкалы прогресса
-        this.view.getElement("filled").style.left = this.view.getElement(
-          "buttonMin"
-        ).style.left;
-        this.view.getElement("filled").style.width =
-          this.view.getElement("buttonMax").style.left -
-          this.view.getElement("buttonMin").style.left;
       } else {
         this.view.getElement("buttonMin").style.left =
           this.model.calcValuePercentage(shiftX) + "%";
@@ -187,7 +188,17 @@ class GrsController {
         );
         // Обновление модели
         this.model.updateOption("minValue", this.model.calcValue(shiftX));
-        // Отрисовка шкалы прогресса
+      }
+      // Отрисовка шкалы прогресса
+      if (this.model.getOption("isInterval")) {
+        this.view.getElement("filled").style.left = this.view.getElement(
+          "buttonMin"
+        ).style.left;
+        this.view.getElement("filled").style.width =
+          this.model.calcValuePercentage("maxValue") -
+          this.model.calcValuePercentage("minValue") +
+          "%";
+      } else {
         this.view.getElement("filled").style.width = this.view.getElement(
           "buttonMin"
         ).style.left;
@@ -199,9 +210,6 @@ class GrsController {
     this.view.getElement("scaleMin").addEventListener("click", () => {
       this.view.getElement("buttonMin").style.left = "0%";
       this.view.getElement("pointerMin").innerHTML = this.model.calcValue(0);
-      this.view.getElement("filled").style.width = this.view.getElement(
-        "buttonMin"
-      ).style.left;
       // Обновление модели
       this.model.updateOption("minValue", this.model.calcValue(0));
     });
@@ -211,8 +219,6 @@ class GrsController {
         this.view.getElement("pointerMax").innerHTML = this.model.calcValue(
           100
         );
-        // this.view.getElement("filled").style.width =
-        // this.view.getElement("buttonMin").style.left;
         // Обновление модели
         this.model.updateOption("maxValue", this.model.calcValue(100));
       } else {
