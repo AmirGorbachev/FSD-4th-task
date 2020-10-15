@@ -12,7 +12,7 @@ $("#grs-one").greenRangeSlider({
   isVertical: false,
   isInterval: false,
   withPointers: true,
-  withScale: true
+  withScale: true,
 });
 $("#grs-one").greenRangeSlider("update", {
   minValue: 35,
