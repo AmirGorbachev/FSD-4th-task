@@ -91,8 +91,6 @@ class GrsController {
     let onMouseUpBindThis = onMouseUp.bind(this);
     // Смещение ползунка от 0 до 100%
     let shiftX;
-    // Элемент кнопки
-    let elementButton;
     // Кнопка минимальная или максимальная
     let isElementButtonMin;
 
@@ -104,8 +102,7 @@ class GrsController {
       .addEventListener("mousedown", onMouseDownBindThis);
 
     function onMouseDown() {
-      elementButton = event.currentTarget;
-      isElementButtonMin = elementButton.classList.contains("grs-button-min");
+      isElementButtonMin = event.currentTarget.classList.contains("grs-button-min");
       document.addEventListener("mousemove", onMouseMoveBindThis);
       document.addEventListener("mouseup", onMouseUpBindThis);
     }
