@@ -51,6 +51,13 @@ class GrsView {
       rigth: coordinates.left + window.pageXOffset + coordinates.width,
       bottom: coordinates.top + window.pageYOffset + coordinates.height,
       width: coordinates.width,
+      middleX:
+        (coordinates.left +
+          window.pageXOffset +
+          coordinates.left +
+          window.pageXOffset +
+          coordinates.width) /
+        2,
     };
 
     return coords;
