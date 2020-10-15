@@ -91,8 +91,6 @@ class GrsController {
     let onMouseDownBindThis = onMouseDown.bind(this);
     let onMouseMoveBindThis = onMouseMove.bind(this);
     let onMouseUpBindThis = onMouseUp.bind(this);
-    // Смещение ползунка от 0 до 100%
-    let shiftX;
     // Кнопка минимальная или максимальная
     let isElementButtonMin;
 
@@ -141,7 +139,7 @@ class GrsController {
 
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
-      shiftX = (newPosition / this.view.calcCoords("volume").width) * 100;
+      let shiftX = (newPosition / this.view.calcCoords("volume").width) * 100;
 
       // Обновление модели
       if (isElementButtonMin) {
