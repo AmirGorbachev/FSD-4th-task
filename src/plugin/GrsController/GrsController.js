@@ -21,31 +21,15 @@ class GrsController {
     this.onClickScale();
   }
 
-  render() {
-    this.view.getElement("buttonMin").style.left =
-      this.model.calcValuePercentage("minValue") + "%";
-    this.view.getElement("pointerMin").innerHTML = this.model.getOption(
-      "minValue"
-    );
-    this.view.getElement("filled").style.width = this.view.getElement(
-      "buttonMin"
-    ).style.left;
-
-    if (this.model.getOption("isInterval")) {
-      this.view.getElement("buttonMax").style.left =
-        this.model.calcValuePercentage("maxValue") + "%";
-      this.view.getElement("pointerMax").innerHTML = this.model.getOption(
-        "maxValue"
-      );
+  updateModel(options) {
+    for (let key in options) {
+      this.model.updateOption(key, options[key]);
     }
+    this.updateView();
+  }
 
-    this.view.getElement("scaleMin").innerHTML = this.model.getOption(
-      "minLimit"
-    );
-    this.view.getElement("scaleMax").innerHTML = this.model.getOption(
-      "maxLimit"
-    );
-
+  updateView() {
+    // Проверка параметров отрисовки
     this.model.getOption("isVertical")
       ? this.view.addVertical()
       : this.view.removeVertical();
@@ -61,13 +45,47 @@ class GrsController {
     this.model.getOption("withScale")
       ? this.view.addScale()
       : this.view.removeScale();
+
+    // Отрисовка элементов
+    this.render();
   }
 
-  updateModel(options) {
-    for (let key in options) {
-      this.model.updateOption(key, options[key]);
+  render() {
+    // Ползунок min
+    this.view.getElement("buttonMin").style.left =
+      this.model.calcValuePercentage("minValue") + "%";
+    this.view.getElement("pointerMin").innerHTML = this.model.getOption(
+      "minValue"
+    );
+    // Ползунок max
+    if (this.model.getOption("isInterval")) {
+      this.view.getElement("buttonMax").style.left =
+        this.model.calcValuePercentage("maxValue") + "%";
+      this.view.getElement("pointerMax").innerHTML = this.model.getOption(
+        "maxValue"
+      );
     }
-    this.render();
+    // filled
+    if (this.model.getOption("isInterval")) {
+      this.view.getElement("filled").style.left = this.view.getElement(
+        "buttonMin"
+      ).style.left;
+      this.view.getElement("filled").style.width =
+        this.model.calcValuePercentage("maxValue") -
+        this.model.calcValuePercentage("minValue") +
+        "%";
+    } else {
+      this.view.getElement("filled").style.width = this.view.getElement(
+        "buttonMin"
+      ).style.left;
+    }
+    // Значения шкалы (лимитов)
+    this.view.getElement("scaleMin").innerHTML = this.model.getOption(
+      "minLimit"
+    );
+    this.view.getElement("scaleMax").innerHTML = this.model.getOption(
+      "maxLimit"
+    );
   }
 
   onMoveButton() {
