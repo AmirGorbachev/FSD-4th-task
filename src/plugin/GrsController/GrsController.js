@@ -76,6 +76,10 @@ class GrsController {
     let onMouseUpBindThis = onMouseUp.bind(this);
     // Смещение ползунка от 0 до 100%
     let shiftX;
+    // Элемент кнопки
+    let elementButton;
+    // Кнопка минимальная или максимальная
+    let isElementButtonMin;
 
     this.view
       .getElement("buttonMin")
@@ -85,6 +89,8 @@ class GrsController {
       .addEventListener("mousedown", onMouseDownBindThis);
 
     function onMouseDown() {
+      elementButton = event.currentTarget;
+      isElementButtonMin = elementButton.classList.contains("grs-button-min");
       document.addEventListener("mousemove", onMouseMoveBindThis);
       document.addEventListener("mouseup", onMouseUpBindThis);
     }
@@ -96,11 +102,19 @@ class GrsController {
       // Новая позиция бегунка
       let newPosition = event.clientX - this.view.calcCoords("volume").left;
       // Границы смещения
-      let leftEdge = 0;
-      let rightEdge = this.model.getOption("isInterval")
-        ? this.view.calcCoords("buttonMax").left -
-          this.view.calcCoords("volume").left
-        : this.view.calcCoords("volume").rigth;
+      let leftEdge, rightEdge;
+      if (isElementButtonMin) {
+        leftEdge = 0;
+        rightEdge = this.model.getOption("isInterval")
+          ? this.view.calcCoords("buttonMax").middleX -
+            this.view.calcCoords("volume").left
+          : this.view.calcCoords("volume").rigth;
+      } else {
+        leftEdge =
+          this.view.calcCoords("buttonMin").middleX -
+          this.view.calcCoords("volume").left;
+        rightEdge = this.view.calcCoords("volume").width;
+      }
       // Проверка выхода за границы
       if (newPosition < leftEdge) {
         newPosition = leftEdge;
@@ -111,19 +125,28 @@ class GrsController {
       // ((смещение / ширина слайдера) * 100%)
       shiftX = (newPosition / this.view.calcCoords("volume").width) * 100;
       // Отрисовка и вывод результата
-      this.view.getElement("buttonMin").style.left =
-        this.model.calcValuePercentage(shiftX) + "%";
+      elementButton.style.left = this.model.calcValuePercentage(shiftX) + "%";
+      if (isElementButtonMin) {
+        this.view.getElement("pointerMin").innerHTML = this.model.calcValue(
+          shiftX
+        );
+      } else {
+        this.view.getElement("pointerMax").innerHTML = this.model.calcValue(
+          shiftX
+        );
+      }
       this.view.getElement("filled").style.width = this.view.getElement(
         "buttonMin"
       ).style.left;
-      this.view.getElement("pointerMin").innerHTML = this.model.calcValue(
-        shiftX
-      );
     }
 
     function onMouseUp() {
       // Обновление модели
-      this.model.updateOption("minValue", this.model.calcValue(shiftX));
+      if (isElementButtonMin) {
+        this.model.updateOption("minValue", this.model.calcValue(shiftX));
+      } else {
+        this.model.updateOption("maxValue", this.model.calcValue(shiftX));
+      }
 
       document.removeEventListener("mousemove", onMouseMoveBindThis);
       document.removeEventListener("mouseup", onMouseUpBindThis);
