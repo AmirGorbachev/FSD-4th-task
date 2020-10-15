@@ -9,7 +9,7 @@ class GrsView {
     this.elements = {};
   }
 
-  createSliderElements(element) {
+  init(element) {
     this.elements.rangeSlider = document.createElement("div");
     this.elements.rangeSlider.className = "green-range-slider grs";
 

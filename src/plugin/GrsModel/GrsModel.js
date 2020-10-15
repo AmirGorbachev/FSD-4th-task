@@ -31,13 +31,8 @@ class GrsModel {
     return result;
   }
 
-  calcValuePercentage(persentOffset) {
-    let value =
-      typeof persentOffset === "number"
-        ? this.calcValue(persentOffset)
-        : typeof persentOffset === "string"
-        ? this.options[persentOffset]
-        : $.error("Неожиданный тип данных для model.calcValuePercentage()");
+  calcPersentOffset(keyOptions) {
+    let value = this.options[keyOptions];
 
     let result =
       ((value - this.options.minLimit) /
