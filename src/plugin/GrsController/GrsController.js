@@ -188,11 +188,10 @@ class GrsController {
       this.render();
     });
     this.view.getElement("scaleMax").addEventListener("click", () => {
+      // Обновление модели
       if (this.model.getOption("isInterval")) {
-        // Обновление модели
         this.model.updateOption("maxValue", this.model.calcValue(100));
       } else {
-        // Обновление модели
         this.model.updateOption("minValue", this.model.calcValue(100));
       }
       // Отрисовка элементов
