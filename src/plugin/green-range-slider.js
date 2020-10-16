@@ -1,10 +1,10 @@
 // Стили плагина
-import "./green-range-slider.sass";
-import { GrsController } from "./GrsController/GrsController.js";
+import './green-range-slider.sass';
+import { GrsController } from './GrsController/GrsController.js';
 
 // Добавление в область видимости jQuery
 (function ($, window, document, undefined) {
-  let pluginName = "greenRangeSlider";
+  let pluginName = 'greenRangeSlider';
 
   let defaults = {
     minLimit: 0,
@@ -54,7 +54,7 @@ import { GrsController } from "./GrsController/GrsController.js";
         this,
         Array.prototype.slice.call(arguments, 1)
       );
-    } else if (typeof method === "object" || !method) {
+    } else if (typeof method === 'object' || !method) {
       return methods.init.apply(this, arguments);
     } else {
       $.error(

@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
 class GrsViewVolume {
 
   constructor() {}
 
   init() {
-    let volume = document.createElement("div");
-    volume.className = "grs-volume";
+    let volume = document.createElement('div');
+    volume.className = 'grs-volume';
 
-    let filled = document.createElement("div");
-    filled.className = "grs-filled";
+    let filled = document.createElement('div');
+    filled.className = 'grs-filled';
 
     volume.append(filled);
 

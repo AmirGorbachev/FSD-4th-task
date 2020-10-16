@@ -1,9 +1,9 @@
 // Стили
-import "./range-sliders.sass";
+import './range-sliders.sass';
 // Подключение плагина
-import "../plugin/green-range-slider.js";
+import '../plugin/green-range-slider.js';
 
-$("#grs-one").greenRangeSlider({
+$('#grs-one').greenRangeSlider({
   minLimit: 17,
   maxLimit: 63,
   minValue: 25,
@@ -14,9 +14,9 @@ $("#grs-one").greenRangeSlider({
   withPointers: true,
   withScale: true,
 });
-$("#grs-one").greenRangeSlider("update", {
+$('#grs-one').greenRangeSlider('update', {
   minValue: 35,
   minLimit: 25,
   isInterval: true,
 });
-$("#grs-two").greenRangeSlider();
+$('#grs-two').greenRangeSlider();

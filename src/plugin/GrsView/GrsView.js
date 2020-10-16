@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-import { GrsViewVolume } from "../GrsView/GrsViewVolume.js";
-import { GrsViewButton } from "../GrsView/GrsViewButton.js";
-import { GrsViewScale } from "../GrsView/GrsViewScale.js";
+import { GrsViewVolume } from '../GrsView/GrsViewVolume.js';
+import { GrsViewButton } from '../GrsView/GrsViewButton.js';
+import { GrsViewScale } from '../GrsView/GrsViewScale.js';
 
 class GrsView {
   constructor() {
@@ -10,8 +10,8 @@ class GrsView {
   }
 
   init(element) {
-    this.elements.rangeSlider = document.createElement("div");
-    this.elements.rangeSlider.className = "green-range-slider grs";
+    this.elements.rangeSlider = document.createElement('div');
+    this.elements.rangeSlider.className = 'green-range-slider grs';
 
     [
       this.elements.buttonMin,
@@ -64,31 +64,31 @@ class GrsView {
   }
 
   addVertical() {
-    this.elements.rangeSlider.classList.add("grs-is-vertical");
+    this.elements.rangeSlider.classList.add('grs-is-vertical');
   }
   removeVertical() {
-    this.elements.rangeSlider.classList.remove("grs-is-vertical");
+    this.elements.rangeSlider.classList.remove('grs-is-vertical');
   }
 
   addInterval() {
-    this.elements.rangeSlider.classList.add("grs-is-interval");
+    this.elements.rangeSlider.classList.add('grs-is-interval');
   }
   removeInterval() {
-    this.elements.rangeSlider.classList.remove("grs-is-interval");
+    this.elements.rangeSlider.classList.remove('grs-is-interval');
   }
 
   addPointers() {
-    this.elements.rangeSlider.classList.add("grs-with-pointers");
+    this.elements.rangeSlider.classList.add('grs-with-pointers');
   }
   removePointers() {
-    this.elements.rangeSlider.classList.remove("grs-with-pointers");
+    this.elements.rangeSlider.classList.remove('grs-with-pointers');
   }
 
   addScale() {
-    this.elements.rangeSlider.classList.add("grs-with-scale");
+    this.elements.rangeSlider.classList.add('grs-with-scale');
   }
   removeScale() {
-    this.elements.rangeSlider.classList.remove("grs-with-scale");
+    this.elements.rangeSlider.classList.remove('grs-with-scale');
   }
 }
 
