@@ -37,15 +37,18 @@ module.exports = {
       },
       {
         test: /\.(sass|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.pug$/,
-        use: ['pug-loader']
+        use: ['pug-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpe?g|gif|jpg|png|svg)$/,
@@ -55,7 +58,8 @@ module.exports = {
             esModule: false,
             outputPath: 'images/'
           }
-        }]
+        }],
+        exclude: /node_modules/,
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -64,8 +68,9 @@ module.exports = {
           options: {
             outputPath: 'fonts/'
           }
-        }]
-      }
+        }],
+        exclude: /node_modules/,
+      },
     ]
   },
   devServer: {  // configuration for webpack-dev-server
