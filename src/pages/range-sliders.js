@@ -1,7 +1,7 @@
 // Стили
 import './range-sliders.sass';
 // Подключение плагина
-import '../plugin/green-range-slider.js';
+import '../plugin/green-range-slider.ts';
 
 $('#grs-one').greenRangeSlider({
   minLimit: 17,
