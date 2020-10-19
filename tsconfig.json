@@ -3,6 +3,8 @@
     "outDir": "./dist/",
     "allowJs": true,
     "alwaysStrict": true,
+    "strictNullChecks": true,
+    "target": "es5",
   },
   "exclude": [
     "node_modules"

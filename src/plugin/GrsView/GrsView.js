@@ -1,8 +1,8 @@
 'use strict';
 
-import { GrsViewVolume } from '../GrsView/GrsViewVolume.js';
-import { GrsViewButton } from '../GrsView/GrsViewButton.js';
-import { GrsViewScale } from '../GrsView/GrsViewScale.js';
+import { GrsViewVolume } from '../GrsView/GrsViewVolume';
+import { GrsViewButton } from '../GrsView/GrsViewButton';
+import { GrsViewScale } from '../GrsView/GrsViewScale';
 
 class GrsView {
   constructor() {

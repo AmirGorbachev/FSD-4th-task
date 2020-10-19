@@ -1,7 +1,12 @@
 'use strict';
 
-import { GrsView } from '../GrsView/GrsView.js';
-import { GrsModel } from '../GrsModel/GrsModel.js';
+import { GrsView } from '../GrsView/GrsView';
+import { GrsModel } from '../GrsModel/GrsModel.ts';
+
+// interface  IGrsController  {
+//   model: Object;
+//   view: Object;
+// }
 
 class GrsController {
   constructor(options) {
