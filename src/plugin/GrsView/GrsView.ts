@@ -41,7 +41,7 @@ class GrsView implements IGrsView {
   readonly elements: Elements;
 
   constructor() {
-    this.elements;
+    this.elements = {} as Elements;
   }
 
   init(element) {
