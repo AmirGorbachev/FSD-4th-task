@@ -4,6 +4,7 @@ import { GrsViewVolume } from '../GrsView/GrsViewVolume';
 import { GrsViewButton } from '../GrsView/GrsViewButton';
 import { GrsViewScale } from '../GrsView/GrsViewScale';
 
+type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 
 interface Elements {
   rangeSlider: HTMLElement;
