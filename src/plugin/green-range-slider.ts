@@ -30,7 +30,10 @@ import { GrsController } from './GrsController/GrsController.ts';
     withScale: true,
   };
 
-  let GreenRangeSlider = function(element: HTMLElement, options: IOptions): void {
+  let GreenRangeSlider = function (
+    element: HTMLElement,
+    options: IOptions
+  ): void {
     this.element = element;
     this.options = $.extend({}, defaults, options);
 
@@ -40,7 +43,7 @@ import { GrsController } from './GrsController/GrsController.ts';
     this.controller = new GrsController(this.options);
 
     this.controller.init(this.element);
-  }
+  };
 
   let methods = {
     init: function (options) {

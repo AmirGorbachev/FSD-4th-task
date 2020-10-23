@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
-import { GrsViewVolume } from "../GrsView/GrsViewVolume";
-import { GrsViewButton } from "../GrsView/GrsViewButton";
-import { GrsViewScale } from "../GrsView/GrsViewScale";
+import { GrsViewVolume } from '../GrsView/GrsViewVolume';
+import { GrsViewButton } from '../GrsView/GrsViewButton';
+import { GrsViewScale } from '../GrsView/GrsViewScale';
+
 
 interface Elements {
   rangeSlider: HTMLElement;
@@ -21,7 +22,9 @@ interface IGrsView {
   readonly elements: Elements;
   init(element): void;
   getElement(element: keyof Elements): HTMLElement;
-  calcCoords(element): {
+  calcCoords(
+    element
+  ): {
     top: number;
     left: number;
     rigth: number;
@@ -41,8 +44,8 @@ class GrsView {
   }
 
   init(element) {
-    this.elements.rangeSlider = document.createElement("div");
-    this.elements.rangeSlider.className = "green-range-slider grs";
+    this.elements.rangeSlider = document.createElement('div');
+    this.elements.rangeSlider.className = 'green-range-slider grs';
 
     [
       this.elements.buttonMin,

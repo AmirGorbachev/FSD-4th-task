@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 interface IOptions {
   minLimit: number;
@@ -19,7 +19,7 @@ interface IGrsModel {
   calcPersentOffset(
     key: Exclude<
       keyof IOptions,
-      "isVertical" | "isInterval" | "withPointers" | "withScale"
+      'isVertical' | 'isInterval' | 'withPointers' | 'withScale'
     >
   ): number;
 }
@@ -43,8 +43,7 @@ class GrsModel implements IGrsModel {
 
   public calcValue(persentOffset: number): number {
     let value: number =
-      (this.options.maxLimit - this.options.minLimit) *
-        (persentOffset / 100) +
+      (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
       this.options.minLimit;
 
     let result: number =
@@ -62,7 +61,7 @@ class GrsModel implements IGrsModel {
   public calcPersentOffset(
     key: Exclude<
       keyof IOptions,
-      "isVertical" | "isInterval" | "withPointers" | "withScale"
+      'isVertical' | 'isInterval' | 'withPointers' | 'withScale'
     >
   ): number {
     let value: number = this.options[key];
