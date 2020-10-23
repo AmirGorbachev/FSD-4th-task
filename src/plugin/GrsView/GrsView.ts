@@ -29,14 +29,8 @@ interface IGrsView {
     width: number;
     middleX: number;
   };
-  addVertical(): void;
-  removeVertical(): void;
-  addInterval(): void;
-  removeInterval(): void;
-  addPointers(): void;
-  removePointers(): void;
-  addScale(): void;
-  removeScale(): void;
+  addParameter(parameter: Parameter): void;
+  removeParameter(parameter: Parameter): void;
 }
 
 class GrsView {
@@ -100,32 +94,12 @@ class GrsView {
     return coords;
   }
 
-  addVertical(): void {
-    this.elements.rangeSlider.classList.add("grs-is-vertical");
-  }
-  removeVertical(): void {
-    this.elements.rangeSlider.classList.remove("grs-is-vertical");
+  addParameter(parameter: Parameter): void {
+    this.elements.rangeSlider.classList.add(`grs-${parameter}`);
   }
 
-  addInterval(): void {
-    this.elements.rangeSlider.classList.add("grs-is-interval");
-  }
-  removeInterval(): void {
-    this.elements.rangeSlider.classList.remove("grs-is-interval");
-  }
-
-  addPointers(): void {
-    this.elements.rangeSlider.classList.add("grs-with-pointers");
-  }
-  removePointers(): void {
-    this.elements.rangeSlider.classList.remove("grs-with-pointers");
-  }
-
-  addScale(): void {
-    this.elements.rangeSlider.classList.add("grs-with-scale");
-  }
-  removeScale(): void {
-    this.elements.rangeSlider.classList.remove("grs-with-scale");
+  removeParameter(parameter: Parameter): void {
+    this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
   }
 }
 

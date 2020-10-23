@@ -34,21 +34,21 @@ class GrsController {
 
   updateView() {
     // Проверка параметров отрисовки
-    this.model.getOption("isVertical")
-      ? this.view.addVertical()
-      : this.view.removeVertical();
+    this.model.getOption('isVertical')
+      ? this.view.addParameter('isVertical')
+      : this.view.removeParameter('isVertical');
 
-    this.model.getOption("isInterval")
-      ? this.view.addInterval()
-      : this.view.removeInterval();
+    this.model.getOption('isInterval')
+      ? this.view.addParameter('isInterval')
+      : this.view.removeParameter('isInterval');
 
-    this.model.getOption("withPointers")
-      ? this.view.addPointers()
-      : this.view.removePointers();
+    this.model.getOption('withPointers')
+      ? this.view.addParameter('withPointers')
+      : this.view.removeParameter('withPointers');
 
-    this.model.getOption("withScale")
-      ? this.view.addScale()
-      : this.view.removeScale();
+    this.model.getOption('withScale')
+      ? this.view.addParameter('withScale')
+      : this.view.removeParameter('withScale');
 
     // Значения шкалы (лимитов)
     this.view.getElement("scaleMin").innerHTML = String(
