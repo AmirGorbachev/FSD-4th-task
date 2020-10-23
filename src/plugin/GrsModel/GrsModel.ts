@@ -1,10 +1,6 @@
 "use strict";
 
-// interface  IGrsModel  {
-//   options: Object;
-// }
-
-type options = {
+interface IOptions {
   minLimit: number;
   maxLimit: number;
   minValue: number;
@@ -14,16 +10,28 @@ type options = {
   isInterval: boolean;
   withPointers: boolean;
   withScale: boolean;
-};
+}
 
-class GrsModel {
-  private options: options;
+interface IGrsModel {
+  getOption(option: keyof IOptions): number | boolean;
+  updateOption(option: string, value: number | boolean): void;
+  calcValue(persentOffset: number): number;
+  calcPersentOffset(
+    key: Exclude<
+      keyof IOptions,
+      "isVertical" | "isInterval" | "withPointers" | "withScale"
+    >
+  ): number;
+}
 
-  constructor(options: options) {
+class GrsModel implements IGrsModel {
+  private options: IOptions;
+
+  constructor(options: IOptions) {
     this.options = options;
   }
 
-  public getOption(option): void {
+  public getOption(option: keyof IOptions): number | boolean {
     return this.options[option];
   }
 
@@ -35,7 +43,8 @@ class GrsModel {
 
   public calcValue(persentOffset: number): number {
     let value: number =
-      (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
+      (this.options.maxLimit - this.options.minLimit) *
+        (persentOffset / 100) +
       this.options.minLimit;
 
     let result: number =
@@ -52,7 +61,7 @@ class GrsModel {
 
   public calcPersentOffset(
     key: Exclude<
-      keyof options,
+      keyof IOptions,
       "isVertical" | "isInterval" | "withPointers" | "withScale"
     >
   ): number {
@@ -67,4 +76,4 @@ class GrsModel {
   }
 }
 
-export { GrsModel };
+export { IGrsModel, GrsModel };

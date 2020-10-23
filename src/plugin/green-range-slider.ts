@@ -4,9 +4,21 @@ import { GrsController } from './GrsController/GrsController';
 
 // Добавление в область видимости jQuery
 (function ($, window, document, undefined) {
-  let pluginName = 'greenRangeSlider';
+  interface IOptions {
+    minLimit: number;
+    maxLimit: number;
+    minValue: number;
+    maxValue: number;
+    step: number;
+    isVertical: boolean;
+    isInterval: boolean;
+    withPointers: boolean;
+    withScale: boolean;
+  };
 
-  let defaults = {
+  const pluginName: string = 'greenRangeSlider';
+
+  let defaults: IOptions = {
     minLimit: 0,
     maxLimit: 100,
     minValue: 25,
@@ -18,7 +30,7 @@ import { GrsController } from './GrsController/GrsController';
     withScale: true,
   };
 
-  function GreenRangeSlider(element, options) {
+  let GreenRangeSlider = function(element: HTMLElement, options: IOptions): void {
     this.element = element;
     this.options = $.extend({}, defaults, options);
 
