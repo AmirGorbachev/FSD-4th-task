@@ -37,7 +37,7 @@ interface IGrsView {
   removeParameter(parameter: Parameter): void;
 }
 
-class GrsView {
+class GrsView implements IGrsView {
   readonly elements: Elements;
 
   constructor() {

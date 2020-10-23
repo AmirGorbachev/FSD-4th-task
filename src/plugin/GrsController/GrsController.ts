@@ -8,7 +8,7 @@ interface IGrsController {
   view: IGrsView;
 }
 
-class GrsController {
+class GrsController implements IGrsController {
   readonly model: IGrsModel;
   readonly view: IGrsView;
 
