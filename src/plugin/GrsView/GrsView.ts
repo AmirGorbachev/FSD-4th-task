@@ -6,6 +6,15 @@ import { GrsViewScale } from '../GrsView/GrsViewScale';
 
 type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 
+type Coordinates = {
+  top: number;
+  left: number;
+  rigth: number;
+  bottom: number;
+  width: number;
+  middleX: number;
+};
+
 interface Elements {
   rangeSlider: HTMLElement;
   buttonMin: HTMLElement;
@@ -21,18 +30,9 @@ interface Elements {
 
 interface IGrsView {
   readonly elements: Elements;
-  init(element): void;
+  init(element: HTMLElement): void;
   getElement(element: keyof Elements): HTMLElement;
-  calcCoords(
-    element
-  ): {
-    top: number;
-    left: number;
-    rigth: number;
-    bottom: number;
-    width: number;
-    middleX: number;
-  };
+  calcCoords(element: keyof Elements): Coordinates;
   addParameter(parameter: Parameter): void;
   removeParameter(parameter: Parameter): void;
 }
@@ -80,7 +80,7 @@ class GrsView implements IGrsView {
   calcCoords(element) {
     let coordinates = this.elements[element].getBoundingClientRect();
 
-    let coords = {
+    let coords: Coordinates = {
       top: coordinates.top + window.pageYOffset,
       left: coordinates.left + window.pageXOffset,
       rigth: coordinates.left + window.pageXOffset + coordinates.width,
