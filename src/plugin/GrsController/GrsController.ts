@@ -1,16 +1,16 @@
 "use strict";
 
-import { GrsView } from "../GrsView/GrsView";
-import { IGrsModel, GrsModel } from "../GrsModel/GrsModel";
+import { IGrsView, GrsView } from "../GrsView/GrsView.ts";
+import { IGrsModel, GrsModel } from "../GrsModel/GrsModel.ts";
 
 interface IGrsController {
-  // model: IGrsModel;
-  // view: IGrsView;
+  model: IGrsModel;
+  view: IGrsView;
 }
 
-class GrsController implements IGrsController {
-  // readonly model: IGrsModel;
-  // readonly view: IGrsView;
+class GrsController {
+  readonly model: IGrsModel;
+  readonly view: IGrsView;
 
   constructor(options) {
     this.model = new GrsModel(options);
@@ -51,11 +51,11 @@ class GrsController implements IGrsController {
       : this.view.removeScale();
 
     // Значения шкалы (лимитов)
-    this.view.getElement("scaleMin").innerHTML = this.model.getOption(
-      "minLimit"
+    this.view.getElement("scaleMin").innerHTML = String(
+      this.model.getOption("minLimit")
     );
-    this.view.getElement("scaleMax").innerHTML = this.model.getOption(
-      "maxLimit"
+    this.view.getElement("scaleMax").innerHTML = String(
+      this.model.getOption("maxLimit")
     );
 
     // Отрисовка элементов
@@ -66,15 +66,15 @@ class GrsController implements IGrsController {
     // Ползунок min
     this.view.getElement("buttonMin").style.left =
       this.model.calcPersentOffset("minValue") + "%";
-    this.view.getElement("pointerMin").innerHTML = this.model.getOption(
-      "minValue"
+    this.view.getElement("pointerMin").innerHTML = String(
+      this.model.getOption("minValue")
     );
     // Ползунок max
     if (this.model.getOption("isInterval")) {
       this.view.getElement("buttonMax").style.left =
         this.model.calcPersentOffset("maxValue") + "%";
-      this.view.getElement("pointerMax").innerHTML = this.model.getOption(
-        "maxValue"
+      this.view.getElement("pointerMax").innerHTML = String(
+        this.model.getOption("maxValue")
       );
     }
     // Шкала прогресса filled
@@ -109,15 +109,15 @@ class GrsController implements IGrsController {
       .getElement("buttonMax")
       .addEventListener("mousedown", onMouseDownBindThis);
 
-    function onMouseDown() {
-      isElementButtonMin = event.currentTarget.classList.contains(
+    function onMouseDown(event: MouseEvent) {
+      isElementButtonMin = (event.currentTarget as HTMLElement).classList.contains(
         "grs-button-min"
       );
       document.addEventListener("mousemove", onMouseMoveBindThis);
       document.addEventListener("mouseup", onMouseUpBindThis);
     }
 
-    function onMouseMove(event) {
+    function onMouseMove(event: MouseEvent) {
       // Сброс действия по умолчанию (выделение текста)
       event.preventDefault();
 
@@ -159,7 +159,7 @@ class GrsController implements IGrsController {
       this.render();
     }
 
-    function onMouseUp() {
+    function onMouseUp(event: MouseEvent) {
       document.removeEventListener("mousemove", onMouseMoveBindThis);
       document.removeEventListener("mouseup", onMouseUpBindThis);
     }
@@ -170,7 +170,7 @@ class GrsController implements IGrsController {
       // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX =
-        ((event.clientX - this.view.calcCoords("volume").left) /
+        (((event as MouseEvent).clientX - this.view.calcCoords("volume").left) /
           this.view.calcCoords("volume").width) *
         100;
       // Обновление модели

@@ -1,6 +1,6 @@
 // Стили плагина
 import './green-range-slider.sass';
-import { GrsController } from './GrsController/GrsController';
+import { GrsController } from './GrsController/GrsController.ts';
 
 // Добавление в область видимости jQuery
 (function ($, window, document, undefined) {
