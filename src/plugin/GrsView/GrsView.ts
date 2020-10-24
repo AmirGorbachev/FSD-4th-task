@@ -30,7 +30,7 @@ interface Elements {
 
 interface IGrsView {
   readonly elements: Elements;
-  init(element: HTMLElement): void;
+  init(domElement: HTMLElement): void;
   getElement(element: keyof Elements): HTMLElement;
   calcCoords(element: keyof Elements): Coordinates;
   addParameter(parameter: Parameter): void;
@@ -44,7 +44,7 @@ class GrsView implements IGrsView {
     this.elements = {} as Elements;
   }
 
-  init(element) {
+  init(domElement) {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
@@ -53,7 +53,7 @@ class GrsView implements IGrsView {
       this.elements.pointerMin,
       this.elements.buttonMax,
       this.elements.pointerMax,
-    ] = new GrsViewButton().initButtonMin();
+    ] = new GrsViewButton().init();
 
     [this.elements.volume, this.elements.filled] = new GrsViewVolume().init();
 
@@ -70,7 +70,7 @@ class GrsView implements IGrsView {
       this.elements.buttonMax
     );
 
-    element.append(this.elements.rangeSlider);
+    domElement.append(this.elements.rangeSlider);
   }
 
   getElement(element): HTMLElement {
