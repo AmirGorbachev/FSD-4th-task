@@ -1,8 +1,8 @@
 'use strict';
 
-import { GrsViewVolume } from '../GrsView/GrsViewVolume';
-import { GrsViewButton } from '../GrsView/GrsViewButton';
-import { GrsViewScale } from '../GrsView/GrsViewScale';
+import { GrsViewVolume } from '../GrsView/GrsViewVolume.ts';
+import { GrsViewButton } from '../GrsView/GrsViewButton.ts';
+import { GrsViewScale } from '../GrsView/GrsViewScale.ts';
 
 type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 

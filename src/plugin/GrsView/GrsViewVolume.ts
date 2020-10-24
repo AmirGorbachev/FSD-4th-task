@@ -1,6 +1,13 @@
 'use strict';
 
+interface IGrsViewVolume {
+  volume: HTMLDivElement;
+  filled: HTMLDivElement;
+}
+
 class GrsViewVolume {
+  volume: HTMLDivElement;
+  filled: HTMLDivElement;
 
   constructor() {}
 
