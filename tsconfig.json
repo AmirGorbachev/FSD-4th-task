@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    // "allowJs": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
+    "allowJs": false, // Разрешать компилировать файлы с JavaScript-кодом?
+    "alwaysStrict": true, // Компилировать ли каждый файл в строгом режиме и создавать ли 'use strict' для каждого выходного файла?
     "target": "es5",
+    "noUnusedLocals": true, // Показывать ошибку, если где-то найдены неиспользуемые локальные значения.
+    "noUnusedParameters": true, // Показывать ошибку, если где-то найдены неиспользуемые параметры.
     // "noImplicitThis": true,
+    "removeComments": true, // Удалить все комментарии из итогового файла.
+    "sourceMap": true, // Создавать ли соответствующие source map файлы ".map"?
+    "strict": false, // Включить ли все строги проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
+    "strictNullChecks": true, // Значения "null" и "undefined" могут быть присвоены только значениям данного типа и значениям только с типом "any"?
   },
   "exclude": [
     "node_modules"
