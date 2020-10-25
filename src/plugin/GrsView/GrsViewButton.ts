@@ -18,7 +18,6 @@ class GrsViewButton implements IGrsViewButton {
 
     buttonMin.append(pointerMin);
 
-
     const buttonMax: HTMLDivElement = document.createElement('div');
     buttonMax.className = 'grs-button-max';
 

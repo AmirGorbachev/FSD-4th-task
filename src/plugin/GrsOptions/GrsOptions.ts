@@ -10,7 +10,7 @@ interface IOptions {
   isInterval: boolean;
   withPointers: boolean;
   withScale: boolean;
-}
+};
 
 const defaultOptions: IOptions = {
   minLimit: 0,
@@ -22,6 +22,6 @@ const defaultOptions: IOptions = {
   isInterval: false,
   withPointers: true,
   withScale: true,
-}
+};
 
 export { IOptions, defaultOptions };

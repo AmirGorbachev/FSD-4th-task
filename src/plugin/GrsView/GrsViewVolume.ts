@@ -22,4 +22,4 @@ class GrsViewVolume implements IGrsViewVolume {
   }
 }
 
-export {GrsViewVolume};
+export { GrsViewVolume };
