@@ -33,8 +33,8 @@ class GreenRangeSlider implements IGreenRangeSlider {
 };
 
 let methods = {
-  init: function (options) {
-    return this.each(function () {
+  init: function (this: typeof $.fn, options) {
+    return this.each(function (this: HTMLDivElement) {
       if (!$.data(this, pluginName)) {
         $.data(this, pluginName, new GreenRangeSlider(this, options));
       } else {
@@ -43,8 +43,8 @@ let methods = {
     });
   },
 
-  update: function (options) {
-    return this.each(function () {
+  update: function (this: typeof $.fn, options) {
+    return this.each(function (this: HTMLDivElement) {
       $.data(this, pluginName).controller.updateModel(options);
     });
   },
