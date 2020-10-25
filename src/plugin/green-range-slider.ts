@@ -1,35 +1,35 @@
 // Стили плагина
 import './green-range-slider.sass';
-import { /*IGrsController, */GrsController } from './GrsController/GrsController.ts';
+import { IGrsController, GrsController } from './GrsController/GrsController.ts';
 import { IOptions, defaultOptions } from './GrsOptions/GrsOptions.ts';
 
 interface IGreenRangeSlider {
-  (
     element: HTMLElement,
     options: IOptions,
-    // _defaults: IOptions,
-    // _name: string,
-    // controller: IGrsController
-  ): void;
+    _defaults: IOptions,
+    _name: string,
+    controller: IGrsController
 }
 
 const pluginName: string = 'greenRangeSlider';
 
 let defaults: IOptions = defaultOptions;
 
-let GreenRangeSlider: IGreenRangeSlider = function (
-  element: HTMLElement,
-  options: IOptions
-): void {
-  this.element = element;
-  this.options = $.extend({}, defaults, options);
+class GreenRangeSlider implements IGreenRangeSlider {
+  element: HTMLElement;
+  options: IOptions;
+  _defaults: IOptions;
+  _name: string;
+  controller: IGrsController;
 
-  this._defaults = defaults;
-  this._name = pluginName;
-
-  this.controller = new GrsController(this.options);
-
-  this.controller.init(this.element);
+  constructor(element: HTMLElement, options: IOptions) {
+    this.element = element;
+    this.options = $.extend({}, defaults, options);
+    this._defaults = defaults;
+    this._name = pluginName;
+    this.controller = new GrsController(this.options);
+    this.controller.init(this.element);
+  }
 };
 
 let methods = {
