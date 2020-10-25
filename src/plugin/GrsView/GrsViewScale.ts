@@ -1,9 +1,14 @@
 'use strict';
 
+interface IElements {
+  [index: number]: HTMLDivElement | HTMLSpanElement;
+}
+
 interface IGrsViewScale {
   scale: HTMLDivElement;
   scaleMin: HTMLSpanElement;
   scaleMax: HTMLSpanElement;
+  init(): IElements;
 }
 
 class GrsViewScale implements IGrsViewScale {

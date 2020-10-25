@@ -1,10 +1,15 @@
 'use strict';
 
+interface IElements {
+  [index: number]: HTMLDivElement | HTMLSpanElement;
+}
+
 interface IGrsViewButton {
   buttonMin: HTMLDivElement;
   pointerMin: HTMLSpanElement;
   buttonMax: HTMLDivElement;
   pointerMax: HTMLSpanElement;
+  init(): IElements;
 }
 
 class GrsViewButton implements IGrsViewButton {

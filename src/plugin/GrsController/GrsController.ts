@@ -8,14 +8,19 @@ interface IGrsController {
   model: IGrsModel;
   view: IGrsView;
   init(container: HTMLElement): void;
-  updateModel(options: keyof IOptions): void;
+  updateModel(options: IOptions): void;
+  updateView(): void;
+  render(): void;
+  onMoveButton(): void;
+  onClickVolume(): void;
+  onClickScale(): void;
 }
 
 class GrsController implements IGrsController {
   readonly model: IGrsModel;
   readonly view: IGrsView;
 
-  constructor(options) {
+  constructor(options: IOptions) {
     this.model = new GrsModel(options);
     this.view = new GrsView();
   }
@@ -210,4 +215,4 @@ class GrsController implements IGrsController {
   }
 }
 
-export { GrsController };
+export { IGrsController, GrsController };

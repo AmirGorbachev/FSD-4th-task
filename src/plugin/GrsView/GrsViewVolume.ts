@@ -1,11 +1,16 @@
 'use strict';
 
+interface IElements {
+  [index: number]: HTMLDivElement;
+}
+
 interface IGrsViewVolume {
   volume: HTMLDivElement;
   filled: HTMLDivElement;
+  init(): IElements;
 }
 
-class GrsViewVolume {
+class GrsViewVolume implements IGrsViewVolume {
   volume: HTMLDivElement;
   filled: HTMLDivElement;
 
@@ -25,8 +30,6 @@ class GrsViewVolume {
 
     return [this.volume, this.filled];
   }
-
-
 }
 
 export {GrsViewVolume};

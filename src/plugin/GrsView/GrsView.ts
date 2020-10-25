@@ -15,7 +15,7 @@ type Coordinates = {
   middleX: number;
 };
 
-interface Elements {
+interface IElements {
   rangeSlider: HTMLElement;
   buttonMin: HTMLElement;
   pointerMin: HTMLElement;
@@ -29,19 +29,19 @@ interface Elements {
 }
 
 interface IGrsView {
-  readonly elements: Elements;
+  readonly elements: IElements;
   init(domElement: HTMLElement): void;
-  getElement(element: keyof Elements): HTMLElement;
-  calcCoords(element: keyof Elements): Coordinates;
+  getElement(element: keyof IElements): HTMLElement;
+  calcCoords(element: keyof IElements): Coordinates;
   addParameter(parameter: Parameter): void;
   removeParameter(parameter: Parameter): void;
 }
 
 class GrsView implements IGrsView {
-  readonly elements: Elements;
+  readonly elements: IElements;
 
   constructor() {
-    this.elements = {} as Elements;
+    this.elements = {} as IElements;
   }
 
   init(domElement) {
@@ -73,7 +73,7 @@ class GrsView implements IGrsView {
     domElement.append(this.elements.rangeSlider);
   }
 
-  getElement(element): HTMLElement {
+  getElement(element) {
     return this.elements[element];
   }
 
@@ -98,11 +98,11 @@ class GrsView implements IGrsView {
     return coords;
   }
 
-  addParameter(parameter: Parameter): void {
+  addParameter(parameter) {
     this.elements.rangeSlider.classList.add(`grs-${parameter}`);
   }
 
-  removeParameter(parameter: Parameter): void {
+  removeParameter(parameter) {
     this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
   }
 }
