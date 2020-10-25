@@ -5,17 +5,10 @@ interface IElements {
 }
 
 interface IGrsViewScale {
-  scale: HTMLDivElement;
-  scaleMin: HTMLSpanElement;
-  scaleMax: HTMLSpanElement;
   init(): IElements;
 }
 
 class GrsViewScale implements IGrsViewScale {
-  scale: HTMLDivElement;
-  scaleMin: HTMLSpanElement;
-  scaleMax: HTMLSpanElement;
-
   constructor() {}
 
   init() {
@@ -30,11 +23,7 @@ class GrsViewScale implements IGrsViewScale {
 
     scale.append(scaleMin, scaleMax);
 
-    this.scale = scale;
-    this.scaleMin = scaleMin;
-    this.scaleMax = scaleMax;
-
-    return [this.scale, this.scaleMin, this.scaleMax];
+    return [scale, scaleMin, scaleMax];
   }
 }
 

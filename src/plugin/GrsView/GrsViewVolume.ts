@@ -5,15 +5,10 @@ interface IElements {
 }
 
 interface IGrsViewVolume {
-  volume: HTMLDivElement;
-  filled: HTMLDivElement;
   init(): IElements;
 }
 
 class GrsViewVolume implements IGrsViewVolume {
-  volume: HTMLDivElement;
-  filled: HTMLDivElement;
-
   constructor() {}
 
   init() {
@@ -25,10 +20,7 @@ class GrsViewVolume implements IGrsViewVolume {
 
     volume.append(filled);
 
-    this.volume = volume;
-    this.filled = filled;
-
-    return [this.volume, this.filled];
+    return [volume, filled];
   }
 }
 

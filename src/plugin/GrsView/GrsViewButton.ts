@@ -5,19 +5,10 @@ interface IElements {
 }
 
 interface IGrsViewButton {
-  buttonMin: HTMLDivElement;
-  pointerMin: HTMLSpanElement;
-  buttonMax: HTMLDivElement;
-  pointerMax: HTMLSpanElement;
   init(): IElements;
 }
 
 class GrsViewButton implements IGrsViewButton {
-  buttonMin: HTMLDivElement;
-  pointerMin: HTMLSpanElement;
-  buttonMax: HTMLDivElement;
-  pointerMax: HTMLSpanElement;
-
   constructor() {}
 
   init() {
@@ -29,8 +20,6 @@ class GrsViewButton implements IGrsViewButton {
 
     buttonMin.append(pointerMin);
 
-    this.buttonMin = buttonMin;
-    this.pointerMin = pointerMin;
 
     const buttonMax: HTMLDivElement = document.createElement('div');
     buttonMax.className = 'grs-button-max';
@@ -40,10 +29,7 @@ class GrsViewButton implements IGrsViewButton {
 
     buttonMax.append(pointerMax);
 
-    this.buttonMax = buttonMax;
-    this.pointerMax = pointerMax;
-
-    return [this.buttonMin, this.pointerMin, this.buttonMax, this.pointerMax];
+    return [buttonMin, pointerMin, buttonMax, pointerMax];
   }
 }
 
