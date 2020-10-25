@@ -102,30 +102,19 @@ class GrsController implements IGrsController {
   }
 
   onMoveButton() {
-    // Нужно зафиксировать this,
-    // так как он теряется при передачи функции в событие
-    let onMouseDownBindThis = onMouseDown.bind(this);
-    let onMouseMoveBindThis = onMouseMove.bind(this);
-    let onMouseUpBindThis = onMouseUp.bind(this);
     // Кнопка минимальная или максимальная
     let isElementButtonMin;
 
-    this.view
-      .getElement('buttonMin')
-      .addEventListener('mousedown', onMouseDownBindThis);
-    this.view
-      .getElement('buttonMax')
-      .addEventListener('mousedown', onMouseDownBindThis);
-
-    function onMouseDown(event: MouseEvent) {
+    // События
+    let onMouseDown = (event: MouseEvent) => {
       isElementButtonMin = (event.currentTarget as HTMLElement).classList.contains(
         'grs-button-min'
       );
-      document.addEventListener('mousemove', onMouseMoveBindThis);
-      document.addEventListener('mouseup', onMouseUpBindThis);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     }
 
-    function onMouseMove(event: MouseEvent) {
+    let onMouseMove = (event: MouseEvent) => {
       // Сброс действия по умолчанию (выделение текста)
       event.preventDefault();
 
@@ -167,10 +156,17 @@ class GrsController implements IGrsController {
       this.render();
     }
 
-    function onMouseUp(event: MouseEvent) {
-      document.removeEventListener('mousemove', onMouseMoveBindThis);
-      document.removeEventListener('mouseup', onMouseUpBindThis);
+    let onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     }
+
+    this.view
+      .getElement('buttonMin')
+      .addEventListener('mousedown', onMouseDown);
+    this.view
+      .getElement('buttonMax')
+      .addEventListener('mousedown', onMouseDown);
   }
 
   onClickVolume() {
