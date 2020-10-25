@@ -1,16 +1,6 @@
 'use strict';
 
-interface IOptions {
-  minLimit: number;
-  maxLimit: number;
-  minValue: number;
-  maxValue: number;
-  step: number;
-  isVertical: boolean;
-  isInterval: boolean;
-  withPointers: boolean;
-  withScale: boolean;
-}
+import { IOptions } from '../GrsOptions/GrsOptions.ts';
 
 interface IGrsModel {
   getOption(option: keyof IOptions): number | boolean;

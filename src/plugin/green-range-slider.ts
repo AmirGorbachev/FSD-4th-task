@@ -1,34 +1,13 @@
 // Стили плагина
 import './green-range-slider.sass';
 import { GrsController } from './GrsController/GrsController.ts';
+import { IOptions, defaultOptions } from './GrsOptions/GrsOptions.ts';
 
 // Добавление в область видимости jQuery
 (function ($, window, document, undefined) {
-  interface IOptions {
-    minLimit: number;
-    maxLimit: number;
-    minValue: number;
-    maxValue: number;
-    step: number;
-    isVertical: boolean;
-    isInterval: boolean;
-    withPointers: boolean;
-    withScale: boolean;
-  };
-
   const pluginName: string = 'greenRangeSlider';
 
-  let defaults: IOptions = {
-    minLimit: 0,
-    maxLimit: 100,
-    minValue: 25,
-    maxValue: 75,
-    step: 1,
-    isVertical: false,
-    isInterval: false,
-    withPointers: true,
-    withScale: true,
-  };
+  let defaults: IOptions = defaultOptions;
 
   let GreenRangeSlider = function (
     element: HTMLElement,

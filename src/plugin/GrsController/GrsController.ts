@@ -2,10 +2,13 @@
 
 import { IGrsView, GrsView } from '../GrsView/GrsView.ts';
 import { IGrsModel, GrsModel } from '../GrsModel/GrsModel.ts';
+import { IOptions } from '../GrsOptions/GrsOptions.ts';
 
 interface IGrsController {
   model: IGrsModel;
   view: IGrsView;
+  init(container: HTMLElement): void;
+  updateModel(options: keyof IOptions): void;
 }
 
 class GrsController implements IGrsController {
