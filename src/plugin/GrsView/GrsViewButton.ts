@@ -1,5 +1,3 @@
-'use strict';
-
 interface IElements {
   [index: number]: HTMLDivElement | HTMLSpanElement;
 }

@@ -1,5 +1,3 @@
-'use strict';
-
 import { IGrsView, GrsView } from '../GrsView/GrsView.ts';
 import { IGrsModel, GrsModel } from '../GrsModel/GrsModel.ts';
 import { IOptions } from '../GrsOptions/GrsOptions.ts';

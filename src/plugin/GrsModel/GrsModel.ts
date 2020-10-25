@@ -1,5 +1,3 @@
-'use strict';
-
 import { IOptions } from '../GrsOptions/GrsOptions.ts';
 
 type OptionsExluded =

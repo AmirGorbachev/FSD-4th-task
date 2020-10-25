@@ -1,5 +1,3 @@
-'use strict';
-
 import { GrsViewVolume } from '../GrsView/GrsViewVolume.ts';
 import { GrsViewButton } from '../GrsView/GrsViewButton.ts';
 import { GrsViewScale } from '../GrsView/GrsViewScale.ts';
