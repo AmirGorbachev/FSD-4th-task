@@ -23,7 +23,7 @@ class GrsController implements IGrsController {
     this.view = new GrsView();
   }
 
-  init(container) {
+  init(container: HTMLElement) {
     this.view.init(container);
     this.updateView();
     this.onMoveButton();
@@ -31,8 +31,9 @@ class GrsController implements IGrsController {
     this.onClickScale();
   }
 
-  updateModel(options) {
-    for (let key in options) {
+  updateModel(options: IOptions) {
+    let key: keyof IOptions;
+    for (key in options) {
       this.model.updateOption(key, options[key]);
     }
     this.updateView();
@@ -101,7 +102,7 @@ class GrsController implements IGrsController {
 
   onMoveButton() {
     // Кнопка минимальная или максимальная
-    let isElementButtonMin;
+    let isElementButtonMin: boolean;
 
     // События
     let onMouseDown = (event: MouseEvent) => {
@@ -110,7 +111,7 @@ class GrsController implements IGrsController {
       );
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
-    }
+    };
 
     let onMouseMove = (event: MouseEvent) => {
       // Сброс действия по умолчанию (выделение текста)
@@ -152,12 +153,12 @@ class GrsController implements IGrsController {
       }
       // Отрисовка элементов
       this.render();
-    }
+    };
 
     let onMouseUp = () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-    }
+    };
 
     this.view
       .getElement('buttonMin')

@@ -8,7 +8,7 @@ type OptionsExluded =
 
 interface IGrsModel {
   getOption(option: keyof IOptions): number | boolean;
-  updateOption(option: string, value: number | boolean): void;
+  updateOption(option: keyof IOptions, value: number | boolean): void;
   calcValue(persentOffset: number): number;
   calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
 }
@@ -20,17 +20,17 @@ class GrsModel implements IGrsModel {
     this.options = options;
   }
 
-  public getOption(option) {
+  public getOption(option: keyof IOptions) {
     return this.options[option];
   }
 
-  public updateOption(option, value) {
+  public updateOption(option: keyof IOptions, value: number | boolean) {
     this.options[option] = value;
     // console.log(`${option} - ${value}`);
     // console.log(this.options);
   }
 
-  public calcValue(persentOffset) {
+  public calcValue(persentOffset: number) {
     let value: number =
       (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
       this.options.minLimit;
@@ -47,7 +47,7 @@ class GrsModel implements IGrsModel {
     return result;
   }
 
-  public calcPersentOffset(key) {
+  public calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
     let value: number = this.options[key];
 
     let result: number =

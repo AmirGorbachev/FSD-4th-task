@@ -1,14 +1,17 @@
 // Стили плагина
 import './green-range-slider.sass';
-import { IGrsController, GrsController } from './GrsController/GrsController.ts';
+import {
+  IGrsController,
+  GrsController,
+} from './GrsController/GrsController.ts';
 import { IOptions, defaultOptions } from './GrsOptions/GrsOptions.ts';
 
 interface IGreenRangeSlider {
-    element: HTMLElement,
-    options: IOptions,
-    _defaults: IOptions,
-    _name: string,
-    controller: IGrsController
+  element: HTMLElement;
+  options: IOptions;
+  _defaults: IOptions;
+  _name: string;
+  controller: IGrsController;
 }
 
 const pluginName: string = 'greenRangeSlider';
@@ -30,11 +33,11 @@ class GreenRangeSlider implements IGreenRangeSlider {
     this.controller = new GrsController(this.options);
     this.controller.init(this.element);
   }
-};
+}
 
 let methods = {
-  init: function (this: typeof $.fn, options) {
-    return this.each(function (this: HTMLDivElement) {
+  init: function (this: typeof $.fn, options: IOptions) {
+    return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {
         $.data(this, pluginName, new GreenRangeSlider(this, options));
       } else {
@@ -43,8 +46,8 @@ let methods = {
     });
   },
 
-  update: function (this: typeof $.fn, options) {
-    return this.each(function (this: HTMLDivElement) {
+  update: function (this: typeof $.fn, options: IOptions) {
+    return this.each(function (this: HTMLElement) {
       $.data(this, pluginName).controller.updateModel(options);
     });
   },
@@ -59,8 +62,6 @@ $.fn[pluginName] = function (method) {
   } else if (typeof method === 'object' || !method) {
     return methods.init.apply(this, arguments);
   } else {
-    $.error(
-      `Метод с именем ${method} не существует для jQuery.${pluginName}`
-    );
+    $.error(`Метод с именем ${method} не существует для jQuery.${pluginName}`);
   }
 };

@@ -42,7 +42,7 @@ class GrsView implements IGrsView {
     this.elements = {} as IElements;
   }
 
-  init(domElement) {
+  init(domElement: HTMLElement) {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
@@ -71,11 +71,11 @@ class GrsView implements IGrsView {
     domElement.append(this.elements.rangeSlider);
   }
 
-  getElement(element) {
+  getElement(element: keyof IElements) {
     return this.elements[element];
   }
 
-  calcCoords(element) {
+  calcCoords(element: keyof IElements) {
     let coordinates = this.elements[element].getBoundingClientRect();
 
     let coords: Coordinates = {
@@ -96,11 +96,11 @@ class GrsView implements IGrsView {
     return coords;
   }
 
-  addParameter(parameter) {
+  addParameter(parameter: Parameter) {
     this.elements.rangeSlider.classList.add(`grs-${parameter}`);
   }
 
-  removeParameter(parameter) {
+  removeParameter(parameter: Parameter) {
     this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
   }
 }
