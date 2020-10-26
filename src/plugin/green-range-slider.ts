@@ -53,14 +53,14 @@ let methods = {
   },
 };
 
-$.fn[pluginName] = function (method) {
-  if (methods[method]) {
-    return methods[method].apply(
+$.fn[pluginName] = function (method: keyof typeof methods | IOptions | string) {
+  if (methods[method as keyof typeof methods]) {
+    return methods[method as keyof typeof methods].apply(
       this,
-      Array.prototype.slice.call(arguments, 1)
+      Array.prototype.slice.call(arguments, 1) as [any]
     );
   } else if (typeof method === 'object' || !method) {
-    return methods.init.apply(this, arguments);
+    return methods.init.apply(this, arguments as IOptions);
   } else {
     $.error(`Метод с именем ${method} не существует для jQuery.${pluginName}`);
   }
