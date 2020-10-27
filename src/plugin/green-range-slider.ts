@@ -35,7 +35,12 @@ class GreenRangeSlider implements IGreenRangeSlider {
   }
 }
 
-let methods = {
+interface IMethods {
+  init(this: typeof $.fn, options: IOptions): typeof $.fn;
+  update(this: typeof $.fn, options: IOptions): typeof $.fn;
+}
+
+let methods: IMethods = {
   init: function (this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {
@@ -53,15 +58,17 @@ let methods = {
   },
 };
 
-$.fn[pluginName] = function (method: keyof typeof methods | IOptions) {
-  if (methods[String(method)]) {
-    return methods[String(method)].apply(
-      this,
-      Array.prototype.slice.call(arguments, 1)
-    );
-  } else if (typeof method === 'object' || !method) {
-    return methods.init.call(this, method);
-  } else {
-    $.error(`Метод с именем ${method} не существует для jQuery.${pluginName}`);
+$.fn.extend({
+  [pluginName]: function(this: typeof $.fn, method: keyof IMethods | IOptions) {
+    if (methods[method as keyof IMethods]) {
+      return methods[method as keyof IMethods].apply(
+        this,
+        Array.prototype.slice.call(arguments, 1) as [any]
+      );
+    } else if (typeof method === 'object' || !method) {
+      return methods.init.call(this, method);
+    } else {
+      $.error(`Метод с именем ${method} не существует для jQuery.${pluginName}`);
+    }
   }
-};
+});
