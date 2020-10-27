@@ -25,8 +25,8 @@ class GrsModel implements IGrsModel {
   }
 
   public updateOption(option: keyof IOptions, value: number | boolean) {
-    this.options[option] = value;
-    // console.log(`${option} - ${value}`);
+    this.options[String(option)] = value;
+    // console.log(`${String(option)} - ${value}`);
     // console.log(this.options);
   }
 
