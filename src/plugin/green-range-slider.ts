@@ -59,7 +59,10 @@ let methods: IMethods = {
 };
 
 $.fn.extend({
-  [pluginName]: function(this: typeof $.fn, method: keyof IMethods | IOptions) {
+  [pluginName]: function (
+    this: typeof $.fn,
+    method: keyof IMethods | IOptions
+  ) {
     if (methods[method as keyof IMethods]) {
       return methods[method as keyof IMethods].apply(
         this,
@@ -68,7 +71,9 @@ $.fn.extend({
     } else if (typeof method === 'object' || !method) {
       return methods.init.call(this, method);
     } else {
-      $.error(`Метод с именем ${method} не существует для jQuery.${pluginName}`);
+      $.error(
+        `Метод с именем ${method} не существует для jQuery.${pluginName}`
+      );
     }
-  }
+  },
 });
