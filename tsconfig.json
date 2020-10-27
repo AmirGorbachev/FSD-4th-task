@@ -7,7 +7,7 @@
     "noUnusedParameters": true, // Показывать ошибку, если где-то найдены неиспользуемые параметры.
     "removeComments": true, // Удалить все комментарии из итогового файла.
     "strict": true, // Включить ли все строги проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
-    "suppressImplicitAnyIndexErrors": true,
+    // "suppressImplicitAnyIndexErrors": true,
   },
   "exclude": [
     "node_modules"

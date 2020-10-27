@@ -25,7 +25,7 @@ class GrsModel implements IGrsModel {
   }
 
   public updateOption(option: keyof IOptions, value: number | boolean) {
-    this.options[String(option)] = value;
+    this.options[option] = value;
     // console.log(`${String(option)} - ${value}`);
     // console.log(this.options);
   }
@@ -48,7 +48,7 @@ class GrsModel implements IGrsModel {
   }
 
   public calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
-    let value: number = this.options[key];
+    let value: number = this.options[key] as number;
 
     let result: number =
       ((value - this.options.minLimit) /
