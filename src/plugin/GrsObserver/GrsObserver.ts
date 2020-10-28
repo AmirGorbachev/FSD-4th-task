@@ -1,6 +1,8 @@
 interface IGrsObserver {
   subscribers: IObservers;
-  addSubscriber(func: () => unknown): void;
+  addSubscriber(
+    func: (data: { option: string; value: number | boolean }) => void | unknown
+  ): void;
   removeSubscriber(func: () => any): void;
   notifySubscribers(data?: any): void;
 }
@@ -16,8 +18,10 @@ class GrsObserver implements IGrsObserver {
     this.subscribers = [] as IObservers;
   }
 
-  addSubscriber(func: () => unknown) {
-    console.log(func)
+  addSubscriber(
+    func: (data: { option: string; value: number | boolean }) => void | unknown
+  ) {
+    console.log(func);
     if (typeof func !== 'function') {
       throw new Error('Subscriber must be a function');
     }
@@ -42,7 +46,7 @@ class GrsObserver implements IGrsObserver {
   }
 
   notifySubscribers(data?: any) {
-    console.log('notify');
+    console.log(data);
     // Make a copy of observer list in case the list
     // is mutated during the notifications.
     let subscribersSnapshot = this.subscribers.slice(0);

@@ -46,6 +46,9 @@ interface IGrsView {
   removeParameter(parameter: Parameter): void;
   updateView(options: IOptions): void;
   render(): void;
+  onMoveButton(): void;
+  onClickVolume(): void;
+  onClickScale(): void;
 }
 
 class GrsView implements IGrsView {
@@ -189,6 +192,112 @@ class GrsView implements IGrsView {
         'buttonMin'
       ).style.left;
     }
+  }
+
+  onMoveButton() {
+    // Кнопка минимальная или максимальная
+    let isElementButtonMin: boolean;
+
+    // События
+    let onMouseDown = (event: MouseEvent) => {
+      isElementButtonMin = (event.currentTarget as HTMLElement).classList.contains(
+        'grs-button-min'
+      );
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    };
+
+    let onMouseMove = (event: MouseEvent) => {
+      // Сброс действия по умолчанию (выделение текста)
+      event.preventDefault();
+
+      // Новая позиция кнопки
+      let newPosition = event.clientX - this.calcCoords('volume').left;
+
+      // Границы смещения
+      let leftEdge, rightEdge;
+      if (isElementButtonMin) {
+        leftEdge = 0;
+        rightEdge = this.options.isInterval
+          ? this.calcCoords('buttonMax').middleX -
+            this.calcCoords('volume').left
+          : this.calcCoords('volume').rigth;
+      } else {
+        leftEdge =
+          this.calcCoords('buttonMin').middleX - this.calcCoords('volume').left;
+        rightEdge = this.calcCoords('volume').width;
+      }
+      // Проверка выхода за границы
+      if (newPosition < leftEdge) {
+        newPosition = leftEdge;
+      } else if (newPosition > rightEdge) {
+        newPosition = rightEdge;
+      }
+
+      // Смещение кнопки в процентах
+      // ((смещение / ширина слайдера) * 100%)
+      let shiftX = (newPosition / this.calcCoords('volume').width) * 100;
+
+      // Уведомление об изменении
+      if (isElementButtonMin) {
+        this.observer.notifySubscribers({ option: 'minValue', value: shiftX });
+      } else {
+        this.observer.notifySubscribers({ option: 'maxValue', value: shiftX });
+      }
+
+      // Отрисовка элементов
+      this.render();
+    };
+
+    let onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    this.getElement('buttonMin').addEventListener('mousedown', onMouseDown);
+    this.getElement('buttonMax').addEventListener('mousedown', onMouseDown);
+  }
+
+  onClickVolume() {
+    this.getElement('volume').addEventListener('click', () => {
+      // Смещение кнопки в процентах
+      // ((клик - позиция слайдера) / ширина слайдера) * 100%
+      let shiftX =
+        (((event as MouseEvent).clientX - this.calcCoords('volume').left) /
+          this.calcCoords('volume').width) *
+        100;
+
+      // Уведомление об изменении
+      if (
+        this.options.isInterval &&
+        shiftX > this.calcPersentOffset('maxValue')
+      ) {
+        this.observer.notifySubscribers({ option: 'maxValue', value: shiftX });
+      } else {
+        this.observer.notifySubscribers({ option: 'minValue', value: shiftX });
+      }
+      // Отрисовка элементов
+      this.render();
+    });
+  }
+
+  onClickScale() {
+    this.getElement('scaleMin').addEventListener('click', () => {
+      // Уведомление об изменении
+      this.observer.notifySubscribers({ option: 'minValue', value: 0 });
+      // Отрисовка элементов
+      this.render();
+    });
+    this.getElement('scaleMax').addEventListener('click', () => {
+      // Уведомление об изменении
+      if (this.options.isInterval) {
+        this.observer.notifySubscribers({ option: 'maxValue', value: 100 });
+      } else {
+        this.observer.notifySubscribers({ option: 'minValue', value: 100 });
+      }
+      // Отрисовка элементов
+      this.render();
+    });
   }
 }
 
