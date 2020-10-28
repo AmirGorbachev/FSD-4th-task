@@ -1,16 +1,23 @@
 // Стили плагина
 import './green-range-slider.sass';
 import {
+  IGrsModel,
+  GrsModel,
+} from './GrsModel/GrsModel.ts';
+import {
+  IGrsView,
+  GrsView,
+} from './GrsView/GrsView.ts';
+import {
   IGrsController,
   GrsController,
 } from './GrsController/GrsController.ts';
 import { IOptions, defaultOptions } from './GrsOptions/GrsOptions.ts';
 
 interface IGreenRangeSlider {
-  element: HTMLElement;
-  options: IOptions;
-  _defaults: IOptions;
-  _name: string;
+  container:HTMLElement;
+  model: IGrsModel;
+  view: IGrsView;
   controller: IGrsController;
 }
 
@@ -19,19 +26,18 @@ const pluginName: string = 'greenRangeSlider';
 let defaults: IOptions = defaultOptions;
 
 class GreenRangeSlider implements IGreenRangeSlider {
-  element: HTMLElement;
-  options: IOptions;
-  _defaults: IOptions;
-  _name: string;
+  container:HTMLElement;
+  model: IGrsModel;
+  view: IGrsView;
   controller: IGrsController;
 
-  constructor(element: HTMLElement, options: IOptions) {
-    this.element = element;
-    this.options = $.extend({}, defaults, options);
-    this._defaults = defaults;
-    this._name = pluginName;
-    this.controller = new GrsController(this.options);
-    this.controller.init(this.element);
+  constructor(element: HTMLElement, defaults: IOptions, options: IOptions) {
+    this.container = element;
+    this.model = new GrsModel( $.extend({}, defaults, options) );
+    this.view = new GrsView();
+    this.controller = new GrsController(this.model, this.view);
+
+    this.controller.init(this.container);
   }
 }
 
@@ -44,7 +50,7 @@ let methods: IMethods = {
   init: function (this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {
-        $.data(this, pluginName, new GreenRangeSlider(this, options));
+        $.data(this, pluginName, new GreenRangeSlider(this, defaults, options));
       } else {
         $.error(`jQuery.${pluginName} уже создан для этого элемента`);
       }

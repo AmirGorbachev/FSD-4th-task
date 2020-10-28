@@ -1,5 +1,5 @@
-import { IGrsView, GrsView } from '../GrsView/GrsView.ts';
-import { IGrsModel, GrsModel } from '../GrsModel/GrsModel.ts';
+import { IGrsView} from '../GrsView/GrsView.ts';
+import { IGrsModel} from '../GrsModel/GrsModel.ts';
 import { IOptions } from '../GrsOptions/GrsOptions.ts';
 
 interface IGrsController {
@@ -18,9 +18,9 @@ class GrsController implements IGrsController {
   readonly model: IGrsModel;
   readonly view: IGrsView;
 
-  constructor(options: IOptions) {
-    this.model = new GrsModel(options);
-    this.view = new GrsView();
+  constructor(model: IGrsModel, view: IGrsView) {
+    this.model = model;
+    this.view = view;
   }
 
   init(container: HTMLElement) {
