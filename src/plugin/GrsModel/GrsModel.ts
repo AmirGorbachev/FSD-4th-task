@@ -8,6 +8,7 @@ type OptionsExluded =
   | 'withScale';
 
 interface IGrsModel {
+  observer: IGrsObserver;
   getOption(option: keyof IOptions): number | boolean;
   updateOption(option: keyof IOptions, value: number | boolean): void;
   calcValue(persentOffset: number): number;
@@ -16,9 +17,11 @@ interface IGrsModel {
 
 class GrsModel implements IGrsModel {
   private options: IOptions;
+  observer: IGrsObserver;
 
   constructor(options: IOptions) {
     this.options = options;
+    this.observer = new GrsObserver();
   }
 
   getOption(option: keyof IOptions) {

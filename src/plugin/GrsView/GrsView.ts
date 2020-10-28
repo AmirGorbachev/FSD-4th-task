@@ -29,6 +29,7 @@ interface IElements {
 
 interface IGrsView {
   readonly elements: IElements;
+  observer: IGrsObserver;
   init(domElement: HTMLElement): void;
   getElement(element: keyof IElements): HTMLElement;
   calcCoords(element: keyof IElements): Coordinates;
@@ -38,9 +39,11 @@ interface IGrsView {
 
 class GrsView implements IGrsView {
   readonly elements: IElements;
+  observer: IGrsObserver;
 
   constructor() {
     this.elements = {} as IElements;
+    this.observer = new GrsObserver();
   }
 
   init(domElement: HTMLElement) {
