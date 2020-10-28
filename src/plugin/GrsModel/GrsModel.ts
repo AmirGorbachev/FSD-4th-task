@@ -32,6 +32,7 @@ class GrsModel implements IGrsModel {
       this.options[key] = options[key];
     }
 
+    // Уведомление об изменении
     this.observer.notifySubscribers();
     // console.log(`${this.options[key] = this.options[key]}`);
     // console.log(this.options);

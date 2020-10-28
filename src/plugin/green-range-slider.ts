@@ -17,8 +17,6 @@ interface IGreenRangeSlider {
 
 const pluginName: string = 'greenRangeSlider';
 
-let defaults: IOptions = defaultOptions;
-
 class GreenRangeSlider implements IGreenRangeSlider {
   container: HTMLElement;
   model: IGrsModel;
@@ -44,7 +42,7 @@ let methods: IMethods = {
   init: function (this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {
-        $.data(this, pluginName, new GreenRangeSlider(this, defaults, options));
+        $.data(this, pluginName, new GreenRangeSlider(this, defaultOptions, options));
       } else {
         $.error(`jQuery.${pluginName} уже создан для этого элемента`);
       }
