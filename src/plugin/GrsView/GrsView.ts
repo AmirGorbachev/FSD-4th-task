@@ -1,6 +1,7 @@
-import { GrsViewVolume } from '../GrsView/GrsViewVolume.ts';
-import { GrsViewButton } from '../GrsView/GrsViewButton.ts';
-import { GrsViewScale } from '../GrsView/GrsViewScale.ts';
+import { GrsViewVolume } from './GrsViewVolume.ts';
+import { GrsViewButton } from './GrsViewButton.ts';
+import { GrsViewScale } from './GrsViewScale.ts';
+import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
 
 type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 

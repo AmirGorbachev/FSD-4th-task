@@ -1,4 +1,5 @@
 import { IOptions } from '../GrsOptions/GrsOptions.ts';
+import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
 
 type OptionsExluded =
   | 'isVertical'
