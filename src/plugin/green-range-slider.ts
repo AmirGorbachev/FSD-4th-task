@@ -53,7 +53,7 @@ let methods: IMethods = {
 
   update: function (this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
-      $.data(this, pluginName).controller.updateModel(options);
+      $.data(this, pluginName).model.updateOptions(options);
     });
   },
 };

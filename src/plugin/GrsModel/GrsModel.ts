@@ -10,7 +10,7 @@ type OptionsExluded =
 interface IGrsModel {
   observer: IGrsObserver;
   getOption(option: keyof IOptions): number | boolean;
-  updateOption(option: keyof IOptions, value: number | boolean): void;
+  updateOptions(options: IOptions): void;
   calcValue(persentOffset: number): number;
   calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
 }
@@ -28,9 +28,14 @@ class GrsModel implements IGrsModel {
     return this.options[option];
   }
 
-  updateOption(option: keyof IOptions, value: number | boolean) {
-    this.options[option] = value;
-    // console.log(`${String(option)} - ${value}`);
+  updateOptions(options: IOptions) {
+    let key: keyof IOptions;
+    for (key in options) {
+      this.options[key] = options[key];
+    }
+
+    this.observer.notifySubscribers();
+    // console.log(`${this.options[key] = this.options[key]}`);
     // console.log(this.options);
   }
 

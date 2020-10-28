@@ -6,7 +6,6 @@ interface IGrsController {
   model: IGrsModel;
   view: IGrsView;
   init(container: HTMLElement): void;
-  updateModel(options: IOptions): void;
   updateView(): void;
   render(): void;
   onMoveButton(): void;
@@ -29,14 +28,8 @@ class GrsController implements IGrsController {
     this.onMoveButton();
     this.onClickVolume();
     this.onClickScale();
-  }
 
-  updateModel(options: IOptions) {
-    let key: keyof IOptions;
-    for (key in options) {
-      this.model.updateOption(key, options[key]);
-    }
-    this.updateView();
+    this.model.observer.addSubscriber(this.updateView.bind(this));
   }
 
   updateView() {
@@ -147,9 +140,9 @@ class GrsController implements IGrsController {
 
       // Обновление модели
       if (isElementButtonMin) {
-        this.model.updateOption('minValue', this.model.calcValue(shiftX));
+        this.model.updateOptions({minValue: this.model.calcValue(shiftX)} as IOptions);
       } else {
-        this.model.updateOption('maxValue', this.model.calcValue(shiftX));
+        this.model.updateOptions({maxValue: this.model.calcValue(shiftX)} as IOptions);
       }
       // Отрисовка элементов
       this.render();
@@ -181,9 +174,9 @@ class GrsController implements IGrsController {
         this.model.getOption('isInterval') &&
         shiftX > this.model.calcPersentOffset('maxValue')
       ) {
-        this.model.updateOption('maxValue', this.model.calcValue(shiftX));
+        this.model.updateOptions({maxValue: this.model.calcValue(shiftX)} as IOptions);
       } else {
-        this.model.updateOption('minValue', this.model.calcValue(shiftX));
+        this.model.updateOptions({minValue: this.model.calcValue(shiftX)} as IOptions);
       }
       // Отрисовка элементов
       this.render();
@@ -193,16 +186,16 @@ class GrsController implements IGrsController {
   onClickScale() {
     this.view.getElement('scaleMin').addEventListener('click', () => {
       // Обновление модели
-      this.model.updateOption('minValue', this.model.calcValue(0));
+      this.model.updateOptions({minValue: this.model.calcValue(0)} as IOptions);
       // Отрисовка элементов
       this.render();
     });
     this.view.getElement('scaleMax').addEventListener('click', () => {
       // Обновление модели
       if (this.model.getOption('isInterval')) {
-        this.model.updateOption('maxValue', this.model.calcValue(100));
+        this.model.updateOptions({maxValue: this.model.calcValue(100)} as IOptions);
       } else {
-        this.model.updateOption('minValue', this.model.calcValue(100));
+        this.model.updateOptions({minValue: this.model.calcValue(100)} as IOptions);
       }
       // Отрисовка элементов
       this.render();
