@@ -19,8 +19,7 @@ class GrsController implements IGrsController {
   }
 
   init(container: HTMLElement) {
-    this.view.init(container);
-    this.updateView();
+    this.view.init(container, this.model.getOptions());
 
     this.model.observer.addSubscriber(this.updateView.bind(this));
 

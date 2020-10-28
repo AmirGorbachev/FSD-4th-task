@@ -38,7 +38,7 @@ interface IGrsView {
   options: IOptions;
   readonly elements: IElements;
   observer: IGrsObserver;
-  init(domElement: HTMLElement): void;
+  init(domElement: HTMLElement, options: IOptions): void;
   getElement(element: keyof IElements): HTMLElement;
   calcCoords(element: keyof IElements): Coordinates;
   calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
@@ -62,7 +62,7 @@ class GrsView implements IGrsView {
     this.observer = new GrsObserver();
   }
 
-  init(domElement: HTMLElement) {
+  init(domElement: HTMLElement, options: IOptions) {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
@@ -89,6 +89,8 @@ class GrsView implements IGrsView {
     );
 
     domElement.append(this.elements.rangeSlider);
+
+    this.options = options;
 
     this.updateView(this.options);
     this.onMoveButton();
