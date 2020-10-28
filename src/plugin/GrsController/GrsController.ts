@@ -7,10 +7,6 @@ interface IGrsController {
   view: IGrsView;
   init(container: HTMLElement): void;
   updateView(): void;
-  render(): void;
-  onMoveButton(): void;
-  onClickVolume(): void;
-  onClickScale(): void;
 }
 
 class GrsController implements IGrsController {
@@ -24,73 +20,12 @@ class GrsController implements IGrsController {
 
   init(container: HTMLElement) {
     this.view.init(container);
-    this.updateView();
-    this.onMoveButton();
-    this.onClickVolume();
-    this.onClickScale();
 
     this.model.observer.addSubscriber(this.updateView.bind(this));
   }
 
   updateView() {
-    // Проверка параметров отрисовки
-    this.model.getOption('isVertical')
-      ? this.view.addParameter('isVertical')
-      : this.view.removeParameter('isVertical');
-
-    this.model.getOption('isInterval')
-      ? this.view.addParameter('isInterval')
-      : this.view.removeParameter('isInterval');
-
-    this.model.getOption('withPointers')
-      ? this.view.addParameter('withPointers')
-      : this.view.removeParameter('withPointers');
-
-    this.model.getOption('withScale')
-      ? this.view.addParameter('withScale')
-      : this.view.removeParameter('withScale');
-
-    // Значения шкалы (лимитов)
-    this.view.getElement('scaleMin').innerHTML = String(
-      this.model.getOption('minLimit')
-    );
-    this.view.getElement('scaleMax').innerHTML = String(
-      this.model.getOption('maxLimit')
-    );
-
-    // Отрисовка элементов
-    this.render();
-  }
-
-  render() {
-    // Ползунок min
-    this.view.getElement('buttonMin').style.left =
-      this.model.calcPersentOffset('minValue') + '%';
-    this.view.getElement('pointerMin').innerHTML = String(
-      this.model.getOption('minValue')
-    );
-    // Ползунок max
-    if (this.model.getOption('isInterval')) {
-      this.view.getElement('buttonMax').style.left =
-        this.model.calcPersentOffset('maxValue') + '%';
-      this.view.getElement('pointerMax').innerHTML = String(
-        this.model.getOption('maxValue')
-      );
-    }
-    // Шкала прогресса filled
-    if (this.model.getOption('isInterval')) {
-      this.view.getElement('filled').style.left = this.view.getElement(
-        'buttonMin'
-      ).style.left;
-      this.view.getElement('filled').style.width =
-        this.model.calcPersentOffset('maxValue') -
-        this.model.calcPersentOffset('minValue') +
-        '%';
-    } else {
-      this.view.getElement('filled').style.width = this.view.getElement(
-        'buttonMin'
-      ).style.left;
-    }
+    this.view.updateView(this.model.getOptions());
   }
 
   onMoveButton() {
@@ -145,7 +80,7 @@ class GrsController implements IGrsController {
         this.model.updateOptions({maxValue: this.model.calcValue(shiftX)} as IOptions);
       }
       // Отрисовка элементов
-      this.render();
+      this.view.render();
     };
 
     let onMouseUp = () => {
@@ -179,7 +114,7 @@ class GrsController implements IGrsController {
         this.model.updateOptions({minValue: this.model.calcValue(shiftX)} as IOptions);
       }
       // Отрисовка элементов
-      this.render();
+      this.view.render();
     });
   }
 
@@ -188,7 +123,7 @@ class GrsController implements IGrsController {
       // Обновление модели
       this.model.updateOptions({minValue: this.model.calcValue(0)} as IOptions);
       // Отрисовка элементов
-      this.render();
+      this.view.render();
     });
     this.view.getElement('scaleMax').addEventListener('click', () => {
       // Обновление модели
@@ -198,7 +133,7 @@ class GrsController implements IGrsController {
         this.model.updateOptions({minValue: this.model.calcValue(100)} as IOptions);
       }
       // Отрисовка элементов
-      this.render();
+      this.view.render();
     });
   }
 }

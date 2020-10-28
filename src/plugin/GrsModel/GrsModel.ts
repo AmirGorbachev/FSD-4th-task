@@ -1,18 +1,12 @@
 import { IOptions } from '../GrsOptions/GrsOptions.ts';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
 
-type OptionsExluded =
-  | 'isVertical'
-  | 'isInterval'
-  | 'withPointers'
-  | 'withScale';
-
 interface IGrsModel {
   observer: IGrsObserver;
   getOption(option: keyof IOptions): number | boolean;
+  getOptions(): IOptions;
   updateOptions(options: IOptions): void;
   calcValue(persentOffset: number): number;
-  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
 }
 
 class GrsModel implements IGrsModel {
@@ -26,6 +20,10 @@ class GrsModel implements IGrsModel {
 
   getOption(option: keyof IOptions) {
     return this.options[option];
+  }
+
+  getOptions() {
+    return this.options;
   }
 
   updateOptions(options: IOptions) {
@@ -52,17 +50,6 @@ class GrsModel implements IGrsModel {
     } else if (result >= this.options.maxLimit) {
       result = this.options.maxLimit;
     }
-
-    return result;
-  }
-
-  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
-    let value: number = this.options[key] as number;
-
-    let result: number =
-      ((value - this.options.minLimit) /
-        (this.options.maxLimit - this.options.minLimit)) *
-      100;
 
     return result;
   }

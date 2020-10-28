@@ -2,6 +2,13 @@ import { GrsViewVolume } from './GrsViewVolume.ts';
 import { GrsViewButton } from './GrsViewButton.ts';
 import { GrsViewScale } from './GrsViewScale.ts';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
+import { IOptions } from '../GrsOptions/GrsOptions.ts';
+
+type OptionsExluded =
+  | 'isVertical'
+  | 'isInterval'
+  | 'withPointers'
+  | 'withScale';
 
 type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 
@@ -28,20 +35,26 @@ interface IElements {
 }
 
 interface IGrsView {
+  options: IOptions;
   readonly elements: IElements;
   observer: IGrsObserver;
   init(domElement: HTMLElement): void;
   getElement(element: keyof IElements): HTMLElement;
   calcCoords(element: keyof IElements): Coordinates;
+  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
   addParameter(parameter: Parameter): void;
   removeParameter(parameter: Parameter): void;
+  updateView(options: IOptions): void;
+  render(): void;
 }
 
 class GrsView implements IGrsView {
+  options: IOptions;
   readonly elements: IElements;
   observer: IGrsObserver;
 
   constructor() {
+    this.options = {} as IOptions;
     this.elements = {} as IElements;
     this.observer = new GrsObserver();
   }
@@ -73,6 +86,11 @@ class GrsView implements IGrsView {
     );
 
     domElement.append(this.elements.rangeSlider);
+
+    this.updateView(this.options);
+    this.onMoveButton();
+    this.onClickVolume();
+    this.onClickScale();
   }
 
   getElement(element: keyof IElements) {
@@ -100,12 +118,77 @@ class GrsView implements IGrsView {
     return coords;
   }
 
+  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
+    let value: number = this.options[key] as number;
+
+    let result: number =
+      ((value - this.options.minLimit) /
+        (this.options.maxLimit - this.options.minLimit)) *
+      100;
+
+    return result;
+  }
+
   addParameter(parameter: Parameter) {
     this.elements.rangeSlider.classList.add(`grs-${parameter}`);
   }
 
   removeParameter(parameter: Parameter) {
     this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
+  }
+
+  updateView(options: IOptions) {
+    this.options = options;
+    // Проверка параметров отрисовки
+    this.options.isVertical
+      ? this.addParameter('isVertical')
+      : this.removeParameter('isVertical');
+
+    this.options.isInterval
+      ? this.addParameter('isInterval')
+      : this.removeParameter('isInterval');
+
+    this.options.withPointers
+      ? this.addParameter('withPointers')
+      : this.removeParameter('withPointers');
+
+    this.options.withScale
+      ? this.addParameter('withScale')
+      : this.removeParameter('withScale');
+
+    // Значения шкалы (лимитов)
+    this.getElement('scaleMin').innerHTML = String(this.options.minLimit);
+    this.getElement('scaleMax').innerHTML = String(this.options.maxLimit);
+
+    // Отрисовка элементов
+    this.render();
+  }
+
+  render() {
+    // Ползунок min
+    this.getElement('buttonMin').style.left =
+      this.calcPersentOffset('minValue') + '%';
+    this.getElement('pointerMin').innerHTML = String(this.options.minValue);
+    // Ползунок max
+    if (this.options.isInterval) {
+      this.getElement('buttonMax').style.left =
+        this.calcPersentOffset('maxValue') + '%';
+      this.getElement('pointerMax').innerHTML = String(this.options.maxValue);
+    }
+    // Шкала прогресса filled
+    if (this.options.isInterval) {
+      this.getElement('filled').style.left = this.getElement(
+        'buttonMin'
+      ).style.left;
+      this.getElement('filled').style.width =
+        this.calcPersentOffset('maxValue') -
+        this.calcPersentOffset('minValue') +
+        '%';
+    } else {
+      this.getElement('filled').style.width = this.getElement(
+        'buttonMin'
+      ).style.left;
+    }
   }
 }
 
