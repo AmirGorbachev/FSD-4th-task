@@ -1,46 +1,53 @@
-interface IGrsObserver {}
+interface IGrsObserver {
+  subscribers: IObservers;
+  addSubscriber(func: () => unknown): void;
+  removeSubscriber(func: () => any): void;
+  notifySubscribers(data?: any): void;
+}
 
 interface IObservers extends Array<any> {
   [index: number]: () => void;
 }
 
 class GrsObserver implements IGrsObserver {
-  observers: IObservers;
+  subscribers: IObservers;
 
   constructor() {
-    this.observers = [] as IObservers;
+    this.subscribers = [] as IObservers;
   }
 
-  addObserver(func: () => any) {
+  addSubscriber(func: () => unknown) {
+    console.log(func)
     if (typeof func !== 'function') {
-      throw new Error('Observer must be a function');
+      throw new Error('Subscriber must be a function');
     }
-    for (let i = 0, ilen = this.observers.length; i < ilen; i += 1) {
-      let observer = this.observers[i];
+    for (let i = 0, ilen = this.subscribers.length; i < ilen; i += 1) {
+      let observer = this.subscribers[i];
       if (observer === func) {
-        throw new Error('Observer already in the list');
+        throw new Error('Subscriber already in the list');
       }
     }
-    this.observers.push(func);
+    this.subscribers.push(func);
   }
 
-  removeObserver(func: () => any) {
-    for (let i = 0, ilen = this.observers.length; i < ilen; i += 1) {
-      let observer = this.observers[i];
+  removeSubscriber(func: () => any) {
+    for (let i = 0, ilen = this.subscribers.length; i < ilen; i += 1) {
+      let observer = this.subscribers[i];
       if (observer === func) {
-        this.observers.splice(i, 1);
+        this.subscribers.splice(i, 1);
         return;
       }
     }
-    throw new Error('Could not find observer in list of observers');
+    throw new Error('Could not find Subscriber in list of Subscribers');
   }
 
-  notifyObservers(data: any) {
+  notifySubscribers(data?: any) {
+    console.log('notify');
     // Make a copy of observer list in case the list
     // is mutated during the notifications.
-    let observersSnapshot = this.observers.slice(0);
-    for (let i = 0, ilen = observersSnapshot.length; i < ilen; i += 1) {
-      observersSnapshot[i](data);
+    let subscribersSnapshot = this.subscribers.slice(0);
+    for (let i = 0, ilen = subscribersSnapshot.length; i < ilen; i += 1) {
+      subscribersSnapshot[i](data);
     }
   }
 }
