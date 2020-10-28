@@ -10,7 +10,7 @@ type OptionsExluded =
   | 'withPointers'
   | 'withScale';
 
-type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
+type Parameter = OptionsExluded;
 
 type Coordinates = {
   top: number;
@@ -39,7 +39,6 @@ interface IGrsView {
   readonly elements: IElements;
   observer: IGrsObserver;
   init(domElement: HTMLElement, options: IOptions): void;
-  getElement(element: keyof IElements): HTMLElement;
   calcCoords(element: keyof IElements): Coordinates;
   calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number;
   addParameter(parameter: Parameter): void;
@@ -96,10 +95,6 @@ class GrsView implements IGrsView {
     this.onMoveButton();
     this.onClickVolume();
     this.onClickScale();
-  }
-
-  getElement(element: keyof IElements) {
-    return this.elements[element];
   }
 
   calcCoords(element: keyof IElements) {
@@ -162,8 +157,8 @@ class GrsView implements IGrsView {
       : this.removeParameter('withScale');
 
     // Значения шкалы (лимитов)
-    this.getElement('scaleMin').innerHTML = String(this.options.minLimit);
-    this.getElement('scaleMax').innerHTML = String(this.options.maxLimit);
+    this.elements.scaleMin.innerHTML = String(this.options.minLimit);
+    this.elements.scaleMax.innerHTML = String(this.options.maxLimit);
 
     // Отрисовка элементов
     this.render();
@@ -171,28 +166,24 @@ class GrsView implements IGrsView {
 
   render() {
     // Ползунок min
-    this.getElement('buttonMin').style.left =
+    this.elements.buttonMin.style.left =
       this.calcPersentOffset('minValue') + '%';
-    this.getElement('pointerMin').innerHTML = String(this.options.minValue);
+    this.elements.pointerMin.innerHTML = String(this.options.minValue);
     // Ползунок max
     if (this.options.isInterval) {
-      this.getElement('buttonMax').style.left =
+      this.elements.buttonMax.style.left =
         this.calcPersentOffset('maxValue') + '%';
-      this.getElement('pointerMax').innerHTML = String(this.options.maxValue);
+      this.elements.pointerMax.innerHTML = String(this.options.maxValue);
     }
     // Шкала прогресса filled
     if (this.options.isInterval) {
-      this.getElement('filled').style.left = this.getElement(
-        'buttonMin'
-      ).style.left;
-      this.getElement('filled').style.width =
+      this.elements.filled.style.left = this.elements.buttonMin.style.left;
+      this.elements.filled.style.width =
         this.calcPersentOffset('maxValue') -
         this.calcPersentOffset('minValue') +
         '%';
     } else {
-      this.getElement('filled').style.width = this.getElement(
-        'buttonMin'
-      ).style.left;
+      this.elements.filled.style.width = this.elements.buttonMin.style.left;
     }
   }
 
@@ -256,12 +247,12 @@ class GrsView implements IGrsView {
       document.removeEventListener('mouseup', onMouseUp);
     };
 
-    this.getElement('buttonMin').addEventListener('mousedown', onMouseDown);
-    this.getElement('buttonMax').addEventListener('mousedown', onMouseDown);
+    this.elements.buttonMin.addEventListener('mousedown', onMouseDown);
+    this.elements.buttonMax.addEventListener('mousedown', onMouseDown);
   }
 
   onClickVolume() {
-    this.getElement('volume').addEventListener('click', () => {
+    this.elements.volume.addEventListener('click', () => {
       // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       let shiftX =
@@ -284,13 +275,13 @@ class GrsView implements IGrsView {
   }
 
   onClickScale() {
-    this.getElement('scaleMin').addEventListener('click', () => {
+    this.elements.scaleMin.addEventListener('click', () => {
       // Уведомление об изменении
       this.observer.notifySubscribers({ option: 'minValue', value: 0 });
       // Отрисовка элементов
       this.render();
     });
-    this.getElement('scaleMax').addEventListener('click', () => {
+    this.elements.scaleMax.addEventListener('click', () => {
       // Уведомление об изменении
       if (this.options.isInterval) {
         this.observer.notifySubscribers({ option: 'maxValue', value: 100 });
