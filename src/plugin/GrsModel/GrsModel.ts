@@ -31,11 +31,8 @@ class GrsModel implements IGrsModel {
     for (key in options) {
       this.options[key] = options[key];
     }
-
     // Уведомление об изменении
     this.observer.notifySubscribers();
-    // console.log(`${this.options[key] = this.options[key]}`);
-    // console.log(this.options);
   }
 
   calcValue(persentOffset: number) {

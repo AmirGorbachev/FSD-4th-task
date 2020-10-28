@@ -21,7 +21,6 @@ class GrsObserver implements IGrsObserver {
   addSubscriber(
     func: (data: { option: string; value: number | boolean }) => void | unknown
   ) {
-    console.log(func);
     if (typeof func !== 'function') {
       throw new Error('Subscriber must be a function');
     }
@@ -46,7 +45,6 @@ class GrsObserver implements IGrsObserver {
   }
 
   notifySubscribers(data?: any) {
-    console.log(data);
     // Make a copy of observer list in case the list
     // is mutated during the notifications.
     let subscribersSnapshot = this.subscribers.slice(0);

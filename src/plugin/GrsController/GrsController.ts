@@ -32,7 +32,6 @@ class GrsController implements IGrsController {
   }
 
   updateModel(data: { option: string; value: number | boolean }) {
-    // console.log(data);
     if (data.option === 'minValue') {
       this.model.updateOptions({
         minValue: this.model.calcValue(data.value as number),
