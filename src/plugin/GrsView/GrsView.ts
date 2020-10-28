@@ -61,7 +61,7 @@ class GrsView implements IGrsView {
     this.observer = new GrsObserver();
   }
 
-  init(domElement: HTMLElement, options: IOptions) {
+  init(container: HTMLElement, options: IOptions) {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
@@ -87,7 +87,7 @@ class GrsView implements IGrsView {
       this.elements.buttonMax
     );
 
-    domElement.append(this.elements.rangeSlider);
+    container.append(this.elements.rangeSlider);
 
     this.options = options;
 
@@ -98,9 +98,9 @@ class GrsView implements IGrsView {
   }
 
   calcCoords(element: keyof IElements) {
-    let coordinates = this.elements[element].getBoundingClientRect();
+    const coordinates = this.elements[element].getBoundingClientRect();
 
-    let coords: Coordinates = {
+    const coords: Coordinates = {
       top: coordinates.top + window.pageYOffset,
       left: coordinates.left + window.pageXOffset,
       rigth: coordinates.left + window.pageXOffset + coordinates.width,
@@ -119,9 +119,9 @@ class GrsView implements IGrsView {
   }
 
   calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
-    let value: number = this.options[key] as number;
+    const value: number = this.options[key] as number;
 
-    let result: number =
+    const result: number =
       ((value - this.options.minLimit) /
         (this.options.maxLimit - this.options.minLimit)) *
       100;
@@ -192,7 +192,7 @@ class GrsView implements IGrsView {
     let isElementButtonMin: boolean;
 
     // События
-    let onMouseDown = (event: MouseEvent) => {
+    const onMouseDown = (event: MouseEvent) => {
       isElementButtonMin = (event.currentTarget as HTMLElement).classList.contains(
         'grs-button-min'
       );
@@ -200,7 +200,7 @@ class GrsView implements IGrsView {
       document.addEventListener('mouseup', onMouseUp);
     };
 
-    let onMouseMove = (event: MouseEvent) => {
+    const onMouseMove = (event: MouseEvent) => {
       // Сброс действия по умолчанию (выделение текста)
       event.preventDefault();
 
@@ -229,7 +229,7 @@ class GrsView implements IGrsView {
 
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
-      let shiftX = (newPosition / this.calcCoords('volume').width) * 100;
+      const shiftX = (newPosition / this.calcCoords('volume').width) * 100;
 
       // Уведомление об изменении
       if (isElementButtonMin) {
@@ -242,7 +242,7 @@ class GrsView implements IGrsView {
       this.render();
     };
 
-    let onMouseUp = () => {
+    const onMouseUp = () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
@@ -255,7 +255,7 @@ class GrsView implements IGrsView {
     this.elements.volume.addEventListener('click', () => {
       // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
-      let shiftX =
+      const shiftX =
         (((event as MouseEvent).clientX - this.calcCoords('volume').left) /
           this.calcCoords('volume').width) *
         100;

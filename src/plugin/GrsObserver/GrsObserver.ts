@@ -25,7 +25,7 @@ class GrsObserver implements IGrsObserver {
       throw new Error('Subscriber must be a function');
     }
     for (let i = 0, ilen = this.subscribers.length; i < ilen; i += 1) {
-      let observer = this.subscribers[i];
+      const observer = this.subscribers[i];
       if (observer === func) {
         throw new Error('Subscriber already in the list');
       }
@@ -35,7 +35,7 @@ class GrsObserver implements IGrsObserver {
 
   removeSubscriber(func: () => any) {
     for (let i = 0, ilen = this.subscribers.length; i < ilen; i += 1) {
-      let observer = this.subscribers[i];
+      const observer = this.subscribers[i];
       if (observer === func) {
         this.subscribers.splice(i, 1);
         return;
@@ -47,7 +47,7 @@ class GrsObserver implements IGrsObserver {
   notifySubscribers(data?: any) {
     // Make a copy of observer list in case the list
     // is mutated during the notifications.
-    let subscribersSnapshot = this.subscribers.slice(0);
+    const subscribersSnapshot = this.subscribers.slice(0);
     for (let i = 0, ilen = subscribersSnapshot.length; i < ilen; i += 1) {
       subscribersSnapshot[i](data);
     }

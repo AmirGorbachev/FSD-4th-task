@@ -38,7 +38,7 @@ interface IMethods {
   update(this: typeof $.fn, options: IOptions): typeof $.fn;
 }
 
-let methods: IMethods = {
+const methods: IMethods = {
   init: function (this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {

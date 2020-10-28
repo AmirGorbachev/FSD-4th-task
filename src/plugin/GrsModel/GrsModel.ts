@@ -36,7 +36,7 @@ class GrsModel implements IGrsModel {
   }
 
   calcValue(persentOffset: number) {
-    let value: number =
+    const value: number =
       (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
       this.options.minLimit;
 
