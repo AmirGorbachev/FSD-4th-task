@@ -21,17 +21,17 @@ class GrsModel implements IGrsModel {
     this.options = options;
   }
 
-  public getOption(option: keyof IOptions) {
+  getOption(option: keyof IOptions) {
     return this.options[option];
   }
 
-  public updateOption(option: keyof IOptions, value: number | boolean) {
+  updateOption(option: keyof IOptions, value: number | boolean) {
     this.options[option] = value;
     // console.log(`${String(option)} - ${value}`);
     // console.log(this.options);
   }
 
-  public calcValue(persentOffset: number) {
+  calcValue(persentOffset: number) {
     let value: number =
       (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
       this.options.minLimit;
@@ -48,7 +48,7 @@ class GrsModel implements IGrsModel {
     return result;
   }
 
-  public calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
+  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
     let value: number = this.options[key] as number;
 
     let result: number =
