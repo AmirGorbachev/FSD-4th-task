@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "allowJs": false, // Разрешать компилировать файлы с JavaScript-кодом?
+    "allowJs": true, // в случае, когда код, одна часть которого написана на TypeScript, а другая на JavaScript, требуется собрать в общий файл, достаточно активировать текущую опцию.
     "target": "es5",
     "noUnusedLocals": true, // Показывать ошибку, если где-то найдены неиспользуемые локальные значения.
     "noUnusedParameters": true, // Показывать ошибку, если где-то найдены неиспользуемые параметры.
     "removeComments": true, // Удалить все комментарии из итогового файла.
     "strict": true, // Включить ли все строги проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
+    "noFallthroughCasesInSwitch": true, //при активной опции в случае, если блок кода case имеет код, при этом не имеет выхода из него (break или return), возникнет ошибка
+    "pretty": true, // раскрашивает в разные цвета выводимые в консоль сообщения, делая их более понятными.
+    "downlevelIteration": true, // при активной опции становится возможно использовать итераторы при компиляции в версии ниже ES6. Помимо самих итераторов, становятся доступны и нововведения (for...of, Array Destructuring, Spread и т.д.), которые построены с их использованием.
   },
   "exclude": [
     "node_modules"
