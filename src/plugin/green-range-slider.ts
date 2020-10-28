@@ -1,13 +1,7 @@
 // Стили плагина
 import './green-range-slider.sass';
-import {
-  IGrsModel,
-  GrsModel,
-} from './GrsModel/GrsModel.ts';
-import {
-  IGrsView,
-  GrsView,
-} from './GrsView/GrsView.ts';
+import { IGrsModel, GrsModel } from './GrsModel/GrsModel.ts';
+import { IGrsView, GrsView } from './GrsView/GrsView.ts';
 import {
   IGrsController,
   GrsController,
@@ -15,7 +9,7 @@ import {
 import { IOptions, defaultOptions } from './GrsOptions/GrsOptions.ts';
 
 interface IGreenRangeSlider {
-  container:HTMLElement;
+  container: HTMLElement;
   model: IGrsModel;
   view: IGrsView;
   controller: IGrsController;
@@ -26,14 +20,14 @@ const pluginName: string = 'greenRangeSlider';
 let defaults: IOptions = defaultOptions;
 
 class GreenRangeSlider implements IGreenRangeSlider {
-  container:HTMLElement;
+  container: HTMLElement;
   model: IGrsModel;
   view: IGrsView;
   controller: IGrsController;
 
   constructor(element: HTMLElement, defaults: IOptions, options: IOptions) {
     this.container = element;
-    this.model = new GrsModel( $.extend({}, defaults, options) );
+    this.model = new GrsModel($.extend({}, defaults, options));
     this.view = new GrsView();
     this.controller = new GrsController(this.model, this.view);
 
