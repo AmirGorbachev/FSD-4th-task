@@ -61,7 +61,7 @@ class GrsView implements IGrsView {
     this.observer = new GrsObserver();
   }
 
-  init(container: HTMLElement, options: IOptions) {
+  init(container: HTMLElement, options: IOptions): void {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
@@ -97,7 +97,7 @@ class GrsView implements IGrsView {
     this.onClickScale();
   }
 
-  calcCoords(element: keyof IElements) {
+  calcCoords(element: keyof IElements): Coordinates {
     const coordinates = this.elements[element].getBoundingClientRect();
 
     const coords: Coordinates = {
@@ -118,7 +118,7 @@ class GrsView implements IGrsView {
     return coords;
   }
 
-  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>) {
+  calcPersentOffset(key: Exclude<keyof IOptions, OptionsExluded>): number {
     const value: number = this.options[key] as number;
 
     const result: number =
@@ -129,15 +129,15 @@ class GrsView implements IGrsView {
     return result;
   }
 
-  addParameter(parameter: Parameter) {
+  addParameter(parameter: Parameter): void {
     this.elements.rangeSlider.classList.add(`grs-${parameter}`);
   }
 
-  removeParameter(parameter: Parameter) {
+  removeParameter(parameter: Parameter): void {
     this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
   }
 
-  updateView(options: IOptions) {
+  updateView(options: IOptions): void {
     this.options = options;
     // Проверка параметров отрисовки
     this.options.isVertical
@@ -164,7 +164,7 @@ class GrsView implements IGrsView {
     this.render();
   }
 
-  render() {
+  render(): void {
     // Ползунок min
     this.elements.buttonMin.style.left =
       this.calcPersentOffset('minValue') + '%';
@@ -187,7 +187,7 @@ class GrsView implements IGrsView {
     }
   }
 
-  onMoveButton() {
+  onMoveButton(): void {
     // Кнопка минимальная или максимальная
     let isElementButtonMin: boolean;
 
@@ -251,8 +251,8 @@ class GrsView implements IGrsView {
     this.elements.buttonMax.addEventListener('mousedown', onMouseDown);
   }
 
-  onClickVolume() {
-    this.elements.volume.addEventListener('click', () => {
+  onClickVolume(): void {
+    const handleCliclVolume = () => {
       // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       const shiftX =
@@ -271,17 +271,20 @@ class GrsView implements IGrsView {
       }
       // Отрисовка элементов
       this.render();
-    });
+    };
+
+    this.elements.volume.addEventListener('click', handleCliclVolume);
   }
 
-  onClickScale() {
-    this.elements.scaleMin.addEventListener('click', () => {
+  onClickScale(): void {
+    const handleClickScaleMin = () => {
       // Уведомление об изменении
       this.observer.notifySubscribers({ option: 'minValue', value: 0 });
       // Отрисовка элементов
       this.render();
-    });
-    this.elements.scaleMax.addEventListener('click', () => {
+    };
+
+    const handleClickScaleMax = () => {
       // Уведомление об изменении
       if (this.options.isInterval) {
         this.observer.notifySubscribers({ option: 'maxValue', value: 100 });
@@ -290,7 +293,10 @@ class GrsView implements IGrsView {
       }
       // Отрисовка элементов
       this.render();
-    });
+    };
+
+    this.elements.scaleMin.addEventListener('click', handleClickScaleMin);
+    this.elements.scaleMax.addEventListener('click', handleClickScaleMax);
   }
 }
 

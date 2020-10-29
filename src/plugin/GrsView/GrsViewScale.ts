@@ -1,15 +1,12 @@
-interface IElements {
-  [index: number]: HTMLDivElement | HTMLSpanElement;
-}
+type IElements = Array<HTMLDivElement | HTMLSpanElement>;
 
 interface IGrsViewScale {
   init(): IElements;
 }
 
+/* typescript-eslint no-empty-function: ["error", { "allow": ["constructors"] }]*/
 class GrsViewScale implements IGrsViewScale {
-  constructor() {}
-
-  init() {
+  init(): IElements {
     const scale: HTMLDivElement = document.createElement('div');
     scale.className = 'grs-scale';
 

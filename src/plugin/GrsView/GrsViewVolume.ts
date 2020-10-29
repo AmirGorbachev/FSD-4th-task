@@ -1,19 +1,15 @@
-interface IElements {
-  [index: number]: HTMLDivElement;
-}
+type IElements = Array<HTMLDivElement | HTMLSpanElement>;
 
 interface IGrsViewVolume {
   init(): IElements;
 }
 
 class GrsViewVolume implements IGrsViewVolume {
-  constructor() {}
-
-  init() {
-    let volume = document.createElement('div');
+  init(): IElements {
+    const volume = document.createElement('div');
     volume.className = 'grs-volume';
 
-    let filled = document.createElement('div');
+    const filled = document.createElement('div');
     filled.className = 'grs-filled';
 
     volume.append(filled);

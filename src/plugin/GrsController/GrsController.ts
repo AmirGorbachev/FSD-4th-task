@@ -7,10 +7,12 @@ interface IGrsController {
   view: IGrsView;
   init(container: HTMLElement): void;
   updateView(): void;
+  updateModel(data: { option: string; value: number | boolean }): void;
 }
 
 class GrsController implements IGrsController {
   readonly model: IGrsModel;
+
   readonly view: IGrsView;
 
   constructor(model: IGrsModel, view: IGrsView) {
@@ -18,7 +20,7 @@ class GrsController implements IGrsController {
     this.view = view;
   }
 
-  init(container: HTMLElement) {
+  init(container: HTMLElement): void {
     this.view.init(container, this.model.getOptions());
 
     this.model.observer.addSubscriber(this.updateView.bind(this));
@@ -26,11 +28,11 @@ class GrsController implements IGrsController {
     this.view.observer.addSubscriber(this.updateModel.bind(this));
   }
 
-  updateView() {
+  updateView(): void {
     this.view.updateView(this.model.getOptions());
   }
 
-  updateModel(data: { option: string; value: number | boolean }) {
+  updateModel(data: { option: string; value: number | boolean }): void {
     if (data.option === 'minValue') {
       this.model.updateOptions({
         minValue: this.model.calcValue(data.value as number),

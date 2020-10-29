@@ -15,12 +15,15 @@ interface IGreenRangeSlider {
   controller: IGrsController;
 }
 
-const pluginName: string = 'greenRangeSlider';
+const pluginName = 'greenRangeSlider';
 
 class GreenRangeSlider implements IGreenRangeSlider {
   container: HTMLElement;
+
   model: IGrsModel;
+
   view: IGrsView;
+
   controller: IGrsController;
 
   constructor(element: HTMLElement, defaults: IOptions, options: IOptions) {
@@ -39,7 +42,7 @@ interface IMethods {
 }
 
 const methods: IMethods = {
-  init: function (this: typeof $.fn, options: IOptions) {
+  init(this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       if (!$.data(this, pluginName)) {
         $.data(this, pluginName, new GreenRangeSlider(this, defaultOptions, options));
@@ -49,7 +52,7 @@ const methods: IMethods = {
     });
   },
 
-  update: function (this: typeof $.fn, options: IOptions) {
+  update(this: typeof $.fn, options: IOptions) {
     return this.each(function (this: HTMLElement) {
       $.data(this, pluginName).model.updateOptions(options);
     });
@@ -57,14 +60,14 @@ const methods: IMethods = {
 };
 
 $.fn.extend({
-  [pluginName]: function (
+  [pluginName](
     this: typeof $.fn,
     method: keyof IMethods | IOptions
   ) {
     if (methods[method as keyof IMethods]) {
       return methods[method as keyof IMethods].apply(
         this,
-        Array.prototype.slice.call(arguments, 1) as [any]
+        Array.prototype.slice.call(arguments, 1) as [IOptions]
       );
     } else if (typeof method === 'object' || !method) {
       return methods.init.call(this, method);

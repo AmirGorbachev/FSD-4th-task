@@ -11,6 +11,7 @@ interface IGrsModel {
 
 class GrsModel implements IGrsModel {
   private options: IOptions;
+
   observer: IGrsObserver;
 
   constructor(options: IOptions) {
@@ -18,15 +19,15 @@ class GrsModel implements IGrsModel {
     this.observer = new GrsObserver();
   }
 
-  getOption(option: keyof IOptions) {
+  getOption(option: keyof IOptions): number | boolean {
     return this.options[option];
   }
 
-  getOptions() {
+  getOptions(): IOptions {
     return this.options;
   }
 
-  updateOptions(options: IOptions) {
+  updateOptions(options: IOptions): void {
     let key: keyof IOptions;
     for (key in options) {
       this.options[key] = options[key];
@@ -35,7 +36,7 @@ class GrsModel implements IGrsModel {
     this.observer.notifySubscribers();
   }
 
-  calcValue(persentOffset: number) {
+  calcValue(persentOffset: number): number {
     const value: number =
       (this.options.maxLimit - this.options.minLimit) * (persentOffset / 100) +
       this.options.minLimit;

@@ -1,15 +1,11 @@
-interface IElements {
-  [index: number]: HTMLDivElement | HTMLSpanElement;
-}
+type IElements = Array<HTMLDivElement | HTMLSpanElement>;
 
 interface IGrsViewButton {
   init(): IElements;
 }
 
 class GrsViewButton implements IGrsViewButton {
-  constructor() {}
-
-  init() {
+  init(): IElements {
     const buttonMin: HTMLDivElement = document.createElement('div');
     buttonMin.className = 'grs-button-min';
 
