@@ -36,6 +36,12 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        enforce: 'pre',
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
         test: /\.(sass|scss)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
         exclude: /node_modules/,
