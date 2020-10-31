@@ -4,7 +4,7 @@
   "description": "fsd-4th-task",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "start": "webpack-dev-server --history-api-fallback --inline --progress",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
@@ -44,6 +44,7 @@
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.6.1",
     "node-sass": "^4.14.1",
+    "prettier": "^2.1.2",
     "pug": "^3.0.0",
     "pug-loader": "^2.4.0",
     "sass-loader": "^9.0.2",
