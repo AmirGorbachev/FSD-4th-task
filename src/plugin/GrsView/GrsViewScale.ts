@@ -1,24 +1,69 @@
+import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
+
 type IElements = Array<HTMLDivElement | HTMLSpanElement>;
 
+interface IConfig {
+  isInterval: boolean;
+}
+
 interface IGrsViewScale {
-  init(): IElements;
+  scale: HTMLDivElement;
+  scaleMin: HTMLSpanElement;
+  scaleMax: HTMLSpanElement;
+  observer: IGrsObserver;
+  getElements(): IElements;
+  render(minLimit: number, maxLimit: number): void;
+  onClick(config: IConfig): void;
 }
 
 /* typescript-eslint no-empty-function: ["error", { "allow": ["constructors"] }]*/
 class GrsViewScale implements IGrsViewScale {
-  init(): IElements {
-    const scale: HTMLDivElement = document.createElement('div');
-    scale.className = 'grs-scale';
+  scale: HTMLDivElement;
+  scaleMin: HTMLSpanElement;
+  scaleMax: HTMLSpanElement;
+  observer: IGrsObserver;
 
-    const scaleMin: HTMLSpanElement = document.createElement('span');
-    scaleMin.className = 'grs-scale-min';
+  constructor() {
+    this.scale = document.createElement('div');
+    this.scale.className = 'grs-scale';
 
-    const scaleMax: HTMLSpanElement = document.createElement('span');
-    scaleMax.className = 'grs-scale-max';
+    this.scaleMin = document.createElement('span');
+    this.scaleMin.className = 'grs-scale-min';
 
-    scale.append(scaleMin, scaleMax);
+    this.scaleMax = document.createElement('span');
+    this.scaleMax.className = 'grs-scale-max';
 
-    return [scale, scaleMin, scaleMax];
+    this.scale.append(this.scaleMin, this.scaleMax);
+
+    this.observer = new GrsObserver();
+  }
+
+  getElements(): IElements {
+    return [this.scale, this.scaleMin, this.scaleMax];
+  }
+
+  render(minLimit: number, maxLimit: number): void {
+    this.scaleMin.innerHTML = String(minLimit);
+    this.scaleMax.innerHTML = String(maxLimit);
+  }
+
+  onClick(config: IConfig): void {
+    const handleClickScaleMin = () => {
+      // Уведомление об изменении
+      this.observer.notifySubscribers({ option: 'minValue', value: 0 });
+    };
+
+    const handleClickScaleMax = () => {
+      // Уведомление об изменении
+      if (config.isInterval) {
+        this.observer.notifySubscribers({ option: 'maxValue', value: 100 });
+      } else {
+        this.observer.notifySubscribers({ option: 'minValue', value: 100 });
+      }
+    };
+
+    this.scaleMin.addEventListener('click', handleClickScaleMin);
+    this.scaleMax.addEventListener('click', handleClickScaleMax);
   }
 }
 

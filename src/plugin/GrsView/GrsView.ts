@@ -70,15 +70,18 @@ class GrsView implements IGrsView {
       this.elements.pointerMin,
       this.elements.buttonMax,
       this.elements.pointerMax,
-    ] = new GrsViewButton().init();
+    ] = new GrsViewButton().getElements();
 
-    [this.elements.volume, this.elements.filled] = new GrsViewVolume().init();
+    [
+      this.elements.volume,
+      this.elements.filled,
+    ] = new GrsViewVolume().getElements();
 
     [
       this.elements.scale,
       this.elements.scaleMin,
       this.elements.scaleMax,
-    ] = new GrsViewScale().init();
+    ] = new GrsViewScale().getElements();
 
     this.elements.rangeSlider.append(
       this.elements.volume,
