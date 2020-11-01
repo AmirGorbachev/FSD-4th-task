@@ -1,8 +1,8 @@
-import { GrsViewVolume } from './GrsViewVolume.ts';
-import { GrsViewButton } from './GrsViewButton.ts';
-import { GrsViewScale } from './GrsViewScale.ts';
-import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
-import { IOptions } from '../GrsOptions/GrsOptions.ts';
+import { GrsViewVolume } from './GrsViewVolume';
+import { GrsViewButton } from './GrsViewButton';
+import { GrsViewScale } from './GrsViewScale';
+import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
+import { IOptions } from '../GrsOptions/GrsOptions';
 
 type OptionsExluded =
   | 'isVertical'

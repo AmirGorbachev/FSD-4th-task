@@ -1,5 +1,3 @@
-'use strict';
-
 interface IOptions {
   [key: string]: number | boolean;
   minLimit: number;

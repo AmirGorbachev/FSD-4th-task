@@ -1,6 +1,6 @@
-import { IGrsView } from '../GrsView/GrsView.ts';
-import { IGrsModel } from '../GrsModel/GrsModel.ts';
-import { IOptions } from '../GrsOptions/GrsOptions.ts';
+import { IGrsView } from '../GrsView/GrsView';
+import { IGrsModel } from '../GrsModel/GrsModel';
+import { IOptions } from '../GrsOptions/GrsOptions';
 
 interface IGrsController {
   model: IGrsModel;

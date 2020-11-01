@@ -1,5 +1,5 @@
-import { IOptions } from '../GrsOptions/GrsOptions.ts';
-import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver.ts';
+import { IOptions } from '../GrsOptions/GrsOptions';
+import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
 interface IGrsModel {
   observer: IGrsObserver;
