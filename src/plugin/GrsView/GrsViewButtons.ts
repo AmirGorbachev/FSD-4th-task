@@ -10,7 +10,7 @@ interface IConfig {
   isInterval: boolean;
 }
 
-class GrsViewButton extends GrsSubView {
+class GrsViewButtons extends GrsSubView {
   container: HTMLDivElement;
   buttonMin: HTMLDivElement;
   pointerMin: HTMLSpanElement;
@@ -131,4 +131,4 @@ class GrsViewButton extends GrsSubView {
   }
 }
 
-export { GrsViewButton };
+export { GrsViewButtons };
