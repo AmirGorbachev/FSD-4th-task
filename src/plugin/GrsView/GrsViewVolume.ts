@@ -41,7 +41,7 @@ class GrsViewVolume extends GrsSubView {
         ) + '%';
       this.filled.style.width =
         this.calcPersentOffset(
-          this.options.minValue,
+          this.options.maxValue,
           this.options.minLimit,
           this.options.maxLimit
         ) -
@@ -75,7 +75,7 @@ class GrsViewVolume extends GrsSubView {
         config.isInterval &&
         shiftX >
           this.calcPersentOffset(
-            this.options.minValue,
+            this.options.maxValue,
             this.options.minLimit,
             this.options.maxLimit
           )

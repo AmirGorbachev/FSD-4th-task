@@ -59,7 +59,7 @@ class GrsViewButtons extends GrsSubView {
     if (config.isInterval) {
       this.buttonMax.style.left =
         this.calcPersentOffset(
-          this.options.minValue,
+          this.options.maxValue,
           this.options.minLimit,
           this.options.maxLimit
         ) + '%';
