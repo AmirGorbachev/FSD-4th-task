@@ -1,15 +1,7 @@
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
-interface IGrsModel {
-  observer: IGrsObserver;
-  getOption(option: keyof IOptions): number | boolean;
-  getOptions(): IOptions;
-  updateOptions(options: IOptions): void;
-  calcValue(persentOffset: number): number;
-}
-
-class GrsModel implements IGrsModel {
+class GrsModel {
   private options: IOptions;
 
   observer: IGrsObserver;
@@ -54,4 +46,4 @@ class GrsModel implements IGrsModel {
   }
 }
 
-export { IGrsModel, GrsModel };
+export { GrsModel };

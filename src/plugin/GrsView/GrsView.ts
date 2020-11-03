@@ -4,26 +4,7 @@ import { GrsViewScale } from './GrsViewScale';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
-type OptionsExluded =
-  | 'isVertical'
-  | 'isInterval'
-  | 'withPointers'
-  | 'withScale';
-
-type Parameter = OptionsExluded;
-
-interface IElements {
-  rangeSlider: HTMLElement;
-  buttonMin: HTMLElement;
-  pointerMin: HTMLElement;
-  buttonMax: HTMLElement;
-  pointerMax: HTMLElement;
-  volume: HTMLElement;
-  filled: HTMLElement;
-  scale: HTMLElement;
-  scaleMin: HTMLElement;
-  scaleMax: HTMLElement;
-}
+type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
 
 interface ISubView {
   volume: GrsViewVolume;
@@ -31,35 +12,20 @@ interface ISubView {
   scale: GrsViewScale;
 }
 
-interface IGrsView {
-  options: IOptions;
+class GrsView {
   subView: ISubView;
-  readonly elements: IElements;
-  observer: IGrsObserver;
-  init(container: HTMLElement, options: IOptions): void;
-  addParameter(parameter: Parameter): void;
-  removeParameter(parameter: Parameter): void;
-  updateView(options: IOptions): void;
-  render(): void;
-}
-
-class GrsView implements IGrsView {
-  options: IOptions;
-  subView: ISubView;
-  readonly elements: IElements;
+  readonly element: HTMLElement;
   observer: IGrsObserver;
 
   constructor() {
-    this.options = {} as IOptions;
     this.subView = {} as ISubView;
-    this.elements = {} as IElements;
     this.observer = new GrsObserver();
+
+    this.element = document.createElement('div');
+    this.element.className = 'green-range-slider grs';
   }
 
   init(container: HTMLElement, options: IOptions): void {
-    this.elements.rangeSlider = document.createElement('div');
-    this.elements.rangeSlider.className = 'green-range-slider grs';
-
     this.subView.volume = new GrsViewVolume(options);
 
     this.subView.buttons = new GrsViewButtons(
@@ -69,21 +35,19 @@ class GrsView implements IGrsView {
 
     this.subView.scale = new GrsViewScale(options);
 
-    this.elements.rangeSlider.append(
+    this.element.append(
       this.subView.volume.getElements()[0],
       this.subView.scale.getElements()[0],
       this.subView.buttons.getElements()[0],
       this.subView.buttons.getElements()[2]
     );
 
-    container.append(this.elements.rangeSlider);
+    container.append(this.element);
 
-    this.options = options;
+    this.updateView(options);
 
-    this.updateView(this.options);
-
-    this.subView.volume.onClick(this.options);
-    this.subView.scale.onClick(this.options);
+    this.subView.volume.onClick(options);
+    this.subView.scale.onClick(options);
     this.subView.buttons.onMoveButton();
 
     this.subView.volume.observer.addSubscriber(
@@ -106,44 +70,43 @@ class GrsView implements IGrsView {
   }
 
   addParameter(parameter: Parameter): void {
-    this.elements.rangeSlider.classList.add(`grs-${parameter}`);
+    this.element.classList.add(`grs-${parameter}`);
   }
 
   removeParameter(parameter: Parameter): void {
-    this.elements.rangeSlider.classList.remove(`grs-${parameter}`);
+    this.element.classList.remove(`grs-${parameter}`);
   }
 
   updateView(options: IOptions): void {
-    this.options = options;
     // Проверка параметров отрисовки
-    this.options.isVertical
+    options.isVertical
       ? this.addParameter('isVertical')
       : this.removeParameter('isVertical');
 
-    this.options.isInterval
+    options.isInterval
       ? this.addParameter('isInterval')
       : this.removeParameter('isInterval');
 
-    this.options.withPointers
+    options.withPointers
       ? this.addParameter('withPointers')
       : this.removeParameter('withPointers');
 
-    this.options.withScale
+    options.withScale
       ? this.addParameter('withScale')
       : this.removeParameter('withScale');
 
     // Отрисовка элементов
-    this.render();
+    this.render(options);
   }
 
-  render(): void {
+  render(options: IOptions): void {
     // Ползунокbи
-    this.subView.buttons.render(this.options);
+    this.subView.buttons.render(options);
     // Шкала прогресса filled
-    this.subView.volume.render(this.options);
+    this.subView.volume.render(options);
     // Шкала значений
-    this.subView.scale.render(this.options.minLimit, this.options.maxLimit);
+    this.subView.scale.render(options);
   }
 }
 
-export { IGrsView, GrsView };
+export { GrsView };

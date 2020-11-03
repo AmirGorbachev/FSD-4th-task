@@ -35,9 +35,9 @@ class GrsViewScale extends GrsSubView {
     return [this.scale, this.scaleMin, this.scaleMax];
   }
 
-  render(minLimit: number, maxLimit: number): void {
-    this.scaleMin.innerHTML = String(minLimit);
-    this.scaleMax.innerHTML = String(maxLimit);
+  render(options: IOptions): void {
+    this.scaleMin.innerHTML = String(options.minLimit);
+    this.scaleMax.innerHTML = String(options.maxLimit);
   }
 
   onClick(config: IConfig): void {

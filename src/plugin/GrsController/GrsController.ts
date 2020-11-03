@@ -1,21 +1,12 @@
-import { IGrsView } from '../GrsView/GrsView';
-import { IGrsModel } from '../GrsModel/GrsModel';
+import { GrsView } from '../GrsView/GrsView';
+import { GrsModel } from '../GrsModel/GrsModel';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
-interface IGrsController {
-  model: IGrsModel;
-  view: IGrsView;
-  init(container: HTMLElement): void;
-  updateView(): void;
-  updateModel(data: { option: string; value: number | boolean }): void;
-}
+class GrsController {
+  readonly model: GrsModel;
+  readonly view: GrsView;
 
-class GrsController implements IGrsController {
-  readonly model: IGrsModel;
-
-  readonly view: IGrsView;
-
-  constructor(model: IGrsModel, view: IGrsView) {
+  constructor(model: GrsModel, view: GrsView) {
     this.model = model;
     this.view = view;
   }
@@ -33,16 +24,10 @@ class GrsController implements IGrsController {
   }
 
   updateModel(data: { option: string; value: number | boolean }): void {
-    if (data.option === 'minValue') {
-      this.model.updateOptions({
-        minValue: this.model.calcValue(data.value as number),
-      } as IOptions);
-    } else if (data.option === 'maxValue') {
-      this.model.updateOptions({
-        maxValue: this.model.calcValue(data.value as number),
-      } as IOptions);
-    }
+    this.model.updateOptions({
+      [data.option]: this.model.calcValue(data.value as number),
+    } as IOptions);
   }
 }
 
-export { IGrsController, GrsController };
+export { GrsController };

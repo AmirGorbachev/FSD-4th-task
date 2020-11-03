@@ -1,5 +1,5 @@
 import { IOptions} from '../src/plugin/GrsOptions/GrsOptions';
-import { IGrsModel, GrsModel } from '../src/plugin/GrsModel/GrsModel';
+import { GrsModel } from '../src/plugin/GrsModel/GrsModel';
 
 describe('GrsModel.getOptions:', () => {
 
@@ -16,7 +16,7 @@ describe('GrsModel.getOptions:', () => {
       withPointers: true,
       withScale: true,
     }
-    const model: IGrsModel = new GrsModel(options);
+    const model: GrsModel = new GrsModel(options);
     expect(model.getOptions()).toBeDefined();
 
   });
