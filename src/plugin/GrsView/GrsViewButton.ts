@@ -1,3 +1,5 @@
+import { GrsSubView } from './GrsSubView';
+import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
 type IElements = Array<HTMLDivElement | HTMLSpanElement>;
@@ -8,23 +10,19 @@ interface IConfig {
   isInterval: boolean;
 }
 
-interface IGrsViewButton {
-  buttonMin: HTMLElement;
-  pointerMin: HTMLElement;
-  buttonMax: HTMLElement;
-  pointerMax: HTMLElement;
-  observer: IGrsObserver;
-  getElements(): IElements;
-}
-
-class GrsViewButton implements IGrsViewButton {
-  buttonMin: HTMLElement;
-  pointerMin: HTMLElement;
-  buttonMax: HTMLElement;
-  pointerMax: HTMLElement;
+class GrsViewButton extends GrsSubView {
+  container: HTMLDivElement;
+  buttonMin: HTMLDivElement;
+  pointerMin: HTMLSpanElement;
+  buttonMax: HTMLDivElement;
+  pointerMax: HTMLSpanElement;
   observer: IGrsObserver;
 
-  constructor() {
+  constructor(options: IOptions, container: HTMLDivElement) {
+    super(options);
+
+    this.container = container;
+
     this.buttonMin = document.createElement('div');
     this.buttonMin.className = 'grs-button-min';
 
@@ -51,12 +49,20 @@ class GrsViewButton implements IGrsViewButton {
   render(config: IConfig): void {
     // Ползунок min
     this.buttonMin.style.left =
-      this.calcPersentOffset('minValue') + '%';
+      this.calcPersentOffset(
+        this.options.minValue,
+        this.options.minLimit,
+        this.options.maxLimit
+      ) + '%';
     this.pointerMin.innerHTML = String(config.minValue);
     // Ползунок max
     if (config.isInterval) {
       this.buttonMax.style.left =
-        this.calcPersentOffset('maxValue') + '%';
+        this.calcPersentOffset(
+          this.options.minValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        ) + '%';
       this.pointerMax.innerHTML = String(config.maxValue);
     }
   }
@@ -79,20 +85,21 @@ class GrsViewButton implements IGrsViewButton {
       event.preventDefault();
 
       // Новая позиция кнопки
-      let newPosition = event.clientX - this.calcCoords('volume').left;
+      let newPosition = event.clientX - this.calcCoords(this.container).left;
 
       // Границы смещения
       let leftEdge, rightEdge;
       if (isElementButtonMin) {
         leftEdge = 0;
         rightEdge = this.options.isInterval
-          ? this.calcCoords('buttonMax').middleX -
-            this.calcCoords('volume').left
-          : this.calcCoords('volume').rigth;
+          ? this.calcCoords(this.buttonMax).middleX -
+            this.calcCoords(this.container).left
+          : this.calcCoords(this.container).rigth;
       } else {
         leftEdge =
-          this.calcCoords('buttonMin').middleX - this.calcCoords('volume').left;
-        rightEdge = this.calcCoords('volume').width;
+          this.calcCoords(this.buttonMin).middleX -
+          this.calcCoords(this.container).left;
+        rightEdge = this.calcCoords(this.container).width;
       }
       // Проверка выхода за границы
       if (newPosition < leftEdge) {
@@ -103,7 +110,8 @@ class GrsViewButton implements IGrsViewButton {
 
       // Смещение кнопки в процентах
       // ((смещение / ширина слайдера) * 100%)
-      const shiftX = (newPosition / this.calcCoords('volume').width) * 100;
+      const shiftX =
+        (newPosition / this.calcCoords(this.container).width) * 100;
 
       // Уведомление об изменении
       if (isElementButtonMin) {

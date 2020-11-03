@@ -1,3 +1,5 @@
+import { GrsSubView } from './GrsSubView';
+import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
 type IElements = Array<HTMLDivElement | HTMLSpanElement>;
@@ -6,21 +8,14 @@ interface IConfig {
   isInterval: boolean;
 }
 
-interface IGrsViewVolume {
-  volume: HTMLElement;
-  filled: HTMLElement;
-  observer: IGrsObserver;
-  getElements(): IElements;
-  render(config: IConfig): void;
-  onClick(config: IConfig): void;
-}
-
-class GrsViewVolume implements IGrsViewVolume {
-  volume: HTMLElement;
-  filled: HTMLElement;
+class GrsViewVolume extends GrsSubView {
+  volume: HTMLDivElement;
+  filled: HTMLDivElement;
   observer: IGrsObserver;
 
-  constructor() {
+  constructor(options: IOptions) {
+    super(options);
+
     this.volume = document.createElement('div');
     this.volume.className = 'grs-volume';
 
@@ -38,13 +33,31 @@ class GrsViewVolume implements IGrsViewVolume {
 
   render(config: IConfig): void {
     if (config.isInterval) {
-      this.filled.style.left = this.calcPersentOffset('minValue') + '%';
+      this.filled.style.left =
+        this.calcPersentOffset(
+          this.options.minValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        ) + '%';
       this.filled.style.width =
-        this.calcPersentOffset('maxValue') -
-        this.calcPersentOffset('minValue') +
+        this.calcPersentOffset(
+          this.options.minValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        ) -
+        this.calcPersentOffset(
+          this.options.minValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        ) +
         '%';
     } else {
-      this.filled.style.width = this.calcPersentOffset('minValue') + '%';
+      this.filled.style.width =
+        this.calcPersentOffset(
+          this.options.minValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        ) + '%';
     }
   }
 
@@ -53,14 +66,19 @@ class GrsViewVolume implements IGrsViewVolume {
       // Смещение кнопки в процентах
       // ((клик - позиция слайдера) / ширина слайдера) * 100%
       const shiftX =
-        (((event as MouseEvent).clientX - this.calcCoords('volume').left) /
-          this.calcCoords('volume').width) *
+        (((event as MouseEvent).clientX - this.calcCoords(this.volume).left) /
+          this.calcCoords(this.volume).width) *
         100;
 
       // Уведомление об изменении
       if (
         config.isInterval &&
-        shiftX > this.calcPersentOffset('maxValue')
+        shiftX >
+          this.calcPersentOffset(
+            this.options.minValue,
+            this.options.minLimit,
+            this.options.maxLimit
+          )
       ) {
         this.observer.notifySubscribers({ option: 'maxValue', value: shiftX });
       } else {

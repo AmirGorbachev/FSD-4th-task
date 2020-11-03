@@ -1,3 +1,5 @@
+import { GrsSubView } from './GrsSubView';
+import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
 type IElements = Array<HTMLDivElement | HTMLSpanElement>;
@@ -6,24 +8,15 @@ interface IConfig {
   isInterval: boolean;
 }
 
-interface IGrsViewScale {
-  scale: HTMLDivElement;
-  scaleMin: HTMLSpanElement;
-  scaleMax: HTMLSpanElement;
-  observer: IGrsObserver;
-  getElements(): IElements;
-  render(minLimit: number, maxLimit: number): void;
-  onClick(config: IConfig): void;
-}
-
-/* typescript-eslint no-empty-function: ["error", { "allow": ["constructors"] }]*/
-class GrsViewScale implements IGrsViewScale {
+class GrsViewScale extends GrsSubView {
   scale: HTMLDivElement;
   scaleMin: HTMLSpanElement;
   scaleMax: HTMLSpanElement;
   observer: IGrsObserver;
 
-  constructor() {
+  constructor(options: IOptions) {
+    super(options);
+
     this.scale = document.createElement('div');
     this.scale.className = 'grs-scale';
 

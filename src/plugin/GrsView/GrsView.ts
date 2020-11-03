@@ -65,23 +65,25 @@ class GrsView implements IGrsView {
     this.elements.rangeSlider = document.createElement('div');
     this.elements.rangeSlider.className = 'green-range-slider grs';
 
+    [this.elements.volume, this.elements.filled] = new GrsViewVolume(
+      options
+    ).getElements();
+
     [
       this.elements.buttonMin,
       this.elements.pointerMin,
       this.elements.buttonMax,
       this.elements.pointerMax,
-    ] = new GrsViewButton().getElements();
-
-    [
-      this.elements.volume,
-      this.elements.filled,
-    ] = new GrsViewVolume().getElements();
+    ] = new GrsViewButton(
+      options,
+      this.elements.volume as HTMLDivElement
+    ).getElements();
 
     [
       this.elements.scale,
       this.elements.scaleMin,
       this.elements.scaleMax,
-    ] = new GrsViewScale().getElements();
+    ] = new GrsViewScale(options).getElements();
 
     this.elements.rangeSlider.append(
       this.elements.volume,
