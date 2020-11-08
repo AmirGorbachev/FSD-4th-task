@@ -26,6 +26,14 @@ class GrsView {
   }
 
   init(container: HTMLElement, options: IOptions): void {
+    this.initElements(container, options);
+
+    this.updateView(options);
+
+    this.createEventLicteners(options);
+  }
+
+  initElements(container: HTMLElement, options: IOptions): void {
     this.subView.volume = new GrsViewVolume(options);
 
     this.subView.buttons = new GrsViewButtons(
@@ -43,9 +51,9 @@ class GrsView {
     );
 
     container.append(this.element);
+  }
 
-    this.updateView(options);
-
+  createEventLicteners(options: IOptions): void {
     this.subView.volume.onClick(options);
     this.subView.scale.onClick(options);
     this.subView.buttons.onMoveButton();
