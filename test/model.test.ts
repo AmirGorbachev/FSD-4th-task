@@ -14,10 +14,6 @@ const defaultOptions: IOptions = {
 };
 let model: GrsModel = new GrsModel(defaultOptions);
 
-beforeEach(() => {
-  model = new GrsModel(defaultOptions);
-});
-
 describe('GrsModel.getOption:', () => {
   test('should return value of choosen option', () => {
     expect(model.getOption('minLimit')).toBe(17);
