@@ -10,7 +10,7 @@ type Coordinates = {
   middleX: number;
 };
 
-abstract class GrsSubView {
+export default abstract class GrsSubView {
   options: IOptions;
   observer: IGrsObserver;
 
@@ -46,5 +46,3 @@ abstract class GrsSubView {
     return result;
   }
 }
-
-export { GrsSubView };

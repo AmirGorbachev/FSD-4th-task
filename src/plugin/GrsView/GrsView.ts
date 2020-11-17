@@ -1,6 +1,6 @@
-import { GrsViewVolume } from './GrsViewVolume';
-import { GrsViewButtons } from './GrsViewButtons';
-import { GrsViewScale } from './GrsViewScale';
+import GrsViewVolume from './GrsViewVolume';
+import GrsViewButtons from './GrsViewButtons';
+import GrsViewScale from './GrsViewScale';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
@@ -77,14 +77,6 @@ class GrsView {
     );
   }
 
-  addParameter(parameter: Parameter): void {
-    this.element.classList.add(`grs-${parameter}`);
-  }
-
-  removeParameter(parameter: Parameter): void {
-    this.element.classList.remove(`grs-${parameter}`);
-  }
-
   updateView(options: IOptions): void {
     // Проверка параметров отрисовки
     options.isVertical
@@ -115,6 +107,14 @@ class GrsView {
     // Шкала значений
     this.subView.scale.render(options);
   }
+
+  addParameter(parameter: Parameter): void {
+    this.element.classList.add(`grs-${parameter}`);
+  }
+
+  removeParameter(parameter: Parameter): void {
+    this.element.classList.remove(`grs-${parameter}`);
+  }
 }
 
-export { GrsView };
+export default GrsView;

@@ -1,4 +1,4 @@
-import { GrsSubView } from './GrsSubView';
+import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
@@ -10,7 +10,7 @@ interface IConfig {
   isInterval: boolean;
 }
 
-class GrsViewButtons extends GrsSubView {
+export default class GrsViewButtons extends GrsSubView {
   container: HTMLDivElement;
   buttonMin: HTMLDivElement;
   pointerMin: HTMLSpanElement;
@@ -130,5 +130,3 @@ class GrsViewButtons extends GrsSubView {
     this.buttonMax.addEventListener('mousedown', onMouseDown);
   }
 }
-
-export { GrsViewButtons };

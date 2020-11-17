@@ -1,4 +1,4 @@
-import { GrsSubView } from './GrsSubView';
+import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
@@ -8,7 +8,7 @@ interface IConfig {
   isInterval: boolean;
 }
 
-class GrsViewVolume extends GrsSubView {
+export default class GrsViewVolume extends GrsSubView {
   volume: HTMLDivElement;
   filled: HTMLDivElement;
   observer: IGrsObserver;
@@ -88,6 +88,4 @@ class GrsViewVolume extends GrsSubView {
 
     this.volume.addEventListener('click', handleClickVolume);
   }
-}
-
-export { GrsViewVolume };
+};

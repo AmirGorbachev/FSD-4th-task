@@ -1,4 +1,4 @@
-import { GrsSubView } from './GrsSubView';
+import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
@@ -8,7 +8,7 @@ interface IConfig {
   isInterval: boolean;
 }
 
-class GrsViewScale extends GrsSubView {
+export default class GrsViewScale extends GrsSubView {
   scale: HTMLDivElement;
   scaleMin: HTMLSpanElement;
   scaleMax: HTMLSpanElement;
@@ -59,5 +59,3 @@ class GrsViewScale extends GrsSubView {
     this.scaleMax.addEventListener('click', handleClickScaleMax);
   }
 }
-
-export { GrsViewScale };
