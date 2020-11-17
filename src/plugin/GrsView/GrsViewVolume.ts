@@ -88,4 +88,4 @@ export default class GrsViewVolume extends GrsSubView {
 
     this.volume.addEventListener('click', handleClickVolume);
   }
-};
+}

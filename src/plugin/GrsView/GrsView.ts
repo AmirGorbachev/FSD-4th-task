@@ -117,4 +117,4 @@ class GrsView {
   }
 }
 
-export default GrsView;
+export {GrsView};
