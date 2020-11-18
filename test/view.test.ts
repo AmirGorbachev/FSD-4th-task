@@ -1,5 +1,11 @@
 import { IOptions } from '../src/plugin/GrsOptions/GrsOptions';
 import { GrsView } from '../src/plugin/GrsView/GrsView';
+import GrsViewVolume from '../src/plugin/GrsView/GrsViewVolume';
+import GrsViewButtons from '../src/plugin/GrsView/GrsViewButtons';
+import GrsViewScale from '../src/plugin/GrsView/GrsViewScale';
+jest.mock('../src/plugin/GrsView/GrsViewVolume');
+jest.mock('../src/plugin/GrsView/GrsViewButtons');
+jest.mock('../src/plugin/GrsView/GrsViewScale');
 
 const $ = require('jquery');
 
@@ -16,14 +22,19 @@ const options: IOptions = {
 };
 let view: GrsView = new GrsView();
 
+document.body.innerHTML = '<div>' + '  <div id="slider" />' + '</div>';
+const $slider: HTMLElement = ($('#slider') as unknown) as HTMLElement;
+
 describe('GrsView.initElements:', () => {
   test('should add elements of slider in DOM', () => {
-    document.body.innerHTML = '<div>' + '  <div id="slider" />' + '</div>';
-    const $slider: HTMLElement = ($('#slider') as unknown) as HTMLElement;
-
     view.initElements($slider, options);
 
     expect($('#slider').has('.green-range-slider')[0]).toBeDefined();
+  });
+  test('should call a class of subViews', () => {
+    expect(GrsViewVolume).toHaveBeenCalledTimes(1);
+    expect(GrsViewButtons).toHaveBeenCalledTimes(1);
+    expect(GrsViewScale).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -35,7 +46,8 @@ describe('GrsView.createEventLicteners:', () => {
 
 describe('GrsView.updateView:', () => {
   test('should change classes by options and call a render method', () => {
-
+    view.updateView(options);
+    expect(view.addParameter).toBeCalled();
   });
 });
 
@@ -53,12 +65,16 @@ describe('GrsView.init:', () => {
 
 describe('GrsView.addParameter:', () => {
   test('should add class by the entered parameter', () => {
+    view.addParameter('isInterval');
 
+    expect($(view.element).hasClass('grs-isInterval')).toBeTruthy();
   });
 });
 
 describe('GrsView.removeParameter:', () => {
   test('should remove class by the entered parameter', () => {
+    view.removeParameter('isInterval');
 
+    expect($(view.element).hasClass('grs-isInterval')).toBeFalsy();
   });
 });
