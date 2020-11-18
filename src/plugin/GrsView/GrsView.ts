@@ -38,16 +38,16 @@ class GrsView {
 
     this.subView.buttons = new GrsViewButtons(
       options,
-      this.subView.volume.getElements()[0] as HTMLDivElement
+      this.subView.volume.volume as HTMLDivElement
     );
 
     this.subView.scale = new GrsViewScale(options);
 
     this.element.append(
-      this.subView.volume.getElements()[0],
-      this.subView.scale.getElements()[0],
-      this.subView.buttons.getElements()[0],
-      this.subView.buttons.getElements()[2]
+      this.subView.volume.getElements('volume'),
+      this.subView.scale.getElements('scale'),
+      this.subView.buttons.getElements('buttonMin'),
+      this.subView.buttons.getElements('buttonMax')
     );
 
     container.append(this.element);

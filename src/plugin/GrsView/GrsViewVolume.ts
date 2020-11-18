@@ -2,8 +2,6 @@ import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
-type IElements = Array<HTMLDivElement | HTMLSpanElement>;
-
 interface IConfig {
   isInterval: boolean;
 }
@@ -27,8 +25,8 @@ export default class GrsViewVolume extends GrsSubView {
     this.observer = new GrsObserver();
   }
 
-  getElements(): IElements {
-    return [this.volume, this.filled];
+  getElements(element: 'volume' | 'filled'): HTMLDivElement {
+    return this[element];
   }
 
   render(config: IConfig): void {

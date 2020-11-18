@@ -2,8 +2,6 @@ import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
-type IElements = Array<HTMLDivElement | HTMLSpanElement>;
-
 interface IConfig {
   isInterval: boolean;
 }
@@ -31,8 +29,10 @@ export default class GrsViewScale extends GrsSubView {
     this.observer = new GrsObserver();
   }
 
-  getElements(): IElements {
-    return [this.scale, this.scaleMin, this.scaleMax];
+  getElements(
+    element: 'scale' | 'scaleMin' | 'scaleMax'
+  ): HTMLDivElement | HTMLSpanElement {
+    return this[element];
   }
 
   render(options: IOptions): void {

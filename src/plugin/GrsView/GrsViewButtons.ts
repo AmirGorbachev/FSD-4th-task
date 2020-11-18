@@ -2,8 +2,6 @@ import GrsSubView from './GrsSubView';
 import { IOptions } from '../GrsOptions/GrsOptions';
 import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
 
-type IElements = Array<HTMLDivElement | HTMLSpanElement>;
-
 interface IConfig {
   minValue: number;
   maxValue: number;
@@ -42,8 +40,10 @@ export default class GrsViewButtons extends GrsSubView {
     this.observer = new GrsObserver();
   }
 
-  getElements(): IElements {
-    return [this.buttonMin, this.pointerMin, this.buttonMax, this.pointerMax];
+  getElements(
+    element: 'buttonMin' | 'pointerMin' | 'buttonMax' | 'pointerMax'
+  ): HTMLDivElement | HTMLSpanElement {
+    return this[element];
   }
 
   render(config: IConfig): void {
