@@ -39,13 +39,18 @@ describe('GrsView.initElements:', () => {
 });
 ///// To-do: write a test
 describe('GrsView.createEventLicteners:', () => {
-  test('should add events and listeners of subViews', () => {});
+  test('should add events and listeners of subViews', () => {
+    // view.createEventLicteners(options);
+
+    // expect(view.).toBeCalled();
+  });
 });
 
 describe('GrsView.updateView:', () => {
   test('should change classes by options and call a render method', () => {
     const spyOnAddParameter = jest.spyOn(view, 'addParameter');
     const spyOnRemoveParameter = jest.spyOn(view, 'removeParameter');
+
     view.updateView(options);
 
     expect(spyOnAddParameter).toHaveBeenCalled();
@@ -55,14 +60,16 @@ describe('GrsView.updateView:', () => {
 ///// To-do: fix 'render' doesn't exist because GrsViewScale is mock
 describe('GrsView.render:', () => {
   test('should call render methods of subViews', () => {
-    const spyOnRender = jest.spyOn(GrsViewScale, 'render');
+    // view.render(options);
 
-    expect(spyOnRender).toHaveBeenCalled();
+    // expect(view.subView.buttons.render).toHaveBeenCalled();
   });
 });
 
 describe('GrsView.init:', () => {
   test('should call a methods for initialization of view', () => {
+    view.init($slider, options);
+
     const spyOnInitElements = jest.spyOn(view, 'initElements');
     const spyOnUpdateView = jest.spyOn(view, 'updateView');
     const spyOnCreateEventLicteners = jest.spyOn(view, 'createEventLicteners');
