@@ -14,7 +14,7 @@ interface IObservers extends Array<(data: IData | void) => void> {
   [index: number]: (data: IData | void) => void;
 }
 
-class GrsObserver implements IGrsObserver {
+export default class GrsObserver implements IGrsObserver {
   subscribers: IObservers;
 
   constructor() {

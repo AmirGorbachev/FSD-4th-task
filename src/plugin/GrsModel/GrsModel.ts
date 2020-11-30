@@ -1,14 +1,12 @@
 import { IOptions } from '../GrsOptions/GrsOptions';
-import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
+import GrsObserver from '../GrsObserver/GrsObserver';
 
-class GrsModel {
+export default class GrsModel extends GrsObserver{
   private options: IOptions;
 
-  observer: IGrsObserver;
-
   constructor(options: IOptions) {
+    super();
     this.options = options;
-    this.observer = new GrsObserver();
   }
 
   getOption(option: keyof IOptions): number | boolean {
@@ -25,7 +23,7 @@ class GrsModel {
       this.options[key] = options[key];
     }
     // Уведомление об изменении
-    this.observer.notifySubscribers();
+    this.notifySubscribers();
   }
 
   calcValue(persentOffset: number): number {

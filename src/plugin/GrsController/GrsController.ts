@@ -1,8 +1,8 @@
-import { GrsView } from '../GrsView/GrsView';
-import { GrsModel } from '../GrsModel/GrsModel';
+import GrsView from '../GrsView/GrsView';
+import GrsModel from '../GrsModel/GrsModel';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
-class GrsController {
+export default class GrsController {
   readonly model: GrsModel;
   readonly view: GrsView;
 
@@ -14,9 +14,9 @@ class GrsController {
   init(container: HTMLElement): void {
     this.view.init(container, this.model.getOptions());
 
-    this.model.observer.addSubscriber(this.updateView.bind(this));
+    this.model.addSubscriber(this.updateView.bind(this));
 
-    this.view.observer.addSubscriber(this.updateModel.bind(this));
+    this.view.addSubscriber(this.updateModel.bind(this));
   }
 
   updateView(): void {

@@ -1,8 +1,8 @@
 // Стили плагина
 import './green-range-slider.sass';
-import { GrsModel } from './GrsModel/GrsModel';
-import { GrsView } from './GrsView/GrsView';
-import { GrsController } from './GrsController/GrsController';
+import GrsModel from './GrsModel/GrsModel';
+import GrsView from './GrsView/GrsView';
+import GrsController from './GrsController/GrsController';
 import { IOptions, defaultOptions } from './GrsOptions/GrsOptions';
 
 interface IGreenRangeSlider {

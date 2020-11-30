@@ -1,7 +1,7 @@
 import GrsViewVolume from './GrsViewVolume';
 import GrsViewButtons from './GrsViewButtons';
 import GrsViewScale from './GrsViewScale';
-import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
+import GrsObserver from '../GrsObserver/GrsObserver';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
 type Parameter = 'isVertical' | 'isInterval' | 'withPointers' | 'withScale';
@@ -12,14 +12,14 @@ interface ISubView {
   scale: GrsViewScale;
 }
 
-class GrsView {
+export default class GrsView extends GrsObserver{
   subView: ISubView;
   readonly element: HTMLElement;
-  observer: IGrsObserver;
 
   constructor() {
+    super();
+
     this.subView = {} as ISubView;
-    this.observer = new GrsObserver();
 
     this.element = document.createElement('div');
     this.element.className = 'green-range-slider grs';
@@ -60,19 +60,19 @@ class GrsView {
 
     this.subView.volume.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
-        this.observer.notifySubscribers(data);
+        this.notifySubscribers(data);
       }
     );
 
     this.subView.scale.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
-        this.observer.notifySubscribers(data);
+        this.notifySubscribers(data);
       }
     );
 
     this.subView.buttons.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
-        this.observer.notifySubscribers(data);
+        this.notifySubscribers(data);
       }
     );
   }
