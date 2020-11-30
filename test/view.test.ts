@@ -26,28 +26,48 @@ document.body.innerHTML = '<div>' + '  <div id="slider" />' + '</div>';
 const $slider: HTMLElement = ($('#slider') as unknown) as HTMLElement;
 
 describe('GrsView.initElements:', () => {
-  test('should add elements of slider in DOM', () => {
+  beforeAll(() => {
     view.initElements($slider, options);
+  });
 
+  test('should add slider in DOM', () => {
     expect($('#slider').has('.green-range-slider')[0]).toBeDefined();
   });
+
+  test('should add elements of slider in DOM', () => {
+    expect($('#slider').children('.volume')).toBeTruthy();
+    expect($('#slider').children('.scale')).toBeTruthy();
+    expect($('#slider').children('.buttonMin')).toBeTruthy();
+    expect($('#slider').children('.buttonMax')).toBeTruthy();
+  });
+
   test('should call a class of subViews', () => {
     expect(GrsViewVolume).toHaveBeenCalled();
     expect(GrsViewButtons).toHaveBeenCalled();
     expect(GrsViewScale).toHaveBeenCalled();
   });
 });
-///// To-do: write a test
-describe('GrsView.createEventLicteners:', () => {
-  test('should add events and listeners of subViews', () => {
-    // view.createEventLicteners(options);
 
-    // expect(view.).toBeCalled();
+describe('GrsView.createEventLicteners:', () => {
+  beforeAll(() => {
+    view.createEventLicteners(options);
+  });
+
+  test('should add events of subViews', () => {
+    expect(view.subView.volume.onClick).toBeCalled();
+    expect(view.subView.scale.onClick).toBeCalled();
+    expect(view.subView.buttons.onMoveButton).toBeCalled();
+  });
+
+  test('should add listeners of subViews', () => {
+    expect(view.subView.volume.addSubscriber).toBeCalled();
+    expect(view.subView.scale.addSubscriber).toBeCalled();
+    expect(view.subView.buttons.addSubscriber).toBeCalled();
   });
 });
 
 describe('GrsView.updateView:', () => {
-  test('should change classes by options and call a render method', () => {
+  test('should change classes by options', () => {
     const spyOnAddParameter = jest.spyOn(view, 'addParameter');
     const spyOnRemoveParameter = jest.spyOn(view, 'removeParameter');
 
@@ -56,23 +76,33 @@ describe('GrsView.updateView:', () => {
     expect(spyOnAddParameter).toHaveBeenCalled();
     expect(spyOnRemoveParameter).toHaveBeenCalled();
   });
+
+  test('should call a render method', () => {
+    const spyOnRender = jest.spyOn(view, 'render');
+
+    view.updateView(options);
+
+    expect(spyOnRender).toHaveBeenCalled();
+  });
 });
-///// To-do: fix 'render' doesn't exist because GrsViewScale is mock
+
 describe('GrsView.render:', () => {
   test('should call render methods of subViews', () => {
-    // view.render(options);
+    view.render(options);
 
-    // expect(view.subView.buttons.render).toHaveBeenCalled();
+    expect(view.subView.buttons.render).toBeCalled();
+    expect(view.subView.volume.render).toBeCalled();
+    expect(view.subView.scale.render).toBeCalled();
   });
 });
 
 describe('GrsView.init:', () => {
   test('should call a methods for initialization of view', () => {
-    view.init($slider, options);
-
     const spyOnInitElements = jest.spyOn(view, 'initElements');
     const spyOnUpdateView = jest.spyOn(view, 'updateView');
     const spyOnCreateEventLicteners = jest.spyOn(view, 'createEventLicteners');
+
+    view.init($slider, options);
 
     expect(spyOnInitElements).toHaveBeenCalled();
     expect(spyOnUpdateView).toHaveBeenCalled();
