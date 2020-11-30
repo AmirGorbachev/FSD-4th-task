@@ -39,15 +39,15 @@ export default class GrsViewScale extends GrsSubView {
   onClick(config: IConfig): void {
     const handleClickScaleMin = () => {
       // Уведомление об изменении
-      this.observer.notifySubscribers({ option: 'minValue', value: 0 });
+      this.notifySubscribers({ option: 'minValue', value: 0 });
     };
 
     const handleClickScaleMax = () => {
       // Уведомление об изменении
       if (config.isInterval) {
-        this.observer.notifySubscribers({ option: 'maxValue', value: 100 });
+        this.notifySubscribers({ option: 'maxValue', value: 100 });
       } else {
-        this.observer.notifySubscribers({ option: 'minValue', value: 100 });
+        this.notifySubscribers({ option: 'minValue', value: 100 });
       }
     };
 

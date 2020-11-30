@@ -1,4 +1,4 @@
-import { IGrsObserver, GrsObserver } from '../GrsObserver/GrsObserver';
+import { GrsObserver } from '../GrsObserver/GrsObserver';
 import { IOptions } from '../GrsOptions/GrsOptions';
 
 type Coordinates = {
@@ -10,13 +10,12 @@ type Coordinates = {
   middleX: number;
 };
 
-export default abstract class GrsSubView {
+export default abstract class GrsSubView extends GrsObserver {
   options: IOptions;
-  observer: IGrsObserver;
 
   constructor(options: IOptions) {
+    super();
     this.options = options;
-    this.observer = new GrsObserver();
   }
 
   calcCoords(element: HTMLDivElement): Coordinates {

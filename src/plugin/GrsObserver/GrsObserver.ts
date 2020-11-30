@@ -55,4 +55,4 @@ class GrsObserver implements IGrsObserver {
   }
 }
 
-export { IGrsObserver, GrsObserver };
+export { IData, IGrsObserver, GrsObserver };

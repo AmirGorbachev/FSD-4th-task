@@ -111,9 +111,9 @@ export default class GrsViewButtons extends GrsSubView {
 
       // Уведомление об изменении
       if (isElementButtonMin) {
-        this.observer.notifySubscribers({ option: 'minValue', value: shiftX });
+        this.notifySubscribers({ option: 'minValue', value: shiftX });
       } else {
-        this.observer.notifySubscribers({ option: 'maxValue', value: shiftX });
+        this.notifySubscribers({ option: 'maxValue', value: shiftX });
       }
     };
 

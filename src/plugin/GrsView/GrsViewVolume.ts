@@ -74,9 +74,9 @@ export default class GrsViewVolume extends GrsSubView {
             this.options.maxLimit
           )
       ) {
-        this.observer.notifySubscribers({ option: 'maxValue', value: shiftX });
+        this.notifySubscribers({ option: 'maxValue', value: shiftX });
       } else {
-        this.observer.notifySubscribers({ option: 'minValue', value: shiftX });
+        this.notifySubscribers({ option: 'minValue', value: shiftX });
       }
     };
 

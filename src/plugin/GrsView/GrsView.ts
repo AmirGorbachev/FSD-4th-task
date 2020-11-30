@@ -58,19 +58,19 @@ class GrsView {
     this.subView.scale.onClick(options);
     this.subView.buttons.onMoveButton();
 
-    this.subView.volume.observer.addSubscriber(
+    this.subView.volume.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
         this.observer.notifySubscribers(data);
       }
     );
 
-    this.subView.scale.observer.addSubscriber(
+    this.subView.scale.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
         this.observer.notifySubscribers(data);
       }
     );
 
-    this.subView.buttons.observer.addSubscriber(
+    this.subView.buttons.addSubscriber(
       (data: { option: string; value: number | boolean }) => {
         this.observer.notifySubscribers(data);
       }
