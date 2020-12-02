@@ -3,18 +3,11 @@ interface IData {
   value: number | boolean;
 }
 
-interface IGrsObserver {
-  subscribers: IObservers;
-  addSubscriber(func: (data: IData) => void | unknown): void;
-  removeSubscriber(func: (data: IData) => void | unknown): void;
-  notifySubscribers(data: IData | void): void;
-}
-
 interface IObservers extends Array<(data: IData | void) => void> {
   [index: number]: (data: IData | void) => void;
 }
 
-export default class GrsObserver implements IGrsObserver {
+export default class GrsObserver {
   subscribers: IObservers;
 
   constructor() {
@@ -55,4 +48,4 @@ export default class GrsObserver implements IGrsObserver {
   }
 }
 
-export { IData, IGrsObserver, GrsObserver };
+export { IData, GrsObserver };
