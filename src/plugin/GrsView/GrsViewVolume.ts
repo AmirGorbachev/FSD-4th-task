@@ -56,30 +56,34 @@ export default class GrsViewVolume extends GrsSubView {
   }
 
   onClick(config: IConfig): void {
-    const handleClickVolume = () => {
-      // Смещение кнопки в процентах
-      // ((клик - позиция слайдера) / ширина слайдера) * 100%
-      const shiftX =
-        (((event as MouseEvent).clientX - this.calcCoords(this.volume).left) /
-          this.calcCoords(this.volume).width) *
-        100;
-
-      // Уведомление об изменении
-      if (
-        config.isInterval &&
-        shiftX >
-          this.calcPersentOffset(
-            this.options.maxValue,
-            this.options.minLimit,
-            this.options.maxLimit
-          )
-      ) {
-        this.notifySubscribers({ option: 'maxValue', value: shiftX });
-      } else {
-        this.notifySubscribers({ option: 'minValue', value: shiftX });
-      }
+    const handlerClickVolume = () => {
+      this.handlerClick(config);
     };
 
-    this.volume.addEventListener('click', handleClickVolume);
+    this.volume.addEventListener('click', handlerClickVolume);
+  }
+
+  handlerClick(config: IConfig): void {
+    // Смещение кнопки в процентах
+    // ((клик - позиция слайдера) / ширина слайдера) * 100%
+    const shiftX =
+      (((event as MouseEvent).clientX - this.calcCoords(this.volume).left) /
+        this.calcCoords(this.volume).width) *
+      100;
+
+    // Уведомление об изменении
+    if (
+      config.isInterval &&
+      shiftX >
+        this.calcPersentOffset(
+          this.options.maxValue,
+          this.options.minLimit,
+          this.options.maxLimit
+        )
+    ) {
+      this.notifySubscribers({ option: 'maxValue', value: shiftX });
+    } else {
+      this.notifySubscribers({ option: 'minValue', value: shiftX });
+    }
   }
 }
