@@ -1,7 +1,6 @@
 import { IOptions } from '../src/plugin/GrsOptions/GrsOptions';
 import GrsSubView from '../src/plugin/GrsView/GrsSubView';
 
-
 const options: IOptions = {
   minLimit: 17,
   maxLimit: 63,
