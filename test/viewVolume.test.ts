@@ -68,9 +68,11 @@ describe('GrsSubView.nClick:', () => {
 
 describe('GrsSubView.handlerClick:', () => {
   test('should notify subscribers of the change', () => {
+    const spyOnNotifySubscribers = jest.spyOn(viewVolume, 'notifySubscribers');
+
     viewVolume.handlerClick(options);
 
-    expect(viewVolume.notifySubscribers).toBeCalled();
+    expect(spyOnNotifySubscribers).toHaveBeenCalled();
   });
 });
 */
